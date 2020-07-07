@@ -1,10 +1,111 @@
 .App {
   text-align: center;
 }
+#main-title {
+  color: #898989;
+  font-size: 22px;
+  width: 100%!important;
+  text-align: center!important;
+  padding: 20px 0 20px 0 !important;
+  
+}
 
+  @media (max-width: 380px) {
+    span {
+      font-size: 15px;
+      text-align: center;
+    }
+  }
+  .apexcharts-tooltip {
+    background: #130a0aa1;
+    color: #898989;
+    font-size: 12px;
+  }
+  .apexcharts-tooltip span{
+    
+    font-size: 12px!important;
+    color: #ebebeb!important;
+  }
+  @media(max-width:390px){
+    .apexcharts-tooltip{
+      font-size: 10px !important;
+    }
+    .apexcharts-tooltip span{
+      font-size: 10px!important;
+    }
+  }
+.tabhead {
+  height: 40px;
+  color: #898989 !important;
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+}
+.tabhead span {
+  font-size: 14px;
+  text-align: center;
+  width: 25%;
+}
+.country {
+  height: 40px;
+  color: #898989 !important;
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+  border-bottom: solid 0.2px #898989;
+}
+.country span {
+  font-size: 12px;
+  text-align: center;
+  width: 25%;
+  cursor: pointer;
+}
+.country span:hover {
+  color: #5068e0;
+}
+.country span:last-of-type {
+  color: green;
+  cursor: unset;
+}
+.country span:nth-child(3) {
+  color: #e23030;
+  cursor: unset;
+}
+.country span:nth-child(2) {
+  color: #1289e8;
+  cursor: unset;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+#footer{
+  width: 100%;
+  display:flex;
+  margin-top: 50nowpx;
+  justify-content: space-between;
+}
+
+#update {
+  color: #898989 !important;
+  font-size: 15px;
+  padding-top: 15px;
+}
+@media(max-width:390px){
+  #update{
+
+    font-size: 12px;
+  }
+  #footer{
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -12,7 +113,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,11 +123,9 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
 .App-link {
   color: #61dafb;
 }
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -1,0 +1,39 @@
+.card{
+    width: 100%;
+    height: auto;
+    // min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-items: center;
+    margin: 10px 0 10px 0;
+    padding:0 5% 0 5%;
+    background-color: #282c34;
+   
+box-shadow: 3px 3px 5px 0px rgba(63, 81, 181, 0.80);
+
+border:thick 0.1px #3F51B5;
+animation:scale-in-center .4s cubic-bezier(.25,.46,.45,.94) both
+}
+        .label{
+            color:#898989;
+            font-size: 20px;
+            white-space: nowrap;
+            @media(max-width:1024px){
+                font-size: 15px;
+            }
+
+        }
+        .countup{
+            color:#5068e0;
+            font-size: 25px;
+            @media(max-width:1024px){
+                font-size: 16px;
+            }
+        }
+        .description{
+            color:#898989;
+            font-size: 16px;
+        }
+        @keyframes scale-in-center{0%{transform:scale(0);opacity:1}100%{transform:scale(1);opacity:1}}
