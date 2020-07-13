@@ -6,7 +6,7 @@ import style from './card.module.scss';
 interface Props{
     colSize:number;
     title:string;
-    end?:string;
+    end:string;
     description?:string
 }
 

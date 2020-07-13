@@ -3,13 +3,8 @@ import style from './paper.module.scss';
 import List from '@material-ui/core/List'
 interface Props{
     children?:any,
-    col1:any,
-    col2:any,
-    col3:any,
-    col4:any,
-    title:string,
-    bar:any,
-    className?:string
+    [key:string]:string|React.ReactNode,
+    // bar:React.ReactNode
 }
 
 const Paper=({children,col1,col2,col3,col4,title,bar}:Props)=>{

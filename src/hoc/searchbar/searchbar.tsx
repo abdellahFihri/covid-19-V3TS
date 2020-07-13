@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './searchbar.module.scss';
 interface Props{
-    onChange:any,
+    onChange:(event:{target:{value:any}})=>void,
     placeholder:string,
-    value:any
+    value:string
 }
 
  const searchBar=({onChange,placeholder,value}:Props)=>(

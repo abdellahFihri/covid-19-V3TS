@@ -71,8 +71,8 @@ request(){
       const data:Response=response.data;
       const {total_cases,new_cases,active_cases,total_deaths,new_deaths,total_recovered,serious_critical,total_cases_per_1m_population,statistic_taken_at}=data;
       this.setState({chartData:data})
-      const dataArray=[total_cases,new_cases,active_cases,total_deaths,new_deaths,total_recovered,serious_critical,total_cases_per_1m_population,statistic_taken_at];
-      const takeOffComma=dataArray.map(number=>number.replace(/,/g,''));
+      const dataArray:string[]=[total_cases,new_cases,active_cases,total_deaths,new_deaths,total_recovered,serious_critical,total_cases_per_1m_population,statistic_taken_at];
+      const takeOffComma:string[]=dataArray.map(number=>number.replace(/,/g,''));
      
       this.setState({worldData:takeOffComma,initialState:takeOffComma});
     })
@@ -115,10 +115,10 @@ document.title = `Covid 19 Stats in ${this.state.selectedCountry}`;
   }
   
   
-   handleSelectedCountry=(id:any)=>{
+   handleSelectedCountry=(id:string)=>{
     this.setState({chartData:'',selectedCountry:''})
      this.setState({countryHistory:'',loading:true})
-     let selected=id;
+     let selected:string=id;
      this.setState({selectedCountry:selected})
  
 
@@ -135,7 +135,7 @@ CovidRequest.get("cases_by_particular_country.php",{
     getStat.map((item: { record_date: string | any[]; })=>item.record_date=item.record_date.slice(0,10));
    
     let filteredData:any[] = _.uniqBy(getStat,'record_date');
-    let allHistory=this.historyData(filteredData)
+    let allHistory:any[]=this.historyData(filteredData)
   console.log('allHistory',allHistory)
   this.setState({countryHistory:allHistory,selectedCountry:selected,loading:false})
     })
@@ -174,9 +174,11 @@ CovidRequest.get("cases_by_particular_country.php",{
     this.request()
    }
    
-   handleChange=(event: { target: { value: any; }; })=>{
-  
-   let term=event.target.value;
+   handleChange=(event: { target: { value: any } })=>{
+  interface dataArray{
+      [key:string]:any 
+  }
+   let term:string=event.target.value;
   
    term.length? term=term[0].toUpperCase() + term.slice(1)
    :term=''
@@ -185,21 +187,21 @@ CovidRequest.get("cases_by_particular_country.php",{
     
    
     this.setState({searchTerm:event.target.value});
-    let arrayOfCountries=this.state.countriesData;
-    let filteredCountries= arrayOfCountries.filter(function(country){
+    let arrayOfCountries:dataArray=this.state.countriesData;
+    let filteredCountries:any[]= arrayOfCountries.filter(function(country:dataArray){
       return country.country_name.includes(term)
       
     })
     this.setState({filteredCountriesData:filteredCountries})
   }
-  private historyData(filteredData: any[]) {
+  private historyData(filteredData:any[]) {
     return [
       filteredData.map((day: { total_cases: string; }) => parseInt(day.total_cases.replace(/,/g, ''))),
       filteredData.map((day: { active_cases: string; }) => parseInt(day.active_cases.replace(/,/g, ''))),
       filteredData.map((day: { total_recovered: string; }) => parseInt(day.total_recovered.replace(/,/g, ''))),
       filteredData.map((day: { serious_critical: string; }) => parseInt(day.serious_critical.replace(/,/g, ''))),
       filteredData.map((day: { total_deaths: string; }) => parseInt(day.total_deaths.replace(/,/g, ''))),
-      filteredData.map((day: { record_date: any; }) => day.record_date)
+      filteredData.map((day: { record_date: string; }) => day.record_date)
     ];
   }
 

@@ -87,15 +87,15 @@
 }
 #footer{
   width: 100%;
+  margin-top: 60px;
   display:flex;
-  margin-top: 50nowpx;
   justify-content: space-between;
 }
 
 #update {
   color: #898989 !important;
   font-size: 15px;
-  padding-top: 15px;
+
 }
 @media(max-width:390px){
   #update{
