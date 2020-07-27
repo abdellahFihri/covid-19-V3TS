@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  scroll-behavior: smooth;
 }
 #main-title {
   color: #898989;
@@ -59,27 +60,37 @@
   justify-items: center;
   justify-content: space-between;
   border-bottom: solid 0.2px #898989;
+ 
+}
+.country a{
+  text-decoration: none;
+  color: #898989;
 }
 .country span {
   font-size: 12px;
   text-align: center;
   width: 25%;
   cursor: pointer;
+ 
 }
 .country span:hover {
   color: #5068e0;
+  text-decoration: none;
 }
-.country span:last-of-type {
+.country  .end:last-of-type {
   color: green;
   cursor: unset;
 }
-.country span:nth-child(3) {
+.country .end:nth-child(3) {
   color: #e23030;
   cursor: unset;
 }
-.country span:nth-child(2) {
+.country .end:nth-child(2) {
   color: #1289e8;
   cursor: unset;
+}
+.country .countEnd{
+  font-weight: 750;
 }
 .App-logo {
   height: 40vmin;

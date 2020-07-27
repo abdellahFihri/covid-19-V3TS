@@ -212,6 +212,7 @@ markers:{
 componentDidMount(){
   
     const{data,title}=this.props;
+    
     const newState=[
       {
         name:'Global cases',

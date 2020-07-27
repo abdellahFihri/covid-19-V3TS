@@ -22,7 +22,7 @@
       }
     width: 100%;
             height: min-content;
-            // min-height: 200px;
+            
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
@@ -34,7 +34,7 @@
            
 box-shadow: 3px 3px 5px 0px rgba(63, 81, 181, 0.80);
 
-border:thick 0.1px #3F51B5;
+border:solid 0.4px #3F51B5;
 }
 .label{
     color:#898989;
@@ -43,11 +43,7 @@ border:thick 0.1px #3F51B5;
 .content{
    width: 100%;
     height: 300px;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-evenly;
-    // justify-items: center;
-    // align-items: center;
+  
     margin: 10px 0 10px 0;
     padding:0 5% 0 5%;
     background-color: #282c34;
