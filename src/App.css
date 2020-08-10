@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  scroll-behavior: smooth;
+   scroll-behavior: smooth;
 }
 #main-title {
   color: #898989;
@@ -38,7 +38,7 @@
 .tabhead {
   height: 40px;
   color: #898989 !important;
-  width: 100%;
+  width: 90%;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -52,7 +52,7 @@
 }
 .country {
   height: 40px;
-  color: #898989 !important;
+  color: #dbdbdb !important;
   width: 100%;
   font-size: 14px;
   display: flex;
@@ -60,11 +60,46 @@
   justify-items: center;
   justify-content: space-between;
   border-bottom: solid 0.2px #898989;
+  transition: 0.4s;
  
+}
+.country #world{
+  background-color:#3F51B5;
+  margin: auto;
+  padding: 3px;
+  border:solid 0.4px #323f889d;
+  border-radius: 4px;
+  transition: 0.1s;
+}
+.country #world:hover{
+  background-color: #6276e6;
+  color: aliceblue;
+  box-shadow: 0px 0px 3px 1px rgb(129, 152, 251);
+  border:solid 0.4px #5674d8;
+  
+  width:30%;
 }
 .country a{
   text-decoration: none;
-  color: #898989;
+  color: #dbdbdb;
+  width: 25%;
+  background-color:#3F51B5;
+  border:solid 0.4px #323f889d;
+  border-radius: 4px;
+  margin: auto;
+  text-align: center;
+  
+transition: 0.1s;
+}
+.country a:hover{
+  background-color: #6276e6;
+  color: aliceblue;
+  box-shadow: 0px 0px 3px 1px rgb(129, 152, 251);
+  border:solid 0.4px #5674d8;
+  width:30%;
+}
+.country a:active{
+  color: rgb(40, 184, 40);
 }
 .country span {
   font-size: 12px;
@@ -74,7 +109,7 @@
  
 }
 .country span:hover {
-  color: #5068e0;
+  /* color: #5068e0; */
   text-decoration: none;
 }
 .country  .end:last-of-type {

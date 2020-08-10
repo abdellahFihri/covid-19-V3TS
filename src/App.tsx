@@ -7,11 +7,11 @@ import Infos from "./infos/infos";
 import NavBar from "./navbar/bar";
 import Spinner from "./hoc/spinner/spinner";
 import _ from "lodash";
-import CountUp from 'react-countup';
+import CountUp from "react-countup";
 import Container from "./hoc/container/container";
 import StatsCard from "./hoc/statsCard/card";
 import SearchBar from "./hoc/searchbar/searchbar";
-import {CovidRequest} from "./axios/axios";
+import { CovidRequest } from "./axios/axios";
 require("dotenv").config();
 
 interface Props {}
@@ -80,7 +80,7 @@ class App extends Component<Props, State> {
           total_cases_per_1m_population,
           statistic_taken_at,
         ];
-        const takeOffComma: string[] = dataArray.map((number:string) =>
+        const takeOffComma: string[] = dataArray.map((number: string) =>
           number.replace(/,/g, "")
         );
 
@@ -93,13 +93,15 @@ class App extends Component<Props, State> {
     CovidRequest.get("cases_by_country.php")
       .then((response) => {
         // let worldData= response.data.countries_stat;
-        const{data:{countries_stat}}=response
+        const {
+          data: { countries_stat },
+        } = response;
         this.setState({
           countriesData: countries_stat,
           filteredCountriesData: countries_stat,
         });
       })
-      .catch((error):void => {
+      .catch((error): void => {
         console.log(error);
       });
   }
@@ -111,10 +113,14 @@ class App extends Component<Props, State> {
   }
 
   handleSelectedCountry = (id: string) => {
-    this.setState({ chartData: "", selectedCountry: id,countryHistory: "", loading: true  });
-    
+    this.setState({
+      chartData: "",
+      selectedCountry: id,
+      countryHistory: "",
+      loading: true,
+    });
+
     let selected: string = id;
-   
 
     CovidRequest.get("cases_by_particular_country.php", {
       params: {
@@ -122,7 +128,6 @@ class App extends Component<Props, State> {
       },
     })
       .then((response) => {
-    
         const getStat = response.data.stat_by_country;
 
         getStat.map(
@@ -132,7 +137,7 @@ class App extends Component<Props, State> {
 
         let filteredData: any[] = _.uniqBy(getStat, "record_date");
         let allHistory: any[] = this.historyData(filteredData);
-        
+
         this.setState({
           countryHistory: allHistory,
           selectedCountry: selected,
@@ -154,7 +159,7 @@ class App extends Component<Props, State> {
         }
 
         const data: Data = response.data.latest_stat_by_country[0];
-        
+
         const {
           total_cases,
           new_cases,
@@ -177,10 +182,10 @@ class App extends Component<Props, State> {
           total_cases_per1m,
         ];
         const takeOffComma: number[] = dataArray.map((number) =>
-          parseInt(number.replace(/,/g, ""))
+          Number(number.replace(/,/g, ""))
         );
 
-        this.setState({worldData: takeOffComma });
+        this.setState({ worldData: takeOffComma });
       })
       .catch((error) => {
         console.log(error);
@@ -209,24 +214,16 @@ class App extends Component<Props, State> {
     this.setState({ filteredCountriesData: filteredCountries });
   };
   private historyData(filteredData: any[]) {
- interface Day{[key:string]:string}
+    interface Day {
+      [key: string]: string;
+    }
     return [
-      filteredData.map((day:Day) =>
-        parseInt(day.total_cases.replace(/,/g, ""))
-      ),
-      filteredData.map((day:Day) =>
-        parseInt(day.active_cases.replace(/,/g, ""))
-      ),
-      filteredData.map((day:Day) =>
-        parseInt(day.total_recovered.replace(/,/g, ""))
-      ),
-      filteredData.map((day:Day) =>
-        parseInt(day.serious_critical.replace(/,/g, ""))
-      ),
-      filteredData.map((day:Day) =>
-        parseInt(day.total_deaths.replace(/,/g, ""))
-      ),
-      filteredData.map((day:Day) => day.record_date),
+      filteredData.map((day: Day) => day.total_cases.replace(/,/g, "")),
+      filteredData.map((day: Day) => day.active_cases.replace(/,/g, "")),
+      filteredData.map((day: Day) => day.total_recovered.replace(/,/g, "")),
+      filteredData.map((day: Day) => day.serious_critical.replace(/,/g, "")),
+      filteredData.map((day: Day) => day.total_deaths.replace(/,/g, "")),
+      filteredData.map((day: Day) => day.record_date),
     ];
   }
 
@@ -256,11 +253,7 @@ class App extends Component<Props, State> {
                     title="Total cases"
                     end={worldData[0]}
                   />
-                  <StatsCard
-                    colSize={6}
-                    title="New cases"
-                    end={worldData[1]}
-                  />
+                  <StatsCard colSize={6} title="New cases" end={worldData[1]} />
                 </div>
                 <div className="row">
                   <Paper
@@ -279,50 +272,48 @@ class App extends Component<Props, State> {
                     col4="Recovered"
                   >
                     <div className="country">
-                      <span onClick={this.handleReset}>The world</span>{" "}
-                      {
-                        [0,3,5].map(i=>{
-                          return(
-                            <span key={i} className="end">
-                            <CountUp className="countEnd"
-                            end={parseFloat(initialState[i])}
-                  duration={1}
-                  separator="."
-                  useEasing={false}
-                   />
-                   </span>
-                          )
-                        })
-                      }
-
+                      <span id="world" onClick={this.handleReset}>
+                        The world
+                      </span>{" "}
+                      {[0, 3, 5].map((i) => {
+                        return (
+                          <span key={i} className="end">
+                            <CountUp
+                              className="countEnd"
+                              end={Number(initialState[i])}
+                              duration={1}
+                              separator="."
+                              useEasing={false}
+                            />
+                          </span>
+                        );
+                      })}
                     </div>
                     {filteredCountriesData.length ? (
                       filteredCountriesData.map((country) => {
                         return (
                           <div className="country" key={Math.random()}>
-                            <a href="#donut">
-                            <span
+                            <a
+                              href="#donut"
                               onClick={() =>
                                 this.handleSelectedCountry(country.country_name)
                               }
                               id={country.country_name}
                             >
-                              {country.country_name}
-                            </span>{" "}</a>
+                              <span>{country.country_name}</span>{" "}
+                            </a>
 
-                            {
-                              [country.cases,country.deaths,country.total_recovered].map(end=>{
-                                return(
-                                  <span key={Math.random()} className="end">
-                                    
-                                    {end.replace(/,/g,'.')}
-                                   
-                                  </span>
-                                  
-                                )
-                              })
-                            }
-                       
+                            {[
+                              country.cases,
+                              country.deaths,
+                              country.total_recovered,
+                            ].map((end) => {
+                              return (
+                                <span key={Math.random()} className="end">
+                                  {end.replace(/,/g, ".")}
+                                </span>
+                              );
+                            })}
                           </div>
                         );
                       })
@@ -347,7 +338,7 @@ class App extends Component<Props, State> {
                     info1={
                       worldData[6] < worldData[2]
                         ? worldData[6]
-                        : parseInt(worldData[2])
+                        : Number(worldData[2])
                     }
                     info2={worldData[7]}
                     info3={worldData[4]}

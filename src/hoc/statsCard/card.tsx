@@ -19,7 +19,7 @@ const StatsCard=(props:Props)=>{
 <div className={style.label}><span> {props.title}</span></div>
             <div className="content">
                 {props.end?  
-            <CountUp className={style.countup} end={parseFloat(props.end)}
+            <CountUp className={style.countup} end={Number(props.end)}
             duration={2}
             separator="."
             useEasing={true}
