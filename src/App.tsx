@@ -112,7 +112,7 @@ class App extends Component<Props, State> {
     document.title = `Covid 19 Stats in ${this.state.selectedCountry}`;
   }
 
-  handleSelectedCountry = (id: string) => {
+  handleSelectedCountry = async (id: string) => {
     this.setState({
       chartData: "",
       selectedCountry: id,
@@ -135,8 +135,10 @@ class App extends Component<Props, State> {
             (item.record_date = item.record_date.slice(0, 10))
         );
 
-        let filteredData: any[] = _.uniqBy(getStat, "record_date");
-        let allHistory: any[] = this.historyData(filteredData);
+        // let filteredData: any[] = _.uniqBy(getStat, "record_date");
+        let allHistory: any[] = this.historyData(
+          _.uniqBy(getStat, "record_date")
+        );
 
         this.setState({
           countryHistory: allHistory,
@@ -328,7 +330,7 @@ class App extends Component<Props, State> {
                   <Donut
                     data={chartData}
                     labels={["Active cases", "Recovered", "Deaths"]}
-                    title={`Deaths/Recovering ratio in ${selectedCountry}`}
+                    title={`Death/Recovery ratio in ${selectedCountry}`}
                   />
                 ) : (
                   <Spinner />

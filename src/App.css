@@ -1,40 +1,38 @@
 .App {
   text-align: center;
-   scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 #main-title {
   color: #898989;
   font-size: 22px;
-  width: 100%!important;
-  text-align: center!important;
+  width: 100% !important;
+  text-align: center !important;
   padding: 20px 0 20px 0 !important;
-  
 }
 
-  @media (max-width: 380px) {
-    span {
-      font-size: 15px;
-      text-align: center;
-    }
+@media (max-width: 380px) {
+  span {
+    font-size: 15px;
+    text-align: center;
   }
+}
+.apexcharts-tooltip {
+  background: #130a0aa1;
+  color: #898989;
+  font-size: 12px;
+}
+.apexcharts-tooltip span {
+  font-size: 12px !important;
+  color: #ebebeb !important;
+}
+@media (max-width: 390px) {
   .apexcharts-tooltip {
-    background: #130a0aa1;
-    color: #898989;
-    font-size: 12px;
+    font-size: 10px !important;
   }
-  .apexcharts-tooltip span{
-    
-    font-size: 12px!important;
-    color: #ebebeb!important;
+  .apexcharts-tooltip span {
+    font-size: 10px !important;
   }
-  @media(max-width:390px){
-    .apexcharts-tooltip{
-      font-size: 10px !important;
-    }
-    .apexcharts-tooltip span{
-      font-size: 10px!important;
-    }
-  }
+}
 .tabhead {
   height: 40px;
   color: #898989 !important;
@@ -61,44 +59,45 @@
   justify-content: space-between;
   border-bottom: solid 0.2px #898989;
   transition: 0.4s;
- 
 }
-.country #world{
-  background-color:#3F51B5;
+.country #world {
+  text-decoration: underline;
+  /* background-color: #3f51b5; */
   margin: auto;
   padding: 3px;
-  border:solid 0.4px #323f889d;
-  border-radius: 4px;
+  /* border: solid 0.4px #323f889d; */
+  /* border-radius: 4px; */
   transition: 0.1s;
 }
-.country #world:hover{
-  background-color: #6276e6;
-  color: aliceblue;
-  box-shadow: 0px 0px 3px 1px rgb(129, 152, 251);
-  border:solid 0.4px #5674d8;
-  
-  width:30%;
+.country #world:hover {
+  /* background-color: #6276e6; */
+  color: #6276e6;
+  /* box-shadow: 0px 0px 3px 1px rgb(129, 152, 251); */
+  /* border: solid 0.4px #5674d8; */
+
+  /* width: 30%; */
 }
-.country a{
-  text-decoration: none;
+.country a {
+  text-decoration: underline;
   color: #dbdbdb;
-  width: 25%;
-  background-color:#3F51B5;
-  border:solid 0.4px #323f889d;
-  border-radius: 4px;
+  width: auto;
+  /* background-color: #3f51b5;
+  border: solid 0.4px #323f889d;
+  border-radius: 4px; */
   margin: auto;
   text-align: center;
-  
-transition: 0.1s;
+
+  transition: 0.2s;
 }
-.country a:hover{
-  background-color: #6276e6;
-  color: aliceblue;
-  box-shadow: 0px 0px 3px 1px rgb(129, 152, 251);
-  border:solid 0.4px #5674d8;
-  width:30%;
+.country a:hover {
+  /* background-color: #6276e6; */
+  color: #6276e6;
+  /* box-shadow: 0px 0px 3px 1px rgb(129, 152, 251);
+  border: solid 0.4px #5674d8; */
+  /* width: 30%; */
+  font-size: 15px;
 }
-.country a:active{
+.country a:active {
   color: rgb(40, 184, 40);
 }
 .country span {
@@ -106,13 +105,12 @@ transition: 0.1s;
   text-align: center;
   width: 25%;
   cursor: pointer;
- 
 }
 .country span:hover {
   /* color: #5068e0; */
   text-decoration: none;
 }
-.country  .end:last-of-type {
+.country .end:last-of-type {
   color: green;
   cursor: unset;
 }
@@ -124,31 +122,29 @@ transition: 0.1s;
   color: #1289e8;
   cursor: unset;
 }
-.country .countEnd{
+.country .countEnd {
   font-weight: 750;
 }
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
-#footer{
+#footer {
   width: 100%;
   margin-top: 60px;
-  display:flex;
+  display: flex;
   justify-content: space-between;
 }
 
 #update {
   color: #898989 !important;
   font-size: 15px;
-
 }
-@media(max-width:390px){
-  #update{
-
+@media (max-width: 390px) {
+  #update {
     font-size: 12px;
   }
-  #footer{
+  #footer {
     flex-direction: column;
     text-align: center;
   }
