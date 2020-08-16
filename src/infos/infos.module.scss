@@ -10,6 +10,11 @@
   @media (max-width: 380px) {
     align-items: center;
   }
+  @media (max-width: 780px) {
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+  }
 
   @media (min-width: 1024px) {
     padding: 15%;
