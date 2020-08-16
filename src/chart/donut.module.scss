@@ -1,20 +1,19 @@
-.donut{
-    width:100%;
-    margin-top: 50px;
-   
-    overflow-x: hidden;
-   
+.donut {
+  width: 100%;
+  margin-top: 50px;
+
+  overflow-x: hidden;
 }
-        .donutcontainer{
-            
-            transform:translateX(-20%);
-            @media(max-width:380px){
-                transform:translateX(-0%);
-            }
-            @media(max-width:800px){
-                transform:translateX(-2%);
-            }
-            @media(min-width:1024px) {
-                transform:translateX(-7%);
-            }
-        }
+.donutcontainer {
+  transform: translateX(-20%);
+  @media (max-width: 380px) {
+    transform: translateX(-0%);
+  }
+  @media (max-width: 800px) {
+    transform: translateX(-2%);
+  }
+  @media (min-width: 1024px) {
+    transform: translateX(-6%);
+    width: 110%;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 import Chart from "./chart/chart";
 import Donut from "./chart/donut";
 import Paper from "./hoc/paper/paper";
@@ -112,7 +112,7 @@ class App extends Component<Props, State> {
     document.title = `Covid 19 Stats in ${this.state.selectedCountry}`;
   }
 
-  handleSelectedCountry = async (id: string) => {
+  handleSelectedCountry = (id: string) => {
     this.setState({
       chartData: "",
       selectedCountry: id,
@@ -192,6 +192,7 @@ class App extends Component<Props, State> {
       .catch((error) => {
         console.log(error);
       });
+    document.title = `Covid 19 Stats in ${selected}`;
   };
 
   handleReset = () => {
@@ -259,7 +260,7 @@ class App extends Component<Props, State> {
                 </div>
                 <div className="row">
                   <Paper
-                    className="col-lg-12"
+                    className="col-lg-12 "
                     title="Countries Summary"
                     bar={
                       <SearchBar

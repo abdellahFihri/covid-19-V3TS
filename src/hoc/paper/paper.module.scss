@@ -1,55 +1,57 @@
-.paper{
-    ::-webkit-scrollbar {
-        width: 10px;
-      }
-      
-      /* Track */
-      ::-webkit-scrollbar-track {
-        background:none; 
-        box-shadow: inset 0 0 5px rgb(161, 162, 168);
-        border-radius: 5px;
-      }
-       
-      /* Handle */
-      ::-webkit-scrollbar-thumb {
-        background:#3F51B5; 
-        border-radius: 5px;
-      }
-      
-      /* Handle on hover */
-      ::-webkit-scrollbar-thumb:hover {
-        background: rgb(88, 107, 216); 
-      }
-    width: 100%;
-            height: min-content;
-            
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-            justify-items: center;
-            align-items: center;
-            margin: 10px 0 10px 0;
-            padding:0 5% 0 5%;
-            background-color: #282c34;
-           
-box-shadow: 3px 3px 5px 0px rgba(63, 81, 181, 0.80);
+.paper {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-border:solid 0.4px #3F51B5;
-}
-.label{
-    color:#898989;
-    font-size: 20px;
-}
-.content{
-   width: 100%;
-    height: 300px;
-  
-    margin: 10px 0 10px 0;
-    padding:0 5% 0 5%;
-    background-color: #282c34;
-    overflow:auto;
-    
-    
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: none;
+    box-shadow: inset 0 0 5px rgb(161, 162, 168);
+    border-radius: 5px;
+  }
 
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #3f51b5;
+    border-radius: 5px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(88, 107, 216);
+  }
+  width: 100%;
+  height: min-content;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  justify-items: center;
+  align-items: center;
+  margin: 10px 0 10px 0;
+  padding: 0 5% 0 5%;
+  background-color: #282c34;
+
+  box-shadow: 3px 3px 5px 0px rgba(63, 81, 181, 0.8);
+
+  border: solid 0.4px #3f51b5;
+  @media (min-width: 1024px) {
+    width: 120%;
+  }
 }
-     
+.label {
+  color: #898989;
+  font-size: 20px;
+}
+.content {
+  width: 100%;
+  height: 300px;
+
+  margin: 10px 0 10px 0;
+  padding: 0 5% 0 5%;
+  background-color: #282c34;
+  overflow: auto;
+  @media (min-width: 1024px) {
+    width: 110%;
+  }
+}
