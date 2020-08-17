@@ -104,7 +104,7 @@ class dataChart extends Component<Props, State> {
           breakpoint: 900,
           options: {
             chart: {
-              width: "700",
+              width: "600",
             },
           },
         },
