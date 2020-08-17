@@ -4,7 +4,13 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  text-align: center;
+  text-align: auto;
+  transform: translateX(-3%);
+  @media (max-width: 1024px) {
+    overflow-x: center;
+
+    transform: translateX(-4%);
+  }
 
   span {
     color: #898989;
