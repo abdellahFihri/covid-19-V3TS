@@ -1,7 +1,8 @@
 .App {
+  margin: 0;
   text-align: center;
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 #main-title {
   color: #898989;

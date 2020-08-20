@@ -1,5 +1,5 @@
 html body {
-  margin: 0;
+  margin: 0 !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -7,12 +7,12 @@ html body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  padding: 0 1% 0 1%;
+  overflow-x: hidden !important;
+  // padding: 0 1% 0 1%;
 
-  @media (max-width: 390px) {
-    overflow-x: hidden;
-  }
+  // @media (max-width: 390px) {
+  //   overflow-x: hidden;
+  // }
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

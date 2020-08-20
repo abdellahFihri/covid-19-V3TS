@@ -32,12 +32,9 @@
   padding: 0 5% 0 5%;
   background-color: #282c34;
 
-  box-shadow: 3px 3px 5px 0px rgba(63, 81, 181, 0.8);
+  box-shadow: 0px 2px 7px 0px rgba(63, 81, 181, 0.8);
 
   border: solid 0.4px #3f51b5;
-  @media (min-width: 1024px) {
-    width: 110%;
-  }
 }
 .label {
   color: #898989;

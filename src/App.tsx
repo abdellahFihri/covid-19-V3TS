@@ -242,7 +242,10 @@ class App extends Component<Props, State> {
     return (
       <div>
         <NavBar />
-        <div id="main-title"> visualization of statistics per country</div>
+        <div id="main-title">
+          {" "}
+          visualization of Covid-19 statistics per country
+        </div>
 
         {!worldData.length ? (
           <Spinner />
@@ -284,9 +287,9 @@ class App extends Component<Props, State> {
                             <CountUp
                               className="countEnd"
                               end={Number(initialState[i])}
-                              duration={1}
+                              duration={3}
                               separator="."
-                              useEasing={false}
+                              useEasing={true}
                             />
                           </span>
                         );
