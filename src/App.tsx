@@ -11,21 +11,15 @@ import CountUp from "react-countup";
 import Container from "./hoc/container/container";
 import StatsCard from "./hoc/statsCard/card";
 import SearchBar from "./hoc/searchbar/searchbar";
-import { CovidRequest } from "./axios/axios";
-require("dotenv").config();
 
-interface Props {}
-interface State {
-  initialState: any[];
-  worldData: any[];
-  chartData: any;
-  countriesData: any[];
-  filteredCountriesData: any[];
-  countryHistory: any;
-  selectedCountry: string;
-  searchTerm: string;
-  loading: boolean;
-}
+import {
+  getInitialStats,
+  selectedCountry,
+  extractProps,
+  historyData,
+} from "./utils/utilities/helpers";
+import { Data, Props, State } from "./utils/intefaces/interfaces";
+require("dotenv").config();
 
 class App extends Component<Props, State> {
   state: State = {
@@ -42,156 +36,72 @@ class App extends Component<Props, State> {
 
   request() {
     this.setState({
-      worldData: [],
-      chartData: "",
-      countriesData: [],
-      filteredCountriesData: [],
-      countryHistory: "",
-      searchTerm: "",
       selectedCountry: "the world",
     });
+    getInitialStats().then((results) => {
+      const data: Data = extractProps(results[0].data);
 
-    CovidRequest.get("worldstat.php")
-      .then((response): void => {
-        interface Response {
-          [key: string]: string;
-        }
-        const data: Response = response.data;
-        const {
-          total_cases,
-          new_cases,
-          active_cases,
-          total_deaths,
-          new_deaths,
-          total_recovered,
-          serious_critical,
-          total_cases_per_1m_population,
-          statistic_taken_at,
-        } = data;
-        this.setState({ chartData: data });
-        const dataArray: string[] = [
-          total_cases,
-          new_cases,
-          active_cases,
-          total_deaths,
-          new_deaths,
-          total_recovered,
-          serious_critical,
-          total_cases_per_1m_population,
-          statistic_taken_at,
-        ];
-        const takeOffComma: string[] = dataArray.map((number: string) =>
-          number.replace(/,/g, "")
-        );
+      const dataArray: string[] = Object.values(data).map((number: string) =>
+        number.replace(/,/g, "")
+      );
 
-        this.setState({ worldData: takeOffComma, initialState: takeOffComma });
-      })
-      .catch((error): void => {
-        console.log(error);
+      this.setState({
+        worldData: dataArray,
+        initialState: dataArray,
+        chartData: data,
       });
-
-    CovidRequest.get("cases_by_country.php")
-      .then((response) => {
-        // let worldData= response.data.countries_stat;
-        const {
-          data: { countries_stat },
-        } = response;
-        this.setState({
-          countriesData: countries_stat,
-          filteredCountriesData: countries_stat,
-        });
-      })
-      .catch((error): void => {
-        console.log(error);
+    });
+    getInitialStats().then((results) => {
+      const {
+        data: { countries_stat },
+      } = results[1];
+      this.setState({
+        countriesData: countries_stat,
+        filteredCountriesData: countries_stat,
       });
+    });
   }
 
   componentDidMount() {
     this.request();
-
     document.title = `Covid 19 Stats in ${this.state.selectedCountry}`;
   }
 
   handleSelectedCountry = (id: string) => {
+    let selected: string = id;
     this.setState({
       chartData: "",
-      selectedCountry: id,
+      selectedCountry: selected,
       countryHistory: "",
       loading: true,
     });
 
-    let selected: string = id;
+    selectedCountry(selected).then((results) => {
+      const data: Data = extractProps(
+        results[0].data.latest_stat_by_country[0]
+      );
+      const dataArray: any[] = Object.values(data).map((number) =>
+        Number(number.replace(/,/g, ""))
+      );
 
-    CovidRequest.get("cases_by_particular_country.php", {
-      params: {
-        country: `${selected}`,
-      },
-    })
-      .then((response) => {
-        const getStat = response.data.stat_by_country;
+      const getStat = results[1].data.stat_by_country;
 
-        getStat.map(
-          (item: { record_date: string | any[] }) =>
-            (item.record_date = item.record_date.slice(0, 10))
-        );
+      getStat.map(
+        (item: { record_date: string | any[] }) =>
+          (item.record_date = item.record_date.slice(0, 10))
+      );
 
-        // let filteredData: any[] = _.uniqBy(getStat, "record_date");
-        let allHistory: any[] = this.historyData(
-          _.uniqBy(getStat, "record_date")
-        );
+      let allHistory: any[] = historyData(_.uniqBy(getStat, "record_date"));
 
-        this.setState({
-          countryHistory: allHistory,
-          selectedCountry: selected,
-          loading: false,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+      this.setState({
+        countryHistory: allHistory,
+        selectedCountry: selected,
+        worldData: dataArray,
+        chartData: data,
+        loading: false,
       });
+    });
 
-    CovidRequest.get("latest_stat_by_country.php", {
-      params: {
-        country: `${selected}`,
-      },
-    })
-      .then((response) => {
-        interface Data {
-          [key: string]: any;
-        }
-
-        const data: Data = response.data.latest_stat_by_country[0];
-
-        const {
-          total_cases,
-          new_cases,
-          active_cases,
-          total_deaths,
-          new_deaths,
-          total_recovered,
-          serious_critical,
-          total_cases_per1m,
-        } = data;
-        this.setState({ chartData: data });
-        const dataArray: any[] = [
-          total_cases,
-          new_cases,
-          active_cases,
-          total_deaths,
-          new_deaths,
-          total_recovered,
-          serious_critical,
-          total_cases_per1m,
-        ];
-        const takeOffComma: number[] = dataArray.map((number) =>
-          Number(number.replace(/,/g, ""))
-        );
-
-        this.setState({ worldData: takeOffComma });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
     document.title = `Covid 19 Stats in ${selected}`;
   };
 
@@ -200,35 +110,22 @@ class App extends Component<Props, State> {
   };
 
   handleChange = (event: { target: { value: string } }) => {
-    interface dataArray {
-      [key: string]: any;
-    }
     let term: string = event.target.value;
 
     term.length ? (term = term[0].toUpperCase() + term.slice(1)) : (term = "");
 
     this.setState({ searchTerm: event.target.value });
-    let arrayOfCountries: dataArray = this.state.countriesData;
+    let arrayOfCountries: Data = this.state.countriesData;
     let filteredCountries: any[] = arrayOfCountries.filter(function (
-      country: dataArray
+      country: Data
     ) {
       return country.country_name.includes(term);
     });
-    this.setState({ filteredCountriesData: filteredCountries });
+    this.setState({
+      searchTerm: event.target.value,
+      filteredCountriesData: filteredCountries,
+    });
   };
-  private historyData(filteredData: any[]) {
-    interface Day {
-      [key: string]: string;
-    }
-    return [
-      filteredData.map((day: Day) => day.total_cases.replace(/,/g, "")),
-      filteredData.map((day: Day) => day.active_cases.replace(/,/g, "")),
-      filteredData.map((day: Day) => day.total_recovered.replace(/,/g, "")),
-      filteredData.map((day: Day) => day.serious_critical.replace(/,/g, "")),
-      filteredData.map((day: Day) => day.total_deaths.replace(/,/g, "")),
-      filteredData.map((day: Day) => day.record_date),
-    ];
-  }
 
   render() {
     const {
@@ -353,16 +250,17 @@ class App extends Component<Props, State> {
               </div>
               <div className="col-lg-5">
                 <div className="row">
-                  <StatsCard
-                    colSize={6}
-                    title="Total deaths"
-                    end={worldData[3]}
-                  />
-                  <StatsCard
-                    colSize={6}
-                    title="Total recovered"
-                    end={worldData[5]}
-                  />
+                  {[
+                    { title: "Total Deaths", i: 3 },
+                    { title: "Total Recovered", i: 5 },
+                  ].map((card) => (
+                    <StatsCard
+                      key={card.i}
+                      colSize={6}
+                      title={card.title}
+                      end={worldData[card.i]}
+                    />
+                  ))}
                 </div>
                 <div className="row">
                   {this.state.countryHistory ? (
