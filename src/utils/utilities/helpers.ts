@@ -9,7 +9,9 @@ export const getInitialStats = () => {
   function countriesStat() {
     return CovidRequest.get("cases_by_country.php");
   }
-  return Promise.all([worldStat(), countriesStat()]).then(function (results) {
+  return Promise.all([worldStat(), countriesStat()]).then(function (
+    results: Data[]
+  ) {
     return results;
   });
 };
@@ -30,13 +32,13 @@ export const selectedCountry = (selected: string) => {
     });
   }
   return Promise.all([countryStats(), countryHistory()]).then(function (
-    results
+    results: Data[]
   ) {
     return results;
   });
 };
 
-export const extractProps = (results: any) => {
+export const extractProps = (results: Data) => {
   const data: Data = _.pick(
     results,
 

@@ -11,7 +11,6 @@ import CountUp from "react-countup";
 import Container from "./hoc/container/container";
 import StatsCard from "./hoc/statsCard/card";
 import SearchBar from "./hoc/searchbar/searchbar";
-
 import {
   getInitialStats,
   selectedCountry,
@@ -35,12 +34,18 @@ class App extends Component<Props, State> {
   };
 
   request() {
+    // to be called on componentDidMount() and on reset
     this.setState({
       selectedCountry: "the world",
     });
+    // multiple concurrent http requests to get the inital data needed at the first render
     getInitialStats().then((results) => {
+      // returns selected fields from response.data object
       const data: Data = extractProps(results[0].data);
-
+      const {
+        data: { countries_stat },
+      } = results[1];
+      // removing commas from the values
       const dataArray: string[] = Object.values(data).map((number: string) =>
         number.replace(/,/g, "")
       );
@@ -49,13 +54,6 @@ class App extends Component<Props, State> {
         worldData: dataArray,
         initialState: dataArray,
         chartData: data,
-      });
-    });
-    getInitialStats().then((results) => {
-      const {
-        data: { countries_stat },
-      } = results[1];
-      this.setState({
         countriesData: countries_stat,
         filteredCountriesData: countries_stat,
       });
@@ -63,6 +61,7 @@ class App extends Component<Props, State> {
   }
 
   componentDidMount() {
+    // executes the intial http request to fetch data as the app renders
     this.request();
     document.title = `Covid 19 Stats in ${this.state.selectedCountry}`;
   }
@@ -75,22 +74,23 @@ class App extends Component<Props, State> {
       countryHistory: "",
       loading: true,
     });
-
+    // http call to fetch data from  multiple concurrent requests
     selectedCountry(selected).then((results) => {
       const data: Data = extractProps(
         results[0].data.latest_stat_by_country[0]
       );
+      // iterate in data object to remove the commas from the values
       const dataArray: any[] = Object.values(data).map((number) =>
         Number(number.replace(/,/g, ""))
       );
 
       const getStat = results[1].data.stat_by_country;
-
+      // iterates in data response to make the dates more readble
       getStat.map(
         (item: { record_date: string | any[] }) =>
           (item.record_date = item.record_date.slice(0, 10))
       );
-
+      // removing duplicate objects by defining record date as unique key
       let allHistory: any[] = historyData(_.uniqBy(getStat, "record_date"));
 
       this.setState({
@@ -106,16 +106,19 @@ class App extends Component<Props, State> {
   };
 
   handleReset = () => {
+    // performs the intial request on world selection
     this.request();
   };
 
   handleChange = (event: { target: { value: string } }) => {
+    // quick search for countries
     let term: string = event.target.value;
 
     term.length ? (term = term[0].toUpperCase() + term.slice(1)) : (term = "");
 
     this.setState({ searchTerm: event.target.value });
     let arrayOfCountries: Data = this.state.countriesData;
+    // filtering and returning a new array with countries matching the search term
     let filteredCountries: any[] = arrayOfCountries.filter(function (
       country: Data
     ) {
