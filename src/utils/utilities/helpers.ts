@@ -50,8 +50,10 @@ export const extractProps = (results: Data) => {
       "new_deaths",
       "total_recovered",
       "serious_critical",
+      "total_cases_per_1m_population",
       "total_cases_per1m",
       "statistic_taken_at",
+      "record_date",
     ]
   );
 

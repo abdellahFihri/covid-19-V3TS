@@ -41,6 +41,7 @@ class App extends Component<Props, State> {
     // multiple concurrent http requests to get the inital data needed at the first render
     getInitialStats().then((results) => {
       // returns selected fields from response.data object
+      console.log("data before extraction", results[0].data);
       const data: Data = extractProps(results[0].data);
       const {
         data: { countries_stat },
@@ -76,6 +77,10 @@ class App extends Component<Props, State> {
     });
     // http call to fetch data from  multiple concurrent requests
     selectedCountry(selected).then((results) => {
+      console.log(
+        "by country bfr extr ",
+        results[0].data.latest_stat_by_country[0]
+      );
       const data: Data = extractProps(
         results[0].data.latest_stat_by_country[0]
       );
@@ -138,7 +143,7 @@ class App extends Component<Props, State> {
       selectedCountry,
       filteredCountriesData,
     } = this.state;
-
+    console.log("world", worldData, "char", chartData);
     return (
       <div>
         <NavBar />
@@ -287,7 +292,7 @@ class App extends Component<Props, State> {
         <div id="footer">
           <span id="update">
             {" "}
-            Last updated: {worldData[8] || this.state.chartData.record_date}
+            Last updated: {worldData[8] || chartData.record_date}
           </span>
           <span id="update"> Developed by Abdellah Fihri</span>
         </div>
