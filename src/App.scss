@@ -75,10 +75,13 @@
       color: #6276e6;
     }
   }
-  a {
+  button {
     text-decoration: underline;
     color: #dbdbdb;
     width: auto;
+    background-color: transparent;
+    border: none;
+    padding: none;
 
     margin: auto;
     text-align: center;

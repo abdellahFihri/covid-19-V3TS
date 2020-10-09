@@ -1,0 +1,80 @@
+.country {
+  height: 40px;
+  color: #dbdbdb !important;
+  width: 100%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+  border-bottom: solid 0.2px #898989;
+  transition: 0.4s;
+
+  #world {
+    text-decoration: underline;
+
+    margin: auto;
+    padding: 3px;
+
+    transition: 0.1s;
+    &:hover {
+      color: #6276e6;
+    }
+  }
+  button {
+    text-decoration: underline;
+    color: #dbdbdb;
+    width: auto;
+    background-color: transparent;
+    border: none;
+    padding: none;
+
+    margin: auto;
+    text-align: center;
+
+    transition: 0.2s;
+    &:hover {
+      color: #6276e6;
+
+      font-size: 15px;
+    }
+    &:active {
+      color: rgb(40, 184, 40);
+    }
+  }
+  span {
+    font-size: 12px;
+    text-align: center;
+    width: 25%;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .countEnd {
+    font-weight: 750;
+  }
+  .end {
+    &:last-of-type {
+      color: green;
+      cursor: unset;
+    }
+    &:nth-child(3) {
+      color: #e23030;
+      cursor: unset;
+    }
+    &:nth-child(2) {
+      color: #1289e8;
+      cursor: unset;
+    }
+  }
+}
+.img {
+  border-radius: 100%;
+  width: 30px;
+  img {
+    width: 100%;
+
+    border-radius: 100%;
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import styles from "./chart.module.scss";
+import { connect } from "react-redux";
 interface State {
   [x: string]: any;
 }
@@ -8,6 +9,7 @@ interface Props {
   data: any;
   title: any;
   country: string;
+  history: any;
 }
 
 class dataChart extends Component<Props, State> {
@@ -217,28 +219,28 @@ class dataChart extends Component<Props, State> {
   };
 
   componentDidMount() {
-    const { data, title } = this.props;
-
+    const { title } = this.props;
+    const { countryHistory } = this.props.history;
     const newState = [
       {
         name: "Global cases",
-        data: data[0],
+        data: countryHistory[0],
       },
       {
         name: "Active cases",
-        data: data[1],
+        data: countryHistory[1],
       },
       {
         name: "Recovered",
-        data: data[2],
+        data: countryHistory[2],
       },
       {
         name: "Critical",
-        data: data[3],
+        data: countryHistory[3],
       },
       {
         name: "Deaths",
-        data: data[4],
+        data: countryHistory[4],
       },
     ];
     this.setState({
@@ -246,7 +248,7 @@ class dataChart extends Component<Props, State> {
       options: {
         ...this.state.options,
         title: { ...this.state.title, text: title },
-        xaxis: { categories: data[5] },
+        xaxis: { categories: countryHistory[5] },
       },
     });
   }
@@ -282,5 +284,9 @@ class dataChart extends Component<Props, State> {
     );
   }
 }
-
-export default dataChart;
+const mapStateToProps = (state: any) => {
+  return {
+    history: state.history,
+  };
+};
+export default connect(mapStateToProps)(dataChart);

@@ -6,16 +6,26 @@ export interface Data {
   [key: string]: any;
 }
 
-export interface Props {}
+export interface Props {
+  chartData: any;
+  TodayWorldData: any;
+  allCountriesData: any;
+  countryHistory: any;
+
+  world: any;
+  data: any;
+  countriesStats: any;
+  history: any;
+}
 
 export interface State {
-  initialState: any[];
-  worldData: any[];
-  chartData: any;
-  countriesData: any[];
-  filteredCountriesData: any[];
-  countryHistory: any;
-  selectedCountry: string;
+  // initialState: any[];
+  // worldData: any[];
+  // chartData: any;
+  // countriesData: any[];
+  // filteredCountriesData: any[];
+  // countryHistory: any;
+  // selectedCountry: string;
   searchTerm: string;
   loading: boolean;
 }
