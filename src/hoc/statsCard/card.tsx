@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import CountUp from "react-countup";
+import { Badge } from "reactstrap";
 
 import style from "./card.module.scss";
 
@@ -23,9 +24,6 @@ const StatsCard = (props: Props) => {
   return (
     <div className={`col-md-${props.colSize}`}>
       <div className={style.card}>
-        <div className={style.label}>
-          <span> {props.title}</span>
-        </div>
         <div className="content">
           {props.end ? (
             <CountUp
@@ -38,6 +36,12 @@ const StatsCard = (props: Props) => {
           ) : (
             <span className={style.countup}>--</span>
           )}
+          <div className={style.label}>
+            <span> {props.title}</span>
+          </div>
+          <Badge color="danger" pill>
+            +0.5%
+          </Badge>
         </div>
         <span className={style.description}>{description}</span>
       </div>

@@ -2,15 +2,17 @@ import React, { Component } from "react";
 import "./App.scss";
 import Chart from "./chart/chart";
 import Donut from "./chart/donut";
-import Paper from "./hoc/paper/paper";
+import Ratio from "./ratioDonut/ratioDonut";
 import Infos from "./infos/infos";
 import NavBar from "./navbar/bar";
+import TopStats from "./topBarStats/topStats";
 import Spinner from "./hoc/spinner/spinner";
-import CountUp from "react-countup";
+import axios from "axios";
+
 import Container from "./hoc/container/container";
 import StatsCard from "./hoc/statsCard/card";
-import SearchBar from "./hoc/searchbar/searchbar";
-import CountryRow from "./countryRow/countryRow";
+
+import CountriesList from "./countriesList/countriesList";
 import { connect } from "react-redux";
 import {
   chartData,
@@ -22,11 +24,10 @@ import {
 import {
   getInitialStats,
   selectedCountryData,
-  extractProps,
   refactorChartData,
   filterHistory,
 } from "./utils/utilities/helpers";
-import { Data, Props, State } from "./utils/intefaces/interfaces";
+import { Props, State } from "./utils/intefaces/interfaces";
 require("dotenv").config();
 
 class App extends Component<Props, State> {
@@ -34,10 +35,7 @@ class App extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {
-      searchTerm: "",
-      loading: false,
-    };
+
     this.myRef = React.createRef();
   }
 
@@ -51,24 +49,17 @@ class App extends Component<Props, State> {
     } = this.props;
     // multiple concurrent http requests to get the inital data needed at the first render
     getInitialStats().then((results) => {
-      // returns selected fields from response.data object
-      const data: Data = extractProps(results[0].data);
-      const {
-        data: { countries_stat },
-      } = results[1];
-      allCountriesData({
-        all: countries_stat,
-        filter: countries_stat,
-      });
-      // removing commas from the values
-      const dataArray: string[] = Object.values(data).map((number: string) =>
-        number.replace(/,/g, "")
-      );
+      console.log("resolved results ", results);
+
       chartData({
-        data: refactorChartData(data),
+        data: refactorChartData(results[0]),
         selectedCountry: "the world",
       });
-      TodayWorldData({ worldRow: dataArray, statsCards: dataArray });
+      allCountriesData({
+        all: results[1],
+        filter: results[1],
+      });
+      TodayWorldData({ worldRow: results[2], statsCards: results[2] });
       countryHistory("");
     });
     const { selectedCountry } = this.props.data.donut;
@@ -76,6 +67,22 @@ class App extends Component<Props, State> {
   }
 
   componentDidMount() {
+    axios({
+      method: "GET",
+      url: "https://coronavirus-map.p.rapidapi.com/v1/summary/latest",
+      headers: {
+        "content-type": "application/octet-stream",
+        "x-rapidapi-host": "coronavirus-map.p.rapidapi.com",
+        "x-rapidapi-key": "aea18ae159mshb7fb100058a7a96p1f2a4fjsnaef89ac713ae",
+        useQueryString: true,
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     this.request();
   }
 
@@ -84,29 +91,25 @@ class App extends Component<Props, State> {
     let world = this.props.world.world.worldRow;
     window.scrollTo(0, this.myRef.current.offsetTop);
     let selected: string = id;
-    countryHistory("");
-    this.setState({
-      loading: true,
-    });
+    countryHistory({ countryHistory: "", loading: true });
+    // this.setState({
+    //   loading: true,
+    // });
     // http call to fetch data from  multiple concurrent requests
     selectedCountryData(selected).then((results: any) => {
-      const data: Data = extractProps(
-        results[0].data.latest_stat_by_country[0]
-      );
       chartData({
-        data: refactorChartData(data),
+        data: refactorChartData(results[0]),
         selectedCountry: selected,
       });
-      // iterate in data object to remove the commas from the values
-      const dataArray: any[] = Object.values(data).map((number) =>
-        number.replace(/,/g, "")
-      );
 
-      TodayWorldData({ worldRow: world, statsCards: dataArray });
-      countryHistory(filterHistory(results[1].data.stat_by_country));
-      this.setState({
+      TodayWorldData({ worldRow: world, statsCards: results[1] });
+      countryHistory({
+        countryHistory: filterHistory(results[2].data.stat_by_country),
         loading: false,
       });
+      // this.setState({
+      //   loading: false,
+      // });
     });
 
     document.title = `Covid 19 Stats in ${selected}`;
@@ -118,44 +121,15 @@ class App extends Component<Props, State> {
     document.title = "Covid-19 Stats in the world";
   };
 
-  handleChange = (event: { target: { value: string } }) => {
-    const { allCountriesData } = this.props;
-    // quick search for countries
-    let term: string = event.target.value;
-
-    term.length ? (term = term[0].toUpperCase() + term.slice(1)) : (term = "");
-
-    this.setState({ searchTerm: event.target.value });
-
-    let arrayOfCountries: Data = this.props.countriesStats.allCountriesStats
-      .all;
-    // filtering and returning a new array with countries matching the search term
-    let filteredCountries: any[] = arrayOfCountries.filter(function (
-      country: Data
-    ) {
-      return country.country_name.includes(term);
-    });
-
-    this.setState({
-      searchTerm: event.target.value,
-    });
-
-    allCountriesData({
-      all: arrayOfCountries,
-      filter: filteredCountries,
-    });
-  };
-
   render() {
     const { worldRow, statsCards } = this.props.world.world;
     const { selectedCountry } = this.props.data.donut;
-    const { countryHistory } = this.props.history;
+    const { countryHistory, loading } = this.props.history.history;
     console.log("world data ", worldRow);
-    const { filter } = this.props.countriesStats.allCountriesStats;
 
     return (
       <div>
-        <NavBar />
+        {/* <NavBar /> */}
         <div id="main-title">
           {" "}
           {`visualization of Covid-19 statistics in ${selectedCountry}`}
@@ -165,108 +139,32 @@ class App extends Component<Props, State> {
           <Spinner />
         ) : (
           <Container>
+            <TopStats />
             <div className="row">
               <div className="col-lg-3">
-                <div className="row">
-                  <StatsCard
-                    colSize={6}
-                    title="Total cases"
-                    end={statsCards[0]}
-                  />
-                  <StatsCard
-                    colSize={6}
-                    title="New cases"
-                    end={statsCards[1]}
-                  />
-                </div>
-                <div className="row">
-                  <Paper
-                    className="col-lg-12 "
-                    title="Countries Summary"
-                    bar={
-                      <SearchBar
-                        placeholder="Country quick search"
-                        value={this.state.searchTerm}
-                        onChange={this.handleChange}
-                      />
-                    }
-                    col1="Country"
-                    col2="Cases"
-                    col3="Deaths"
-                    col4="Recovered"
-                  >
-                    <div className="country">
-                      <span id="world" onClick={this.handleReset}>
-                        The world
-                      </span>{" "}
-                      {[0, 3, 5].map((i) => {
-                        return (
-                          <span key={i} className="end">
-                            <CountUp
-                              className="countEnd"
-                              end={Number(worldRow[i])}
-                              duration={3}
-                              separator="."
-                              useEasing={true}
-                            />
-                          </span>
-                        );
-                      })}
-                    </div>
-                    {filter.length ? (
-                      <CountryRow
-                        selectedCountry={this.handleSelectedCountry}
-                      />
-                    ) : (
-                      <Spinner />
-                    )}
-                  </Paper>
-                </div>
+                <CountriesList
+                  handleReset={this.handleReset}
+                  handleSelectedCountry={this.handleSelectedCountry}
+                />
               </div>
-              <div className="col-lg-4" ref={this.myRef}>
-                <Donut />
-
-                <div className="row">
-                  <Infos
-                    info1={
-                      statsCards[6] < statsCards[2]
-                        ? statsCards[6]
-                        : Number(statsCards[2])
-                    }
-                    info2={statsCards[7]}
-                    info3={statsCards[4]}
-                  />
-                </div>
-              </div>
-              <div className="col-lg-5">
-                <div className="row">
-                  {[
-                    { title: "Total Deaths", i: 3 },
-                    { title: "Total Recovered", i: 5 },
-                  ].map((card) => (
-                    <StatsCard
-                      key={card.i}
-                      colSize={6}
-                      title={card.title}
-                      end={statsCards[card.i]}
-                    />
-                  ))}
-                </div>
+              <div className="col-lg-6">
                 <div className="row">
                   {countryHistory ? (
                     <Container>
                       <Chart
                         country=""
-                        // data={countryHistory}
                         title={`Evolution of COVID-19 in ${selectedCountry}`}
                       />
                     </Container>
-                  ) : this.state.loading ? (
+                  ) : loading ? (
                     <Spinner />
                   ) : (
                     ""
                   )}
                 </div>
+              </div>
+              <div className="col-sm-3" ref={this.myRef}>
+                <Ratio />
               </div>
             </div>
           </Container>

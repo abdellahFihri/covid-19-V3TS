@@ -26,6 +26,6 @@ export interface State {
   // filteredCountriesData: any[];
   // countryHistory: any;
   // selectedCountry: string;
-  searchTerm: string;
+  // searchTerm: string;
   loading: boolean;
 }

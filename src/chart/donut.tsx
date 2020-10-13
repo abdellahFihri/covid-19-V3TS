@@ -35,7 +35,7 @@ class Donut extends Component<State, Props> {
         offsetY: 0,
         floating: false,
         style: {
-          fontSize: "15px",
+          fontSize: "12px",
           fontWeight: "bold",
           fontFamily: "Helvetica, Arial, sans-serif",
           color: "#898989",
@@ -49,7 +49,7 @@ class Donut extends Component<State, Props> {
         position: "bottom",
         horizontalAlign: "center",
         floating: false,
-        fontSize: "15px",
+        fontSize: "12px",
         fontFamily: "Helvetica, Arial",
         fontWeight: 400,
         formatter: undefined,
@@ -69,7 +69,7 @@ class Donut extends Component<State, Props> {
           strokeWidth: 0,
           strokeColor: "#fff",
           fillColors: undefined,
-          radius: 12,
+          radius: 8,
           customHTML: undefined,
           onClick: undefined,
           offsetX: 0,
@@ -90,22 +90,22 @@ class Donut extends Component<State, Props> {
       colors: ["#F1A51B", "#169310", "#D62D33"],
       plotOptions: {
         pie: {
-          customScale: 1,
+          customScale: 0.9,
           offsetX: 0,
           offsetY: 0,
           expandOnClick: true,
           dataLabels: {
-            offset: 0,
+            offset: 2,
             minAngleToShowLabel: 10,
           },
           donut: {
-            size: "68%",
+            size: "70%",
             background: "transparent",
             labels: {
               show: true,
               name: {
                 show: true,
-                fontSize: "16px",
+                fontSize: "13px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 600,
                 color: "#898989",
@@ -113,7 +113,7 @@ class Donut extends Component<State, Props> {
               },
               value: {
                 show: true,
-                fontSize: "16px",
+                fontSize: "13px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 600,
                 color: "#5068e0",
@@ -126,7 +126,7 @@ class Donut extends Component<State, Props> {
                 show: true,
                 showAlways: true,
                 label: "Total",
-                fontSize: "16px",
+                fontSize: "13px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 600,
 

@@ -1,5 +1,8 @@
 const INITIAL_STATE = {
-  countryHistory: "",
+  history: {
+    countryHistory: "",
+    loading: false,
+  },
 };
 
 const getCountryHistory = (state = INITIAL_STATE, action: any) => {
@@ -7,7 +10,7 @@ const getCountryHistory = (state = INITIAL_STATE, action: any) => {
     case "COUNTRY_HISTORY":
       return {
         ...state,
-        countryHistory: action.payload,
+        history: action.payload,
       };
     default:
       return state;

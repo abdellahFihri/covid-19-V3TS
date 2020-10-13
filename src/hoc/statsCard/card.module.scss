@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   justify-items: center;
-  align-items: center;
+  align-items: start;
   margin: 10px 0 10px 0;
   padding: 0 5% 0 5%;
   background-color: #282c34;
@@ -17,17 +17,18 @@
 }
 .label {
   color: #898989;
-  font-size: 20px;
+  font-size: 15px;
   white-space: nowrap;
   @media (max-width: 1024px) {
-    font-size: 15px;
+    font-size: 12px;
   }
 }
 .countup {
   color: #5068e0;
-  font-size: 25px;
+  font-size: 15px;
+  font-weight: 650;
   @media (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 .description {

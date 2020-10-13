@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from "react";
 import style from "./countryRow.module.scss";
-import { getCode } from "country-list";
 import { connect } from "react-redux";
 import { findIso } from "../utils/utilities/helpers";
 interface Props {
@@ -8,7 +7,7 @@ interface Props {
   selectedCountry: (arg0: string) => void;
 }
 
-const CountryRow: React.FunctionComponent<Props> = (props) => {
+const CountryRow: FunctionComponent<Props> = (props) => {
   const { filter } = props.countriesStats.allCountriesStats;
   return filter.map((country: any) => {
     // console.log("findIso ", findIso(country.country_name));

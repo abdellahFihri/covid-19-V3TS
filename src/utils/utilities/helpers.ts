@@ -1,4 +1,4 @@
-import { CovidRequest } from "../../axios/axios";
+import { CovidRequest, WorldRequest } from "../../axios/axios";
 import { Data, Response } from "../intefaces/interfaces";
 import lookup from "country-code-lookup";
 import countryList, { getCode } from "country-list";
@@ -8,7 +8,7 @@ import _ from "lodash";
 
 require("dotenv").config();
 
-const missingFlags = (land: any, isoCode: any, landsArray: any) => {
+const missingFlags = (land: any, landsArray: any) => {
   let term: string = land;
   const arr: any = landsArray;
   let result: any = arr.filter(function (country: any) {
@@ -16,9 +16,6 @@ const missingFlags = (land: any, isoCode: any, landsArray: any) => {
   });
 
   if (result[0]) {
-    // console.log("result", result[0].code);
-    // isoCode = lookup.byIso(result[0].code).iso2;
-    // console.log("isoCode ", isoCode);
     return result[0].code;
   }
 };
@@ -33,7 +30,15 @@ export const getInitialStats = () => {
   return Promise.all([worldStat(), countriesStat()]).then(function (
     results: Data[]
   ) {
-    return results;
+    const data: Data = extractProps(results[0].data);
+    const {
+      data: { countries_stat },
+    } = results[1];
+    // removing commas from the values
+    const dataArray: string[] = Object.values(data).map((val: string) =>
+      val.replace(/,/g, "")
+    );
+    return [data, countries_stat, dataArray];
   });
 };
 
@@ -55,8 +60,12 @@ export const selectedCountryData = (selected: string) => {
   return Promise.all([countryStats(), countryHistory()]).then(function (
     results: Data[]
   ) {
-    console.log("history ", results);
-    return results;
+    const data: Data = extractProps(results[0].data.latest_stat_by_country[0]);
+    // iterate in data object to remove the commas from the values
+    const dataArray: any[] = Object.values(data).map((val) =>
+      val.replace(/,/g, "")
+    );
+    return [data, dataArray, results[1]];
   });
 };
 
@@ -130,82 +139,24 @@ export const findIso = (country: string) => {
   if (!iso && lookup.byFips(country)) {
     iso = lookup.byFips(country).iso2;
   }
-  // if (!iso && country.length <= 3) {
-  //   let code: string;
-  //   switch (country) {
-  //     case "UAE":
-  //       code = lookup.byIso("AE").country;
-  //       break;
-  //     case "DRC":
-  //       code = lookup.byIso("CD").country;
-  //       break;
-  //     case "CAR":
-  //       code = lookup.byIso("CF").country;
-  //       break;
-  //     default:
-  //       code = lookup.byIso(country).country;
-  //   }
-  //   iso = lookup.byCountry(code).iso2;
-  // }
 
   if (!iso) {
-    // let term: string = country;
-    // const arr: any = countryList.getData();
-    // let result: any = arr.filter(function (country: any) {
-    //   return country.name.includes(term);
-    // });
-
-    // if (result[0]) {
-    //   console.log("result", result[0].code);
-    //   iso = lookup.byIso(result[0].code).iso2;
-    //   console.log("iso ", iso);
-    //   return iso;
-    // }
-    // if (result.length) {
-    //   console.log(result[0])
-    // }
-    // console.log(
-    //   "first fun flag ",
-    //   missingFlags(country, iso, countryList.getData())
-    // );
-    // if (!missingFlags(country, iso, countryList.getData())) {
-    //   missingFlags(country, iso, missingCountries);
-    // }
-    // console.log(
-    //   "first func ",
-    //   missingFlags(country, iso, countryList.getData())
-    // );
-    // console.log("missn countries ", missingCountries);
-    // return missingFlags(country, iso, missingCountries) === undefined
-    //   ? missingFlags(country, iso, countryList.getData())
-    //   : // : missingFlags(country, iso, countryList.getData());
-    //     missingFlags(country, iso, missingCountries);
     let code: any;
-    if (
-      // missingFlags(country, iso, countryList.getData()) === undefined &&
-      missingFlags(country, iso, missingCountries)
-    ) {
-      code = missingFlags(country, iso, missingCountries);
+    if (missingFlags(country, missingCountries)) {
+      code = missingFlags(country, missingCountries);
       console.log("code in se fun ", code);
       iso = lookup.byIso(code);
       !iso ? (iso = code) : (iso = lookup.byIso(code).iso2);
       console.log("iso in func 2", iso);
-      // iso = lookup.byIso(code.toString()).iso2;
+
       return iso;
     }
-    if (missingFlags(country, iso, countryList.getData())) {
-      code = missingFlags(country, iso, countryList.getData());
+    if (missingFlags(country, countryList.getData())) {
+      code = missingFlags(country, countryList.getData());
       iso = lookup.byIso(code).iso2;
       return iso;
     }
   }
-  // if (iso === undefined || iso === null) {
-  //   console.log("missin", missingCountries);
-  //   return missingFlags(country, iso, missingCountries);
-  // }
-  // console.log("sec function", missingFlags(country, iso, missingCountries));
+
   return iso;
 };
-
-// [korea diamon prinvess channel islands faeroe islands carabean ntherlands st vincent grenadines st barth sint piere miquelon vatican zaandam
-/* */

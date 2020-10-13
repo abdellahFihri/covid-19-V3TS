@@ -220,7 +220,7 @@ class dataChart extends Component<Props, State> {
 
   componentDidMount() {
     const { title } = this.props;
-    const { countryHistory } = this.props.history;
+    const { countryHistory } = this.props.history.history;
     const newState = [
       {
         name: "Global cases",
