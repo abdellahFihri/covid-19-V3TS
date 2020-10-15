@@ -2,7 +2,10 @@
   display: flex;
   flex-direction: column;
   justify-items: space-around;
+  align-items: center;
   border: solid 0.5px;
   border-color: white;
   height: auto;
+  width: 100%;
+  margin: 10px 0 10px 0;
 }

@@ -1,7 +1,9 @@
 const INITIAL_STATE = {
   world: {
+    firstRow: "",
     worldRow: "",
     statsCards: "",
+    worldHistory: "",
   },
 };
 const getWorldData = (state = INITIAL_STATE, action: any) => {

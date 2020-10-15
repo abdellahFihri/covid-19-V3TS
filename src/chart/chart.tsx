@@ -23,13 +23,13 @@ class dataChart extends Component<Props, State> {
         width: 2,
         dashArray: 0,
       },
-      markers: {
-        size: 2,
-        colors: ["#1289e8", "#f1a51b", "#169310", "#e57022", "#d62d33"],
-        strokeColors: ["#1289e8", "#f1a51b", "#169310", "#e57022", "#d62d33"],
-        strokeWidth: 2,
-        showNullDataPoints: true,
-      },
+      // markers: {
+      //   size: 2,
+      //   colors: ["#1289e8", "#f1a51b", "#169310", "#e57022", "#d62d33"],
+      //   strokeColors: ["#1289e8", "#f1a51b", "#169310", "#e57022", "#d62d33"],
+      //   strokeWidth: 2,
+      //   showNullDataPoints: true,
+      // },
       tooltip: {
         enabled: true,
 

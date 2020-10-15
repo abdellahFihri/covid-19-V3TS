@@ -9,17 +9,11 @@ interface Props {
 }
 
 const Ratio = (props: Props): JSX.Element => {
-  const { statsCards } = props.world.world;
+  const { worldRow } = props.world.world;
   return (
     <div className={style.ration}>
       <Donut />
-      <Infos
-        info1={
-          statsCards[6] < statsCards[2] ? statsCards[6] : Number(statsCards[2])
-        }
-        info2={statsCards[7]}
-        info3={statsCards[4]}
-      />
+      <Infos info1={worldRow.critical} info2={worldRow.tested} />
     </div>
   );
 };

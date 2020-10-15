@@ -1,49 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import CountUp from "react-countup";
 import { Badge } from "reactstrap";
 
+import { indexing } from "../../utils/utilities/helpers";
 import style from "./card.module.scss";
 
 interface Props {
   colSize: number;
   title: string;
-  end: string;
+  end: number;
+  new: number;
+  chart: any;
+
   description?: string;
 }
 
 const StatsCard = (props: Props) => {
-  const [end, setEnd] = useState(props.end);
-  const [description, setDescription] = useState(props.description);
-  useEffect(() => {
-    setEnd(props.end);
-  }, [props.end]);
-  useEffect(() => {
-    setDescription(props.description);
-  }, [props.description]);
-
   return (
     <div className={`col-md-${props.colSize}`}>
       <div className={style.card}>
-        <div className="content">
-          {props.end ? (
-            <CountUp
-              className={style.countup}
-              end={Number(end)}
-              duration={2}
-              separator="."
-              useEasing={true}
-            />
-          ) : (
-            <span className={style.countup}>--</span>
-          )}
+        <div className={style.content}>
+          <CountUp
+            className={style.countup}
+            end={props.end}
+            duration={2}
+            separator="."
+            useEasing={true}
+          />
+
           <div className={style.label}>
             <span> {props.title}</span>
           </div>
-          <Badge color="danger" pill>
-            +0.5%
+          <Badge
+            className={style.badge}
+            color={`${props.end <= 0 ? "success" : "danger"}`}
+            pill
+          >
+            {indexing(props.new, props.end) > 0
+              ? `+ ${indexing(props.new, props.end)}`
+              : indexing(props.new, props.end)}
+            %
           </Badge>
         </div>
-        <span className={style.description}>{description}</span>
+        <div>{/* {props.chart} */}</div>
+        <span className={style.description}>{props.description}</span>
       </div>
     </div>
   );

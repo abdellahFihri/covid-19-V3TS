@@ -18,8 +18,8 @@ interface Props {
 }
 
 const CountriesList: FunctionComponent<Props> = (props) => {
-  const { worldRow } = props.world.world;
-  const { filter } = props.countriesStats.allCountriesStats;
+  const { firstRow } = props.world.world;
+  const { all, filter } = props.countriesStats.allCountriesStats;
   const [term, setTerm] = useState("");
   const handleChange = (event: { target: { value: string } }) => {
     const { allCountriesData } = props;
@@ -30,12 +30,12 @@ const CountriesList: FunctionComponent<Props> = (props) => {
 
     setTerm(event.target.value);
 
-    let arrayOfCountries: Data = props.countriesStats.allCountriesStats.all;
+    let arrayOfCountries: any = all;
     // filtering and returning a new array with countries matching the search term
     let filteredCountries: any[] = arrayOfCountries.filter(function (
       country: Data
     ) {
-      return country.country_name.includes(term);
+      return country.name.includes(term);
     });
 
     setTerm(event.target.value);
@@ -67,19 +67,21 @@ const CountriesList: FunctionComponent<Props> = (props) => {
           <span id="world" onClick={props.handleReset}>
             The world
           </span>{" "}
-          {[0, 3, 5].map((i) => {
-            return (
-              <span key={i} className="end">
-                <CountUp
-                  className="countEnd"
-                  end={Number(worldRow[i])}
-                  duration={3}
-                  separator="."
-                  useEasing={true}
-                />
-              </span>
-            );
-          })}
+          {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
+            (i) => {
+              return (
+                <span key={i} className="end">
+                  <CountUp
+                    className="countEnd"
+                    end={i}
+                    duration={3}
+                    separator="."
+                    useEasing={true}
+                  />
+                </span>
+              );
+            }
+          )}
         </div>
         {filter.length ? (
           <CountryRow selectedCountry={props.handleSelectedCountry} />

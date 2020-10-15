@@ -8,6 +8,8 @@ import NavBar from "./navbar/bar";
 import TopStats from "./topBarStats/topStats";
 import Spinner from "./hoc/spinner/spinner";
 import axios from "axios";
+import _ from "lodash";
+import TryChart from "./chart/tryChart";
 
 import Container from "./hoc/container/container";
 import StatsCard from "./hoc/statsCard/card";
@@ -24,8 +26,9 @@ import {
 import {
   getInitialStats,
   selectedCountryData,
-  refactorChartData,
+  // refactorChartData,
   filterHistory,
+  extractDifferences,
 } from "./utils/utilities/helpers";
 import { Props, State } from "./utils/intefaces/interfaces";
 require("dotenv").config();
@@ -47,19 +50,26 @@ class App extends Component<Props, State> {
       TodayWorldData,
       countryHistory,
     } = this.props;
+
+    // console.log("getinitial ", getInitialStats());
     // multiple concurrent http requests to get the inital data needed at the first render
     getInitialStats().then((results) => {
       console.log("resolved results ", results);
 
       chartData({
-        data: refactorChartData(results[0]),
+        data: results[0][0],
         selectedCountry: "the world",
       });
       allCountriesData({
         all: results[1],
         filter: results[1],
       });
-      TodayWorldData({ worldRow: results[2], statsCards: results[2] });
+      TodayWorldData({
+        firstRow: results[0][0],
+        worldRow: results[0][0],
+        statsCards: results[0][1],
+        worldHistory: _.orderBy(results[2], ["date"], ["asc"]),
+      });
       countryHistory("");
     });
     const { selectedCountry } = this.props.data.donut;
@@ -67,44 +77,41 @@ class App extends Component<Props, State> {
   }
 
   componentDidMount() {
-    axios({
-      method: "GET",
-      url: "https://coronavirus-map.p.rapidapi.com/v1/summary/latest",
-      headers: {
-        "content-type": "application/octet-stream",
-        "x-rapidapi-host": "coronavirus-map.p.rapidapi.com",
-        "x-rapidapi-key": "aea18ae159mshb7fb100058a7a96p1f2a4fjsnaef89ac713ae",
-        useQueryString: true,
-      },
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    console.log("remounted !");
     this.request();
   }
 
   handleSelectedCountry = (id: string) => {
     const { chartData, TodayWorldData, countryHistory } = this.props;
-    let world = this.props.world.world.worldRow;
+    let worldStat = this.props.world.world.firstRow;
+    // console.log("all countries in handle", this.props.countriesStats.allCountriesStats.filter);
     window.scrollTo(0, this.myRef.current.offsetTop);
     let selected: string = id;
+    let country: any = _.find(
+      this.props.countriesStats.allCountriesStats.filter,
+      { name: id }
+    );
+    console.log("the found country ", country);
     countryHistory({ countryHistory: "", loading: true });
     // this.setState({
     //   loading: true,
     // });
     // http call to fetch data from  multiple concurrent requests
-    selectedCountryData(selected).then((results: any) => {
-      chartData({
-        data: refactorChartData(results[0]),
-        selectedCountry: selected,
-      });
+    chartData({
+      data: country,
+      selectedCountry: selected,
+    });
 
-      TodayWorldData({ worldRow: world, statsCards: results[1] });
+    TodayWorldData({
+      firstRow: worldStat,
+      worldRow: country,
+      statsCards: country.change,
+    });
+    selectedCountryData(selected).then((results: any) => {
+      console.log("results in slected country in app ", results);
+      extractDifferences(results);
       countryHistory({
-        countryHistory: filterHistory(results[2].data.stat_by_country),
+        countryHistory: results,
         loading: false,
       });
       // this.setState({
@@ -135,43 +142,49 @@ class App extends Component<Props, State> {
           {`visualization of Covid-19 statistics in ${selectedCountry}`}
         </div>
 
-        {!statsCards.length ? (
+        {!statsCards ? (
           <Spinner />
         ) : (
           <Container>
             <TopStats />
-            <div className="row">
-              <div className="col-lg-3">
-                <CountriesList
-                  handleReset={this.handleReset}
-                  handleSelectedCountry={this.handleSelectedCountry}
-                />
-              </div>
-              <div className="col-lg-6">
-                <div className="row">
-                  {countryHistory ? (
-                    <Container>
-                      <Chart
-                        country=""
-                        title={`Evolution of COVID-19 in ${selectedCountry}`}
-                      />
-                    </Container>
-                  ) : loading ? (
-                    <Spinner />
-                  ) : (
-                    ""
-                  )}
+
+            <div className="col-lg-12">
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="row">
+                    <TryChart />
+                    {/* {countryHistory ? (
+                      <Container>
+                        <Chart
+                          country=""
+                          title={`Evolution of COVID-19 in ${selectedCountry}`}
+                        />
+                      </Container>
+                    ) : loading ? (
+                      <Spinner />
+                    ) : (
+                      ""
+                    )} */}
+                  </div>
                 </div>
-              </div>
-              <div className="col-sm-3" ref={this.myRef}>
-                <Ratio />
+                <div className="col-lg-3">
+                  <CountriesList
+                    handleReset={this.handleReset}
+                    handleSelectedCountry={this.handleSelectedCountry}
+                  />
+                </div>
+                <div className="col-lg-3" ref={this.myRef}>
+                  <Ratio />
+                </div>
               </div>
             </div>
           </Container>
         )}
-        <div id="footer">
-          <span id="update"> Last updated: {statsCards[8]}</span>
-          <span id="update"> Developed by Abdellah Fihri</span>
+        <div className="col-lg-12">
+          <div id="footer">
+            <span id="update"> Last updated: {statsCards[8]}</span>
+            <span id="update"> Developed by Abdellah Fihri</span>
+          </div>
         </div>
       </div>
     );

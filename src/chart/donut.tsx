@@ -150,7 +150,7 @@ class Donut extends Component<State, Props> {
   componentDidMount() {
     const { data, selectedCountry } = this.props.donut;
     this.setState({
-      series: data,
+      series: [data.active_cases, data.recovered, data.deaths],
       chartOptions: {
         ...this.state.chartOptions,
         title: {
@@ -164,7 +164,7 @@ class Donut extends Component<State, Props> {
     const { data, selectedCountry } = this.props.donut;
     if (prevProps.donut.selectedCountry !== selectedCountry) {
       this.setState({
-        series: data,
+        series: [data.active_cases, data.recovered, data.deaths],
         chartOptions: {
           ...this.state.chartOptions,
           title: {
