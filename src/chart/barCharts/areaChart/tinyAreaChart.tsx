@@ -3,6 +3,7 @@ import { AreaChart, Area } from "recharts";
 import connect from "react-redux";
 
 const TinyArea = (props: any) => {
+  console.log("DAAATAAAA IN AREAAAAA", props.data);
   return (
     <AreaChart
       width={150}
@@ -18,7 +19,7 @@ const TinyArea = (props: any) => {
       <Area
         dot={false}
         type="monotone"
-        dataKey="deaths"
+        dataKey="Diff"
         stroke="#8884d8"
         fill="#8884d8"
       />

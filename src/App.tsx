@@ -109,9 +109,11 @@ class App extends Component<Props, State> {
     });
     selectedCountryData(selected).then((results: any) => {
       console.log("results in slected country in app ", results);
-      extractDifferences(results);
+      // extractDifferences(results, "deaths");
       countryHistory({
-        countryHistory: results,
+        week: results[0],
+        month: results[1],
+        year: results[2],
         loading: false,
       });
       // this.setState({

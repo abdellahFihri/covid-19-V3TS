@@ -93,9 +93,25 @@ export const selectedCountryData = async (selected: string) => {
       },
     });
   }
+  function AllMonth() {
+    return WorldRequest.get("spots/month", {
+      params: {
+        region: `${selected.toLocaleLowerCase()}`,
+      },
+    });
+  }
+  function AllWeek() {
+    return WorldRequest.get("spots/week", {
+      params: {
+        region: `${selected.toLocaleLowerCase()}`,
+      },
+    });
+  }
   let year = await AllYear();
+  let week = await AllWeek();
+  let month = await AllMonth();
 
-  return refactorResponseData(year.data.data);
+  return [week, month, year].map((res) => refactorResponseData(res.data.data));
 };
 
 export const extractProps = (results: Data) => {
@@ -216,41 +232,32 @@ const refactorResponseData = (res: any) => {
   return refactored;
 };
 
-export const extractDifferences = (data: any) => {
-  //   let comparableArr = data.map((el: any) => el.total_cases);
-  //   let mockUpArr = [0, ...comparableArr];
-  //   let i: number;
-  //   let difference: any[] = [];
-  //   for (i = 0; i <= mockUpArr.length; i++) {
-  //     let diff = mockUpArr[i] - comparableArr[i];
-  //     difference.push(diff);
-  //   }
+export const extractDifferences = (data: any, prop: string) => {
+  // let comparableArr = data.map((el: any) => el[`${prop}`]);
+  let comparableArr = data;
 
-  //   // let difference = _.difference(mockUpArr, comparableArr);
-  //   console.log("mockup arr", difference);
-  let toCompare: any[] = [];
-  toCompare.push({
-    total_cases: 0,
-    deaths: 0,
-    recovered: 0,
-    critical: 0,
-    tested: 0,
-    death_ratio: 0,
-    recovery_ratio: 0,
-  });
-  function difference(toCompare: any, data: any) {
-    function changes(toCompare: any, data: any) {
-      return _.transform(toCompare, function (result: any, value, key) {
-        if (!_.isEqual(value, data[key])) {
-          result[key] =
-            _.isObject(value) && _.isObject(data[key])
-              ? changes(value, data[key])
-              : value;
-        }
-      });
-    }
-    console.log("changes", changes(toCompare, data));
-    return changes(toCompare, data);
+  let mockUpArr = [
+    {
+      total_cases: 0,
+      deaths: 0,
+      recovered: 0,
+      critical: 0,
+      tested: 0,
+      date: "01/20/2020",
+      death_ratio: 0,
+      recovery_ratio: 0,
+    },
+    ...comparableArr,
+  ];
+  let i: number;
+  let difference: any[] = [];
+  for (i = 0; i < comparableArr.length; ++i) {
+    let diff = mockUpArr[i][`${prop}`] - comparableArr[i][`${prop}`];
+    let newPeriod = { date: mockUpArr[i].date, Diff: diff };
+    difference.push(newPeriod);
   }
-  difference(toCompare, data);
+  // difference = _.remove(difference, function (n) {
+  //   return n >= 0;
+  // });
+  return _.dropRight(_.reverse(difference));
 };

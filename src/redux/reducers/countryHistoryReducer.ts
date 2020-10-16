@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
   history: {
-    countryHistory: "",
+    week: "",
+    month: "",
+    year: "",
     loading: false,
   },
 };

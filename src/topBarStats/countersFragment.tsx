@@ -5,7 +5,7 @@ import style from "./countersFragment.module.scss";
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
 import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
-
+import { extractDifferences } from "../utils/utilities/helpers";
 import _ from "lodash";
 
 interface Props {
@@ -13,12 +13,11 @@ interface Props {
 }
 const CountersFragment = (props: Props) => {
   const { statsCards, worldRow, worldHistory } = props.world.world;
-  let shortHistory = _.takeRight(worldHistory, 30);
+  let shortHistory = _.takeRight(worldHistory, 14);
+
   // const [val, setVal] = useState(statsCards);
   // const [world, setWorld] = useState(worldRow);
-  // const [tinyChart, setTinyChart] = useState(shortHistory);
 
-  console.log("top nav rerendered ");
   return (
     <div className={`col-lg-12 ${style.counters}`}>
       {[
@@ -27,13 +26,17 @@ const CountersFragment = (props: Props) => {
           title: "New cases",
           i: statsCards.total_cases,
           y: worldRow.total_cases,
-          chart: <TinyBar data={shortHistory} />,
+          chart: (
+            <TinyLine
+              data={extractDifferences(_.reverse(shortHistory), "total_cases")}
+            />
+          ),
         },
         {
           title: "New deaths",
           i: statsCards.deaths,
           y: worldRow.deaths,
-          chart: <TinyArea data={shortHistory} />,
+          chart: <TinyLine data={extractDifferences(shortHistory, "deaths")} />,
         },
         // { title: "Total Deaths", i: 3 },
         // { title: "Total Recovered", i: 5 },
@@ -41,12 +44,17 @@ const CountersFragment = (props: Props) => {
           title: "New active cases",
           i: statsCards.active_cases,
           y: worldRow.active_cases,
-          chart: <TinyLine data={shortHistory} />,
+          chart: (
+            <TinyLine data={extractDifferences(shortHistory, "active_cases")} />
+          ),
         },
         {
           title: "Total cases",
           i: worldRow.total_cases,
           y: statsCards.total_cases,
+          chart: (
+            <TinyLine data={_.reverse(shortHistory)} display="total_cases" />
+          ),
         },
       ].map((card) => (
         <StatsCard
