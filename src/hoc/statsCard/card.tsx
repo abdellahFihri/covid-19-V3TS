@@ -33,7 +33,13 @@ const StatsCard = (props: Props) => {
           </div>
           <Badge
             className={style.badge}
-            color={`${props.end <= 0 ? "success" : "danger"}`}
+            color={`${
+              props.end <= 0
+                ? "success"
+                : props.end > 0 && props.title === "New recovered"
+                ? "success"
+                : "danger"
+            }`}
             pill
           >
             {indexing(props.new, props.end) > 0

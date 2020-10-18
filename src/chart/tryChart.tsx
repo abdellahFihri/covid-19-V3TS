@@ -12,84 +12,91 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
 
 interface Props {
   world: any;
+  history: any;
 }
 
 const TryChart = (props: Props) => {
   const { worldHistory } = props.world.world;
+  const { year, month, week } = props.history.history;
+  console.log("WEEEEEEEEEEEEEK", week);
   return (
-    <div>
-      <AreaChart
-        width={700}
-        height={300}
-        syncId="anyId"
-        data={worldHistory}
-        margin={{
-          top: 5,
-          right: 5,
-          left: 5,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="2 2" vertical={false} />
-        <XAxis
-          dataKey="date"
-          tickFormatter={function (value: string) {
-            const d = new Date(value);
-
-            const mo = new Intl.DateTimeFormat("en", { month: "short" }).format(
-              d
-            );
-            const da = new Intl.DateTimeFormat("en", { day: "2-digit" }).format(
-              d
-            );
-            return `${da}/${mo}`;
+    <div style={{ width: "100%", height: 300 }}>
+      <ResponsiveContainer>
+        <AreaChart
+          // width={700}
+          // height={300}
+          syncId="anyId"
+          data={year}
+          margin={{
+            top: 5,
+            right: 5,
+            left: 5,
+            bottom: 5,
           }}
-        />
-        <YAxis
-          dataKey="total_cases"
-          type="number"
-          tickFormatter={function (value: number) {
-            if (value >= 1000000000) {
-              return (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
-            }
-            if (value >= 1000000) {
-              return (value / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-            }
-            if (value >= 1000) {
-              return (value / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-            }
-            return value;
-          }}
-        />
-        <Tooltip />
-        <Legend />
-        <Area
-          dot={false}
-          strokeWidth={4}
-          type="monotone"
-          dataKey="total_cases"
-          stroke="#1D89E8"
-          activeDot={{ r: 8 }}
-        />
-        <Area
-          dot={false}
-          type="monotone"
-          dataKey="recovered"
-          strokeWidth={4}
-          stroke="#70C96D"
-        />
-      </AreaChart>
+        >
+          <CartesianGrid strokeDasharray="2 2" vertical={false} />
+          <XAxis
+            dataKey="date"
+            tickFormatter={function (value: string) {
+              const d = new Date(value);
 
-      <div>
+              const mo = new Intl.DateTimeFormat("en", {
+                month: "short",
+              }).format(d);
+              const da = new Intl.DateTimeFormat("en", {
+                day: "2-digit",
+              }).format(d);
+              return `${da}/${mo}`;
+            }}
+          />
+          <YAxis
+            dataKey="total_cases"
+            type="number"
+            tickFormatter={function (value: number) {
+              if (value >= 1000000000) {
+                return (
+                  (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G"
+                );
+              }
+              if (value >= 1000000) {
+                return (value / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+              }
+              if (value >= 1000) {
+                return (value / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+              }
+              return value;
+            }}
+          />
+          <Tooltip />
+          <Legend />
+          <Area
+            dot={false}
+            strokeWidth={4}
+            type="monotone"
+            dataKey="total_cases"
+            stroke="#1D89E8"
+            activeDot={{ r: 8 }}
+          />
+          <Area
+            dot={false}
+            type="monotone"
+            dataKey="recovered"
+            strokeWidth={4}
+            stroke="#70C96D"
+          />
+        </AreaChart>
+
+        {/* <div>
         <AreaChart
           width={350}
           height={150}
           syncId="anyId"
-          data={worldHistory}
+          data={year}
           margin={{
             top: 5,
             right: 30,
@@ -117,7 +124,7 @@ const TryChart = (props: Props) => {
             }}
           />
           <YAxis
-            dataKey="active_cases"
+            dataKey="tested"
             type="number"
             tickFormatter={function (value: number) {
               if (value >= 1000000000) {
@@ -136,12 +143,7 @@ const TryChart = (props: Props) => {
           />
           <Tooltip />
           <Legend />
-          <Area
-            dot={false}
-            dataKey="active_cases"
-            stroke="#FFA500 "
-            fill="#FFA500"
-          />
+          <Area dot={false} dataKey="tested" stroke="#FFA500 " fill="#FFA500" />
         </AreaChart>
       </div>
 
@@ -149,7 +151,7 @@ const TryChart = (props: Props) => {
         width={350}
         height={150}
         syncId="anyId"
-        data={worldHistory}
+        data={year}
         margin={{
           top: 5,
           right: 30,
@@ -194,8 +196,9 @@ const TryChart = (props: Props) => {
         />
         <Tooltip />
         <Legend />
-        <Area dot={false} dataKey="deaths" fill="#ed3b3b" stroke="#ed3b3b" />
-      </AreaChart>
+        <Area dot={false} dataKey="deaths" fill="#ed3b3b" stroke="#ed3b3b" /> */}
+        {/* </AreaChart> */}
+      </ResponsiveContainer>
     </div>
   );
 };
@@ -203,6 +206,7 @@ const TryChart = (props: Props) => {
 const mapStateToProps = (state: any) => {
   return {
     world: state.world,
+    history: state.history,
   };
 };
 
@@ -215,7 +219,7 @@ export default connect(mapStateToProps)(TryChart);
 //   world: any;
 // }
 // const TryChart = (props: Props) => {
-//   const { worldHistory } = props.world.world;
+//   const { month } = props.world.world;
 //   const options = {
 //     chart: {
 //       id: "area",
@@ -248,7 +252,7 @@ export default connect(mapStateToProps)(TryChart);
 //     },
 //     {
 //       name: "Active cases",
-//       data: worldHistory.map((day: any) => day.active_cases),
+//       data: worldHistory.map((day: any) => day.tested),
 //     },
 //   ];
 

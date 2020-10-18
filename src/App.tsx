@@ -13,7 +13,7 @@ import TryChart from "./chart/tryChart";
 
 import Container from "./hoc/container/container";
 import StatsCard from "./hoc/statsCard/card";
-
+import ChartsContainer from "./mainChartContainer/mainChartContainer";
 import CountriesList from "./countriesList/countriesList";
 import { connect } from "react-redux";
 import {
@@ -70,7 +70,11 @@ class App extends Component<Props, State> {
         statsCards: results[0][1],
         worldHistory: _.orderBy(results[2], ["date"], ["asc"]),
       });
-      countryHistory("");
+      countryHistory({
+        year: _.orderBy(results[2], ["date"], ["asc"]),
+        week: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 8),
+        month: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
+      });
     });
     const { selectedCountry } = this.props.data.donut;
     document.title = `Covid 19 Stats in ${selectedCountry}`;
@@ -97,24 +101,24 @@ class App extends Component<Props, State> {
     //   loading: true,
     // });
     // http call to fetch data from  multiple concurrent requests
-    chartData({
-      data: country,
-      selectedCountry: selected,
-    });
 
-    TodayWorldData({
-      firstRow: worldStat,
-      worldRow: country,
-      statsCards: country.change,
-    });
     selectedCountryData(selected).then((results: any) => {
       console.log("results in slected country in app ", results);
       // extractDifferences(results, "deaths");
       countryHistory({
-        week: results[0],
-        month: results[1],
-        year: results[2],
+        week: results[1],
+        month: results[2],
+        year: results[3],
         loading: false,
+      });
+      chartData({
+        data: results[0].summary,
+        selectedCountry: selected,
+      });
+      TodayWorldData({
+        firstRow: worldStat,
+        worldRow: results[0].summary,
+        statsCards: results[0].change,
       });
       // this.setState({
       //   loading: false,
@@ -152,10 +156,10 @@ class App extends Component<Props, State> {
 
             <div className="col-lg-12">
               <div className="row">
-                <div className="col-lg-6">
-                  <div className="row">
-                    <TryChart />
-                    {/* {countryHistory ? (
+                {/* <div className="col-lg-6"> */}
+                {/* <div className="row"> */}
+                {/* <TryChart /> */}
+                {/* {countryHistory ? (
                       <Container>
                         <Chart
                           country=""
@@ -167,8 +171,9 @@ class App extends Component<Props, State> {
                     ) : (
                       ""
                     )} */}
-                  </div>
-                </div>
+                {/* </div> */}
+                {/* </div> */}
+                <ChartsContainer />
                 <div className="col-lg-3">
                   <CountriesList
                     handleReset={this.handleReset}
@@ -182,6 +187,7 @@ class App extends Component<Props, State> {
             </div>
           </Container>
         )}
+
         <div className="col-lg-12">
           <div id="footer">
             <span id="update"> Last updated: {statsCards[8]}</span>

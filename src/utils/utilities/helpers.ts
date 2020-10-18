@@ -86,6 +86,13 @@ export const selectedCountryData = async (selected: string) => {
   // const dataArray: any[] = Object.values(data).map((val) =>
   //   val.replace(/,/g, "")
   // );
+  function summaryCountry() {
+    return WorldRequest.get("summary/region", {
+      params: {
+        region: `${selected.toLocaleLowerCase()}`,
+      },
+    });
+  }
   function AllYear() {
     return WorldRequest.get("spots/year", {
       params: {
@@ -110,8 +117,14 @@ export const selectedCountryData = async (selected: string) => {
   let year = await AllYear();
   let week = await AllWeek();
   let month = await AllMonth();
+  let selectedCountry = await summaryCountry();
 
-  return [week, month, year].map((res) => refactorResponseData(res.data.data));
+  return [
+    selectedCountry.data.data,
+    ...[week, month, year].map((res) =>
+      _.reverse(refactorResponseData(res.data.data))
+    ),
+  ];
 };
 
 export const extractProps = (results: Data) => {
