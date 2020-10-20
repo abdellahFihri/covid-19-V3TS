@@ -1,13 +1,31 @@
 import React from "react";
-import { BarChart, Bar } from "recharts";
-import connect from "react-redux";
+import {
+  BarChart,
+  Bar,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  XAxis,
+} from "recharts";
+// import connect from "react-redux";
 
 const TinyBar = (props: any) => {
-  console.log("DAAATAAA IN TINBAAARRR", props.data);
+  // console.log("DAAATAAA IN TINBAAARRR", props.history);
   return (
-    <BarChart width={150} height={60} data={props.data}>
-      <Bar dataKey="Diff" fill="#8884d8" />
-    </BarChart>
+    <div style={{ width: "100%", height: 150 }}>
+      <ResponsiveContainer>
+        <BarChart syncId={props.sync} data={props.history}>
+          <XAxis hide={true} dataKey="date" />
+          <Bar
+            dataKey={props.keyData}
+            background={false}
+            fill={props.filling}
+          />
+          <Tooltip />
+          <Legend />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
 export default TinyBar;

@@ -1,25 +1,24 @@
-import { CovidRequest, regionHistory, WorldRequest } from "../../axios/axios";
+import { WorldRequest } from "../../axios/axios";
 import { Data, Response } from "../intefaces/interfaces";
-import lookup from "country-code-lookup";
-import countryList, { getCode } from "country-list";
-import { missingCountries } from "../data/correctedCountries";
-import axios from "axios";
-import _, { map } from "lodash";
-import { Key } from "react";
+// import lookup from "country-code-lookup";
+// import countryList, { getCode } from "country-list";
+// import { missingCountries } from "../data/correctedCountries";
+// import axios from "axios";
+import _ from "lodash";
 
 require("dotenv").config();
 
-const missingFlags = (land: any, landsArray: any) => {
-  let term: string = land;
-  const arr: any = landsArray;
-  let result: any = arr.filter(function (country: any) {
-    return country.name.includes(term);
-  });
+// const missingFlags = (land: any, landsArray: any) => {
+//   let term: string = land;
+//   const arr: any = landsArray;
+//   let result: any = arr.filter(function (country: any) {
+//     return country.name.includes(term);
+//   });
 
-  if (result[0]) {
-    return result[0].code;
-  }
-};
+//   if (result[0]) {
+//     return result[0].code;
+//   }
+// };
 
 // export const getInitialStats = () => {
 //   function worldStat() {
@@ -241,7 +240,7 @@ const refactorResponseData = (res: any) => {
     refactored.push(key);
     return refactored;
   });
-  console.log("refactored", refactored);
+  // console.log("refactored", refactored);
   return refactored;
 };
 
@@ -262,15 +261,28 @@ export const extractDifferences = (data: any, prop: string) => {
     },
     ...comparableArr,
   ];
+
   let i: number;
   let difference: any[] = [];
   for (i = 0; i < comparableArr.length; ++i) {
     let diff = mockUpArr[i][`${prop}`] - comparableArr[i][`${prop}`];
-    let newPeriod = { date: mockUpArr[i].date, Diff: diff };
+    let newPeriod = { date: mockUpArr[i].date, [`${prop}`]: diff };
     difference.push(newPeriod);
   }
   // difference = _.remove(difference, function (n) {
   //   return n >= 0;
   // });
-  return _.dropRight(_.reverse(difference));
+  // return _.dropRight(_.reverse(difference));
+  return _.remove(_.dropRight(_.reverse(difference)), function (n) {
+    return n[`${prop}`] > 0;
+  });
 };
+
+// export const getDaily = (data: any, prop: string) => {
+//   return _.remove(
+//     extractDifferences(_.dropRight(_.reverse(data), 1), prop),
+//     function (n) {
+//       return n[`${prop}`] > 0;
+//     }
+//   );
+// };

@@ -4,34 +4,36 @@ import {
   Area,
   CartesianGrid,
   XAxis,
-  YAxis,
+  // YAxis,
   Tooltip,
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 const TinyArea = (props: any) => {
-  const { year, month, week } = props.history.history;
+  // const { year, month, week } = props.history.history;
+  const { history, keyData } = props;
   return (
-    <div style={{ width: "100%", height: 200 }}>
+    <div style={{ width: "100%", height: 150 }}>
       <ResponsiveContainer>
         <AreaChart
-          syncId="anyId"
-          data={year}
+          syncId={props.sync}
+          data={history}
           margin={{
             top: 5,
-            right: 30,
-            left: 20,
+            right: 0,
+            left: 0,
             bottom: 5,
           }}
         >
           <CartesianGrid
-            strokeDasharray="1 1"
+            strokeDasharray="3 3"
             vertical={false}
             horizontal={false}
           />
-          {/* <XAxis
+          <XAxis
+            hide={true}
             dataKey="date"
             tickFormatter={function (value: string) {
               const d = new Date(value);
@@ -45,7 +47,7 @@ const TinyArea = (props: any) => {
               return `${da}/${mo}`;
             }}
           />
-          <YAxis
+          {/*<YAxis
             dataKey="tested"
             type="number"
             tickFormatter={function (value: number) {
@@ -65,17 +67,23 @@ const TinyArea = (props: any) => {
           /> */}
           <Tooltip />
           <Legend />
-          <Area dot={false} dataKey="tested" stroke="#FFA500 " fill="#FFA500" />
+          <Area
+            dot={false}
+            dataKey={keyData}
+            stroke="#FFA500 "
+            fill="#FFA500"
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 };
-const mapStateToProps = (state: any) => {
-  return {
-    world: state.world,
-    history: state.history,
-  };
-};
+// const mapStateToProps = (state: any) => {
+//   return {
+//     world: state.world,
+//     history: state.history,
+//   };
+// };
 
-export default connect(mapStateToProps)(TinyArea);
+// export default connect(mapStateToProps)(TinyArea);
+export default TinyArea;

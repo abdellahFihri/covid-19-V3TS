@@ -95,7 +95,7 @@ class Donut extends Component<State, Props> {
           offsetY: 0,
           expandOnClick: true,
           dataLabels: {
-            offset: 2,
+            offset: 0,
             minAngleToShowLabel: 10,
           },
           donut: {
@@ -105,7 +105,7 @@ class Donut extends Component<State, Props> {
               show: true,
               name: {
                 show: true,
-                fontSize: "13px",
+                fontSize: "12px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 600,
                 color: "#898989",
@@ -113,7 +113,7 @@ class Donut extends Component<State, Props> {
               },
               value: {
                 show: true,
-                fontSize: "13px",
+                fontSize: "12px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 600,
                 color: "#5068e0",

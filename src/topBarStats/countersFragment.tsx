@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import StatsCard from "../hoc/statsCard/card";
 import style from "./countersFragment.module.scss";
-import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
+// import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
-import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
+// import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
 import { extractDifferences } from "../utils/utilities/helpers";
 import _ from "lodash";
 
@@ -13,9 +13,9 @@ interface Props {
   history: any;
 }
 const CountersFragment = (props: Props) => {
-  const { statsCards, worldRow, worldHistory } = props.world.world;
+  const { statsCards, worldRow } = props.world.world;
   const { history } = props.history;
-  console.log("HISTOORYYY", history);
+  // console.log("HISTOORYYY", history);
   let shortHistory = _.dropRight(_.takeRight(history.month, 15), 1);
 
   // const [val, setVal] = useState(statsCards);
@@ -36,6 +36,7 @@ const CountersFragment = (props: Props) => {
                   _.reverse(shortHistory),
                   "total_cases"
                 )}
+                display="total_cases"
               />
             ),
           },
@@ -44,7 +45,10 @@ const CountersFragment = (props: Props) => {
             i: statsCards.deaths,
             y: worldRow.deaths,
             chart: (
-              <TinyLine data={extractDifferences(shortHistory, "deaths")} />
+              <TinyLine
+                data={extractDifferences(shortHistory, "deaths")}
+                display="deaths"
+              />
             ),
           },
           // { title: "Total Deaths", i: 3 },
@@ -54,7 +58,10 @@ const CountersFragment = (props: Props) => {
             i: statsCards.recovered,
             y: worldRow.recovered,
             chart: (
-              <TinyLine data={extractDifferences(shortHistory, "recovered")} />
+              <TinyLine
+                data={extractDifferences(shortHistory, "recovered")}
+                display="recovered"
+              />
             ),
           },
           {

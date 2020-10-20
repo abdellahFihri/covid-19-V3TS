@@ -1,11 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import {
-  LineChart,
+  // LineChart,
   AreaChart,
-  BarChart,
-  Line,
-  Bar,
+  // BarChart,
+  // Line,
+  // Bar,
   Area,
   XAxis,
   YAxis,
@@ -16,14 +16,18 @@ import {
 } from "recharts";
 
 interface Props {
-  world: any;
+  // world: any;
   history: any;
 }
 
 const TryChart = (props: Props) => {
-  const { worldHistory } = props.world.world;
-  const { year, month, week } = props.history.history;
-  console.log("WEEEEEEEEEEEEEK", week);
+  // const { worldHistory } = props.world.world;
+  const { history } = props;
+
+  const chartData = React.useMemo(() => history, [history]);
+
+  // const { year, month, week } = props.history.history;
+  // console.log("WEEEEEEEEEEEEEK", week);
   return (
     <div style={{ width: "100%", height: 300 }}>
       <ResponsiveContainer>
@@ -31,11 +35,11 @@ const TryChart = (props: Props) => {
           // width={700}
           // height={300}
           syncId="anyId"
-          data={year}
+          data={chartData}
           margin={{
             top: 5,
-            right: 5,
-            left: 5,
+            right: 0,
+            left: 0,
             bottom: 5,
           }}
         >
@@ -202,15 +206,16 @@ const TryChart = (props: Props) => {
     </div>
   );
 };
+export default TryChart;
 
-const mapStateToProps = (state: any) => {
-  return {
-    world: state.world,
-    history: state.history,
-  };
-};
+// const mapStateToProps = (state: any) => {
+//   return {
+//     world: state.world,
+//     history: state.history,
+//   };
+// };
 
-export default connect(mapStateToProps)(TryChart);
+// export default connect(mapStateToProps)(TryChart);
 
 // import React from "react";
 // import Chart from "react-apexcharts";

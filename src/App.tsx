@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import "./App.scss";
-import Chart from "./chart/chart";
-import Donut from "./chart/donut";
+// import Chart from "./chart/chart";
+// import Donut from "./chart/donut";
 import Ratio from "./ratioDonut/ratioDonut";
-import Infos from "./infos/infos";
-import NavBar from "./navbar/bar";
+// import Infos from "./infos/infos";
+// import NavBar from "./navbar/bar";
 import TopStats from "./topBarStats/topStats";
 import Spinner from "./hoc/spinner/spinner";
-import axios from "axios";
+// import axios from "axios";
 import _ from "lodash";
-import TryChart from "./chart/tryChart";
+// import TryChart from "./chart/tryChart";
 
 import Container from "./hoc/container/container";
-import StatsCard from "./hoc/statsCard/card";
+// import StatsCard from "./hoc/statsCard/card";
 import ChartsContainer from "./mainChartContainer/mainChartContainer";
 import CountriesList from "./countriesList/countriesList";
 import { connect } from "react-redux";
@@ -27,8 +27,8 @@ import {
   getInitialStats,
   selectedCountryData,
   // refactorChartData,
-  filterHistory,
-  extractDifferences,
+  // filterHistory,
+  // extractDifferences,
 } from "./utils/utilities/helpers";
 import { Props, State } from "./utils/intefaces/interfaces";
 require("dotenv").config();
@@ -51,10 +51,9 @@ class App extends Component<Props, State> {
       countryHistory,
     } = this.props;
 
-    // console.log("getinitial ", getInitialStats());
     // multiple concurrent http requests to get the inital data needed at the first render
     getInitialStats().then((results) => {
-      console.log("resolved results ", results);
+      // console.log("resolved results ", results);
 
       chartData({
         data: results[0][0],
@@ -91,12 +90,12 @@ class App extends Component<Props, State> {
     // console.log("all countries in handle", this.props.countriesStats.allCountriesStats.filter);
     window.scrollTo(0, this.myRef.current.offsetTop);
     let selected: string = id;
-    let country: any = _.find(
-      this.props.countriesStats.allCountriesStats.filter,
-      { name: id }
-    );
-    console.log("the found country ", country);
-    countryHistory({ countryHistory: "", loading: true });
+    // let country: any = _.find(
+    //   this.props.countriesStats.allCountriesStats.filter,
+    //   { name: id }
+    // );
+    // console.log("the found country ", country);
+    // countryHistory({ countryHistory: "", loading: true });
     // this.setState({
     //   loading: true,
     // });
@@ -105,6 +104,11 @@ class App extends Component<Props, State> {
     selectedCountryData(selected).then((results: any) => {
       console.log("results in slected country in app ", results);
       // extractDifferences(results, "deaths");
+      TodayWorldData({
+        firstRow: worldStat,
+        worldRow: results[0].summary,
+        statsCards: results[0].change,
+      });
       countryHistory({
         week: results[1],
         month: results[2],
@@ -114,11 +118,6 @@ class App extends Component<Props, State> {
       chartData({
         data: results[0].summary,
         selectedCountry: selected,
-      });
-      TodayWorldData({
-        firstRow: worldStat,
-        worldRow: results[0].summary,
-        statsCards: results[0].change,
       });
       // this.setState({
       //   loading: false,
@@ -135,10 +134,10 @@ class App extends Component<Props, State> {
   };
 
   render() {
-    const { worldRow, statsCards } = this.props.world.world;
+    const { statsCards } = this.props.world.world;
     const { selectedCountry } = this.props.data.donut;
-    const { countryHistory, loading } = this.props.history.history;
-    console.log("world data ", worldRow);
+    // const { countryHistory, loading } = this.props.history.history;
+    // console.log("world data ", worldRow);
 
     return (
       <div>
@@ -174,13 +173,13 @@ class App extends Component<Props, State> {
                 {/* </div> */}
                 {/* </div> */}
                 <ChartsContainer />
-                <div className="col-lg-3">
+                <div className="col-lg-4">
                   <CountriesList
                     handleReset={this.handleReset}
                     handleSelectedCountry={this.handleSelectedCountry}
                   />
                 </div>
-                <div className="col-lg-3" ref={this.myRef}>
+                <div className="col-lg-2" ref={this.myRef}>
                   <Ratio />
                 </div>
               </div>
