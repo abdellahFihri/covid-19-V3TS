@@ -1,24 +1,45 @@
 import React from "react";
 import Container from "../hoc/container/container";
 import style from "./infos.module.scss";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {selectMonth}  from "../redux/reducers/HistorySelector"
+import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
+import _ from "lodash";
+import { extractDifferences } from "../utils/utilities/helpers";
+interface Props{
+  info1: any;
+  info2: any;
+  month: any;
+}
 
-type Infos = { info1: number; info2: number };
-const infos = ({ info1, info2 }: Infos) => {
+const infos = (props:Props) => {
+const {info1,info2,month}=props
+  // let history = month
+  console.log('HISTORY IN INFOS',props)
   return (
     <Container>
       <div className={style.infos}>
-        <div>
+        <div className={style.spans}>
+       
+        <div className="infoSection">
           {" "}
-          Critical condition cases:{" "}
-          <span>{info1 ? info1 : "Not registered yet"}</span>
+         <span className={style.infoSpan}>{info1 ? info1 : "Not registered yet"}</span> <br/> Critical cases
         </div>
-        <div>
+        <div className="infoSection">
           {" "}
-          Total tested:
-          <span>{info2 ? info2 : "Not registered yet"}</span>{" "}
+         
+          <span className={style.infoSpan}>{info2 ? info2 : "Not registered yet"}</span> <br/>{" "} Total tested
         </div>
-      </div>
+        </div>
+        
+        <TinyBar history={extractDifferences(_.reverse(month), 'critical')} keyData="critical" filling="#f7ab13" title={'Critical index of the last month'}/>
+       
+        </div>
     </Container>
   );
 };
-export default infos;
+const mapStateToProps = createStructuredSelector({
+  month:selectMonth
+})
+export default connect(mapStateToProps) (infos);

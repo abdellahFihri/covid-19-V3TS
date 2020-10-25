@@ -3,37 +3,78 @@ import TryChart from "../chart/tryChart";
 import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import MainBarChart from "../chart/barCharts/mainBarChart/BarChart";
+import { createStructuredSelector } from "reselect";
+import { selectYear } from "../redux/reducers/HistorySelector";
+import {selectWorldRow,selectSelectedCountry,selectIso} from "../redux/reducers/worldDataSelector"
 import { connect } from "react-redux";
 import _ from "lodash";
-import { extractDifferences } from "../utils/utilities/helpers";
+import { extractDifferences, numFormatter } from "../utils/utilities/helpers";
+import style from "./mainChartContainer.module.scss";
 
 interface Props {
   history: any;
+  world: any;
+  year: any;
+  worldRow: any;
+  selectedCountry: string;
+  iso: string;
 }
 const ChartsContainer = (props: Props) => {
-  const { year, month, week } = props.history.history;
-  //   console.log(
-  //     "DFFERENCE YEAR",
-  //     extractDifferences(_.reverse(month), "total_cases")
-  //   );
-  let shortHistory = _.dropRight(_.reverse(year), 1);
+  const { year} = props
+  const { worldRow, selectedCountry, iso } = props
+
+  let shortHistory = _.reverse(year);
   return (
-    <div className="col-lg-6" style={{ backgroundColor: "white" }}>
+    <div className="col-lg-6" >
       <div className="row">
         <div className="col-md-8">
-          <h6>Cases and recovered overview</h6>
-          <span>
-            Presenting the global contamination and revovery index in country
-          </span>
+          <h6>Cases and recovered overview in {selectedCountry}</h6>
+          <span>Presenting the global contamination and revovery indexes</span>
         </div>
 
-        <div className="col-md-4"></div>
+        <div className="col-md-4">
+          {" "}
+          <span
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            {" "}
+            <img
+              src={`https://www.countryflags.io/${iso}/flat/64.png`}
+              alt=""
+            />{" "}
+          </span>{" "}
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-4">
+          <span>Global cases</span>
+          <div className={style.global}>
+            <span> {numFormatter(worldRow.total_cases)}</span>
+            {` (${worldRow.total_cases})`}
+          </div>
+        </div>
+        <div className="col-md-4">
+          <span>Global Recovered</span>
+          <div className={style.global}>
+            {" "}
+            <span>{numFormatter(worldRow.recovered)} </span>
+            {` (${worldRow.recovered})`}{" "}
+          </div>
+        </div>
       </div>
       <div className="row">
         <div className="col-lg-12">
           {shortHistory.length > 31 ? (
             <TryChart
-              history={extractDifferences(shortHistory, "total_cases")}
+              history={["total_cases", "recovered"].map((rec: any) =>
+                extractDifferences(shortHistory, rec)
+              )}
+              keyData="total_cases"
+              sync="main"
             />
           ) : (
             <MainBarChart
@@ -49,16 +90,27 @@ const ChartsContainer = (props: Props) => {
       </div>
       <div className="row">
         {[
-          { param: "tested", filling: "#964FFF" },
-          { param: "deaths", filling: "#b5002a" },
+          {
+            param: "tested",
+            param2: "critical",
+            filling: "#ed760e",
+            stroke: "ff7b00",
+          },
+          {
+            param: "deaths",
+            param2: "deaths",
+            filling: "#ea0e3d",
+            stroke: "#d65c0a",
+          },
         ].map((rec: any) => (
-          <div className="col-md-6">
+          <div className="col-md-6" key={rec.param}>
             {shortHistory.length > 31 ? (
               <TinyArea
                 history={extractDifferences(shortHistory, rec.param)}
                 keyData={rec.param}
                 sync="main"
                 filling={rec.filling}
+                stroke={rec.stroke}
               />
             ) : (
               <TinyBar
@@ -86,11 +138,18 @@ const ChartsContainer = (props: Props) => {
     </div>
   );
 };
-const mapStateToProps = (state: any) => {
-  return {
-    world: state.world,
-    history: state.history,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  year: selectYear,
+  worldRow: selectWorldRow,
+  selectedCountry: selectSelectedCountry,
+  iso:selectIso
+})
+
+// const mapStateToProps = (state: any) => {
+//   return {
+//     world: state.world,
+//     history: state.history,
+//   };
+// };
 
 export default connect(mapStateToProps)(ChartsContainer);

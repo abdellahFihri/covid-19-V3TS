@@ -12,7 +12,7 @@ const Paper = ({ children, col1, col2, col3, col4, title, bar }: Props) => {
       <div className={style.paper}>
         <span className={style.label}>{title}</span>
         {bar}
-        <div className="tabhead">
+        <div className={style.tabhead}>
           <span> {col1}</span> <span>{col2} </span> <span>{col3} </span>{" "}
           <span>{col4} </span>{" "}
         </div>

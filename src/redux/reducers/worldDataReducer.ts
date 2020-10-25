@@ -3,7 +3,9 @@ const INITIAL_STATE = {
     firstRow: "",
     worldRow: "",
     statsCards: "",
-    worldHistory: "",
+    selectedCountry: "",
+    iso: "",
+    loading:true,
   },
 };
 const getWorldData = (state = INITIAL_STATE, action: any) => {

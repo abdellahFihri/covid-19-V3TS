@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import styles from "./donut.module.scss";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {selectWorldRow,selectSelectedCountry} from "../redux/reducers/worldDataSelector"
 interface Props {}
 
 interface State {
@@ -38,7 +40,7 @@ class Donut extends Component<State, Props> {
           fontSize: "12px",
           fontWeight: "bold",
           fontFamily: "Helvetica, Arial, sans-serif",
-          color: "#898989",
+          color: "#3d3d3d",
         },
       },
       legend: {
@@ -60,7 +62,7 @@ class Donut extends Component<State, Props> {
         // offsetX: 0,
         // offsetY: 0,
         labels: {
-          colors: "#898989",
+          colors: "#3d3d3d",
           useSeriesColors: false,
         },
         markers: {
@@ -108,7 +110,7 @@ class Donut extends Component<State, Props> {
                 fontSize: "12px",
                 fontFamily: "Helvetica, Arial, sans-serif",
                 fontWeight: 600,
-                color: "#898989",
+                color: "#3d3d3d",
                 offsetY: 0,
               },
               value: {
@@ -148,9 +150,10 @@ class Donut extends Component<State, Props> {
   };
 
   componentDidMount() {
-    const { data, selectedCountry } = this.props.donut;
+    // const { data, selectedCountry } = this.props.donut;
+    const { worldRow, selectedCountry } = this.props
     this.setState({
-      series: [data.active_cases, data.recovered, data.deaths],
+      series: [worldRow.active_cases, worldRow.recovered, worldRow.deaths],
       chartOptions: {
         ...this.state.chartOptions,
         title: {
@@ -161,10 +164,10 @@ class Donut extends Component<State, Props> {
     });
   }
   componentDidUpdate(prevProps: any) {
-    const { data, selectedCountry } = this.props.donut;
-    if (prevProps.donut.selectedCountry !== selectedCountry) {
+    const { worldRow, selectedCountry } = this.props;
+    if (prevProps.selectedCountry !== selectedCountry) {
       this.setState({
-        series: [data.active_cases, data.recovered, data.deaths],
+        series: [worldRow.active_cases, worldRow.recovered, worldRow.deaths],
         chartOptions: {
           ...this.state.chartOptions,
           title: {
@@ -176,7 +179,7 @@ class Donut extends Component<State, Props> {
   }
 
   render() {
-    console.log("data in donut", this.props.donut);
+    // console.log("data in donut", this.props.donut);
     const { chartOptions, series, options } = this.state;
     // console.log("series ", series);
     return (
@@ -193,10 +196,15 @@ class Donut extends Component<State, Props> {
     );
   }
 }
-const mapStateToProps = (state: any) => {
-  return {
-    donut: state.data.donut,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  worldRow: selectWorldRow,
+  selectedCountry:selectSelectedCountry
+})
+// const mapStateToProps = (state: any) => {
+//   return {
+//     donut: state.data.donut,
+//     world: state.world,
+//   };
+// };
 
 export default connect(mapStateToProps)(Donut);

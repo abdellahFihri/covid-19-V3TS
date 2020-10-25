@@ -13,6 +13,7 @@ import {
   ComposedChart,
   Line,
 } from "recharts";
+import { numFormatter, timeFormatter } from "../../../utils/utilities/helpers";
 
 const MainBarChart = (props: any) => {
   //   const total: any[] = [...props.history[0]];
@@ -35,7 +36,8 @@ const MainBarChart = (props: any) => {
   let chartArry = merging();
   console.log("THE TOTAL", merging());
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: "100%", height: 300 ,backgroundColor:'white',color:'#3d3d3d'}}>
+     
       <ResponsiveContainer>
         <ComposedChart
           width={500}
@@ -44,9 +46,9 @@ const MainBarChart = (props: any) => {
           syncId={props.sync}
           margin={{
             top: 20,
-            right: 20,
+            right: 0,
             bottom: 20,
-            left: 20,
+            left: 0,
           }}
         >
           {/* <BarChart
@@ -61,8 +63,18 @@ const MainBarChart = (props: any) => {
           }}
         > */}
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
+          <XAxis
+            dataKey="date"
+            tickFormatter={function (value: string) {
+              return timeFormatter(value);
+            }}
+          />
+          <YAxis
+            dataKey="total_cases"
+            tickFormatter={function (value: number) {
+              return numFormatter(value);
+            }}
+          />
           <Tooltip />
           <Legend />
           <Bar

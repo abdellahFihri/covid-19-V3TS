@@ -29,15 +29,15 @@
   justify-items: center;
   align-items: center;
   margin: 10px 0 10px 0;
-  padding: 0 5% 0 5%;
-  background-color: #282c34;
+  padding: 3% 5% 0 5%;
+  background-color: white;
 
-  box-shadow: 0px 2px 7px 0px rgba(63, 81, 181, 0.8);
+  box-shadow: -1px 8px 11px -8px rgba(11, 0, 0, 0.63);
 
-  border: solid 0.4px #3f51b5;
+  // border: solid 0.4px #c4c4c4;
 }
 .label {
-  color: #898989;
+  color: #3d3d3d;
   font-size: 20px;
 }
 .content {
@@ -45,10 +45,17 @@
   height: 300px;
 
   margin: 10px 0 10px 0;
-  padding: 0 5% 0 5%;
-  background-color: #282c34;
+  padding: 3% 5% 0 5%;
+  // background-color: #282c34;
   overflow: auto;
   @media (min-width: 1024px) {
     width: 110%;
   }
+}
+.tabhead {
+  display: flex;
+  color: #3d3d3d;
+  width: 100%;
+  justify-content: space-around;
+  // background-color: green;
 }

@@ -16,6 +16,8 @@ import Container from "./hoc/container/container";
 import ChartsContainer from "./mainChartContainer/mainChartContainer";
 import CountriesList from "./countriesList/countriesList";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {selectFirstRow,selectSelectedCountry,selectLoading} from "./redux/reducers/worldDataSelector"
 import {
   chartData,
   TodayWorldData,
@@ -46,19 +48,22 @@ class App extends Component<Props, State> {
   request() {
     const {
       allCountriesData,
-      chartData,
+      // chartData,
       TodayWorldData,
       countryHistory,
+      
+      selectedCountry,
+    
     } = this.props;
 
     // multiple concurrent http requests to get the inital data needed at the first render
     getInitialStats().then((results) => {
       // console.log("resolved results ", results);
 
-      chartData({
-        data: results[0][0],
-        selectedCountry: "the world",
-      });
+      // chartData({
+      //   data: results[0][0],
+      //   selectedCountry: "the world",
+      // });
       allCountriesData({
         all: results[1],
         filter: results[1],
@@ -67,7 +72,9 @@ class App extends Component<Props, State> {
         firstRow: results[0][0],
         worldRow: results[0][0],
         statsCards: results[0][1],
-        worldHistory: _.orderBy(results[2], ["date"], ["asc"]),
+        selectedCountry: "the world",
+        iso: "",
+        loading:false
       });
       countryHistory({
         year: _.orderBy(results[2], ["date"], ["asc"]),
@@ -75,7 +82,7 @@ class App extends Component<Props, State> {
         month: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
       });
     });
-    const { selectedCountry } = this.props.data.donut;
+   
     document.title = `Covid 19 Stats in ${selectedCountry}`;
   }
 
@@ -84,9 +91,9 @@ class App extends Component<Props, State> {
     this.request();
   }
 
-  handleSelectedCountry = (id: string) => {
-    const { chartData, TodayWorldData, countryHistory } = this.props;
-    let worldStat = this.props.world.world.firstRow;
+  handleSelectedCountry = (id: string, isoCode: string) => {
+    const { TodayWorldData, countryHistory,firstRow } = this.props;
+    let worldStat = firstRow;
     // console.log("all countries in handle", this.props.countriesStats.allCountriesStats.filter);
     window.scrollTo(0, this.myRef.current.offsetTop);
     let selected: string = id;
@@ -108,16 +115,19 @@ class App extends Component<Props, State> {
         firstRow: worldStat,
         worldRow: results[0].summary,
         statsCards: results[0].change,
+        selectedCountry: selected,
+        iso: isoCode,
+        loading:false
       });
+      // chartData({
+      //   data: results[0].summary,
+      //   selectedCountry: selected,
+      // });
       countryHistory({
         week: results[1],
         month: results[2],
         year: results[3],
-        loading: false,
-      });
-      chartData({
-        data: results[0].summary,
-        selectedCountry: selected,
+        
       });
       // this.setState({
       //   loading: false,
@@ -134,31 +144,29 @@ class App extends Component<Props, State> {
   };
 
   render() {
-    const { statsCards } = this.props.world.world;
-    const { selectedCountry } = this.props.data.donut;
-    // const { countryHistory, loading } = this.props.history.history;
+    const { selectedCountry } = this.props;
+    // const { selectedCountry } = this.props.data.donut;
+    const { loading } = this.props;
     // console.log("world data ", worldRow);
 
-    return (
+    return loading ? (
+      <Spinner />
+    ) : (
       <div>
-        {/* <NavBar /> */}
         <div id="main-title">
           {" "}
           {`visualization of Covid-19 statistics in ${selectedCountry}`}
         </div>
 
-        {!statsCards ? (
-          <Spinner />
-        ) : (
-          <Container>
-            <TopStats />
+        <Container>
+          <TopStats />
 
-            <div className="col-lg-12">
-              <div className="row">
-                {/* <div className="col-lg-6"> */}
-                {/* <div className="row"> */}
-                {/* <TryChart /> */}
-                {/* {countryHistory ? (
+          <div className="col-lg-12">
+            <div className="row">
+              {/* <div className="col-lg-6"> */}
+              {/* <div className="row"> */}
+              {/* <TryChart /> */}
+              {/* {countryHistory ? (
                       <Container>
                         <Chart
                           country=""
@@ -170,26 +178,25 @@ class App extends Component<Props, State> {
                     ) : (
                       ""
                     )} */}
-                {/* </div> */}
-                {/* </div> */}
-                <ChartsContainer />
-                <div className="col-lg-4">
-                  <CountriesList
-                    handleReset={this.handleReset}
-                    handleSelectedCountry={this.handleSelectedCountry}
-                  />
-                </div>
-                <div className="col-lg-2" ref={this.myRef}>
-                  <Ratio />
-                </div>
+              {/* </div> */}
+              {/* </div> */}
+              <ChartsContainer />
+              <div className="col-lg-3">
+                <CountriesList
+                  handleReset={this.handleReset}
+                  handleSelectedCountry={this.handleSelectedCountry}
+                />
+              </div>
+              <div className="col-lg-3" ref={this.myRef}>
+                <Ratio />
               </div>
             </div>
-          </Container>
-        )}
+          </div>
+        </Container>
 
         <div className="col-lg-12">
           <div id="footer">
-            <span id="update"> Last updated: {statsCards[8]}</span>
+            
             <span id="update"> Developed by Abdellah Fihri</span>
           </div>
         </div>
@@ -197,14 +204,21 @@ class App extends Component<Props, State> {
     );
   }
 }
-const mapStateToProps = (state: any) => {
-  return {
-    data: state.data,
-    world: state.world,
-    countriesStats: state.allCountries,
-    history: state.history,
-  };
-};
+
+
+const mapStateToProps = createStructuredSelector({
+  firstRow:selectFirstRow,
+  selectedCountry: selectSelectedCountry,
+  loading:selectLoading
+})
+// const mapStateToProps = (state: any) => {
+//   return {
+//     data: state.data,
+//     world: state.world,
+//     countriesStats: state.allCountries,
+//     history: state.history,
+//   };
+// };
 
 export default connect(mapStateToProps, {
   chartData,

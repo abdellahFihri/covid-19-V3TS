@@ -3,7 +3,7 @@ const INITIAL_STATE = {
     week: "",
     month: "",
     year: "",
-    loading: false,
+   
   },
 };
 

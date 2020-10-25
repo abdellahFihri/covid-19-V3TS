@@ -13,13 +13,15 @@ import {
 
 const TinyArea = (props: any) => {
   // const { year, month, week } = props.history.history;
-  const { history, keyData } = props;
+  const { history, keyData, filling, stroke } = props;
+  const chartData = React.useMemo(() => history, [history]);
+  console.log("cdata in tyniy area", chartData);
   return (
-    <div style={{ width: "100%", height: 150 }}>
+    <div style={{ width: "100%", height: 150 ,backgroundColor:'white',color:'#3d3d3d'}}>
       <ResponsiveContainer>
         <AreaChart
           syncId={props.sync}
-          data={history}
+          data={chartData}
           margin={{
             top: 5,
             right: 0,
@@ -70,8 +72,9 @@ const TinyArea = (props: any) => {
           <Area
             dot={false}
             dataKey={keyData}
-            stroke="#FFA500 "
-            fill="#FFA500"
+            stroke={stroke}
+            fill={filling}
+            fillOpacity={0.5}
           />
         </AreaChart>
       </ResponsiveContainer>

@@ -3,7 +3,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import getChartData from "./chartDataReducer";
 import getWorldData from "./worldDataReducer";
-import getAllCountriesData from "./allCountiesData";
+import getAllCountriesData from "./allCountiesDataReducer";
 
 import getCountryHistory from "./countryHistoryReducer";
 

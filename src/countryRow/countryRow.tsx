@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 // import { findIso } from "../utils/utilities/helpers";
 interface Props {
   countriesStats: any;
-  selectedCountry: (arg0: string) => void;
+  selectedCountry: (arg0: string, arg1: string) => void;
 }
 
 const CountryRow: FunctionComponent<Props> = (props) => {
@@ -12,14 +12,23 @@ const CountryRow: FunctionComponent<Props> = (props) => {
   return filter.map((country: any) => {
     // console.log("findIso ", findIso(country.country_name));
     return (
-      <div className={style.country} key={Math.random()}>
+      <div className={style.country} key={country.name}>
+        
         <button
           className={style.button}
-          onClick={() => props.selectedCountry(country.name)}
+          onClick={() => props.selectedCountry(country.name, country.iso3166a2)}
           id={country.name}
         >
-          <span className={style.span}>{country.name}</span>{" "}
+          <span className={style.span}>
+            {country.iso3166a3 ? country.iso3166a3 : country.name}
+          </span>{" "}
         </button>
+        <div className={style.img}>
+          <img
+            src={`https://www.countryflags.io/${country.iso3166a2}/flat/32.png`}
+            alt=""
+          />
+        </div>
 
         {[country.total_cases, country.deaths, country.recovered].map((end) => {
           return (
@@ -28,12 +37,6 @@ const CountryRow: FunctionComponent<Props> = (props) => {
             </span>
           );
         })}
-        <div className={style.img}>
-          <img
-            src={`https://www.countryflags.io/${country.iso3166a2}/flat/32.png`}
-            alt=""
-          />
-        </div>
       </div>
     );
   });

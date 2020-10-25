@@ -1,6 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import StatsCard from "../hoc/statsCard/card";
+import { createStructuredSelector } from "reselect";
+import { selectStatsCards } from "../redux/reducers/worldDataSelector";
+import { selectWorldRow } from "../redux/reducers/worldDataSelector";
+import { selectYear } from "../redux/reducers/HistorySelector";
 import style from "./countersFragment.module.scss";
 // import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
@@ -11,12 +15,15 @@ import _ from "lodash";
 interface Props {
   world: any;
   history: any;
+  statsCards:any;
+  worldRow: any;
+  year: any;
 }
 const CountersFragment = (props: Props) => {
-  const { statsCards, worldRow } = props.world.world;
-  const { history } = props.history;
-  // console.log("HISTOORYYY", history);
-  let shortHistory = _.dropRight(_.takeRight(history.month, 15), 1);
+  const { statsCards, worldRow, year } = props;
+  // const { year } = props.history;
+  console.log("PROPS", props);
+  let shortHistory = _.dropRight(_.takeRight(year, 15), 1);
 
   // const [val, setVal] = useState(statsCards);
   // const [world, setWorld] = useState(worldRow);
@@ -86,11 +93,19 @@ const CountersFragment = (props: Props) => {
     </div>
   );
 };
-const mapStateToProps = (state: any) => {
-  return {
-    world: state.world,
-    history: state.history,
-  };
-};
+
+const mapStateToProps = createStructuredSelector({
+  //using selectors prevents component from rerendering if the data is unchanged
+
+  statsCards: selectStatsCards,
+  worldRow: selectWorldRow,
+  year:selectYear
+});
+// const mapStateToProps = (state: any) => {
+//   return {
+//     world: state.world,
+//     history: state.history,
+//   };
+// };
 
 export default connect(mapStateToProps)(CountersFragment);

@@ -50,12 +50,12 @@ export const getInitialStats = async () => {
     return WorldRequest.get("spots/summary");
   }
   const world: any = await worldStats();
-  const worldSummary: any = extractProps(world.data.data.summary);
-  const worldDaily: any = extractProps(world.data.data.change);
+  const worldSummary: any = world.data.data.summary;
+  const worldDaily: any = world.data.data.change;
   const regions: any = world.data.data.regions;
   let countriesArray: any[] = [];
   _.forEach(regions, function (key, value) {
-    countriesArray.push(extractProps(key));
+    countriesArray.push(key);
     return countriesArray;
   });
   // console.log("countries array ", countriesArray);
@@ -156,75 +156,6 @@ export const extractProps = (results: Data) => {
   return data;
 };
 
-// export const refactorChartData = (data: any) => {
-//   const { active_cases, total_recovered, total_deaths } = data;
-//   const dataArray = [
-//     active_cases,
-//     total_recovered,
-//     total_deaths,
-//   ].map((number) => parseFloat(number.replace(/,/g, "")));
-//   return dataArray;
-// };
-
-export const historyData = (filteredData: any[]) => {
-  const toSlice: any[] = [
-    filteredData.map((day: Response) => day.total_cases.replace(/,/g, "")),
-    // filteredData.map((day: Response) => day.new_cases.replace(/,/g, "")),
-    filteredData.map((day: Response) => day.active_cases.replace(/,/g, "")),
-    // filteredData.map((day: Response) => day.new_cases.replace(/,/g, "")),
-    filteredData.map((day: Response) => day.total_recovered.replace(/,/g, "")),
-    filteredData.map((day: Response) => day.serious_critical.replace(/,/g, "")),
-    // filteredData.map((day: Response) => day.serious_critical.replace(/,/g, "")),
-    filteredData.map((day: Response) => day.total_deaths.replace(/,/g, "")),
-    // filteredData.map((day: Response) => day.new_deaths.replace(/,/g, "")),
-    filteredData.map((day: Response) => day.record_date),
-  ];
-
-  // return toSlice.map((el) => _.take(el, 30));
-  return toSlice;
-};
-
-export const filterHistory = (data: any) => {
-  data.map(
-    (item: { record_date: string | any[] }) =>
-      (item.record_date = item.record_date.slice(0, 10))
-  );
-  // removing duplicate objects by defining record date as unique key
-  return historyData(_.uniqBy(data, "record_date"));
-};
-
-// export const findIso = (country: string) => {
-//   let iso: any;
-//   !lookup.byCountry(country)
-//     ? (iso = getCode(country))
-//     : (iso = lookup.byCountry(country).iso2);
-//   if (!iso && lookup.byInternet(country)) {
-//     iso = lookup.byInternet(country).iso2;
-//   }
-//   if (!iso && lookup.byFips(country)) {
-//     iso = lookup.byFips(country).iso2;
-//   }
-
-//   if (!iso) {
-//     let code: any;
-//     if (missingFlags(country, missingCountries)) {
-//       code = missingFlags(country, missingCountries);
-//       console.log("code in se fun ", code);
-//       iso = lookup.byIso(code);
-//       !iso ? (iso = code) : (iso = lookup.byIso(code).iso2);
-//       console.log("iso in func 2", iso);
-
-//       return iso;
-//     }
-//     if (missingFlags(country, countryList.getData())) {
-//       code = missingFlags(country, countryList.getData());
-//       iso = lookup.byIso(code).iso2;
-//       return iso;
-//     }
-//   }
-
-//   return iso;
-// };
 export const indexing = (total: number, added: number) => {
   let value: number;
   total > added
@@ -274,7 +205,7 @@ export const extractDifferences = (data: any, prop: string) => {
   // });
   // return _.dropRight(_.reverse(difference));
   return _.remove(_.dropRight(_.reverse(difference)), function (n) {
-    return n[`${prop}`] > 0;
+    return n[`${prop}`] >= 0;
   });
 };
 
@@ -286,3 +217,27 @@ export const extractDifferences = (data: any, prop: string) => {
 //     }
 //   );
 // };
+export const numFormatter = (value: number) => {
+  if (value >= 1000000000) {
+    return (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+  }
+  if (value >= 1000000) {
+    return (value / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  }
+  if (value >= 1000) {
+    return (value / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  }
+  return value;
+};
+
+export const timeFormatter = (value: any) => {
+  const d = new Date(value);
+
+  const mo = new Intl.DateTimeFormat("en", {
+    month: "short",
+  }).format(d);
+  const da = new Intl.DateTimeFormat("en", {
+    day: "2-digit",
+  }).format(d);
+  return `${da}/${mo}`;
+};

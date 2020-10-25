@@ -7,11 +7,14 @@ export interface Data {
 }
 
 export interface Props {
-  chartData: any;
+  // chartData: any;
   TodayWorldData: any;
   allCountriesData: any;
   countryHistory: any;
-
+  loading: boolean;
+  selectedCountry: string;
+  firstRow: any;
+  
   world: any;
   data: any;
   countriesStats: any;

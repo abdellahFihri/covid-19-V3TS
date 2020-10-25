@@ -7,19 +7,26 @@ import CountryRow from "../countryRow/countryRow";
 import CountUp from "react-countup";
 import { allCountriesData } from "../redux/actions";
 import { Data } from "../utils/intefaces/interfaces";
+import { createStructuredSelector } from "reselect";
+import { selectAll, selectFiltered } from "../redux/reducers/allCountriesDataSelector";
+import {selectFirstRow} from "../redux/reducers/worldDataSelector"
+import style from "./countriesList.module.scss";
 interface Props {
   allCountriesData: (arg0: any) => void;
   handleReset: () => void;
   countriesStats: any;
   world: any;
-  handleSelectedCountry: (arg0: string) => void;
+  all: any;
+  filter: any;
+  firstRow: any;
+  handleSelectedCountry: (arg0: string, arg1: string) => void;
 
   // worldRow:any
 }
 
 const CountriesList: FunctionComponent<Props> = (props) => {
-  const { firstRow } = props.world.world;
-  const { all, filter } = props.countriesStats.allCountriesStats;
+  const { firstRow } = props
+  const { all, filter } = props
   const [term, setTerm] = useState("");
   const handleChange = (event: { target: { value: string } }) => {
     const { allCountriesData } = props;
@@ -92,11 +99,17 @@ const CountriesList: FunctionComponent<Props> = (props) => {
     </div>
   );
 };
-const mapStateToProps = (state: any) => {
-  return {
-    countriesStats: state.allCountries,
-    world: state.world,
-  };
-};
+
+const mapStateToProps = createStructuredSelector({ 
+  all: selectAll,
+  filter: selectFiltered,
+  firstRow:selectFirstRow
+})
+// const mapStateToProps = (state: any) => {
+//   return {
+//     countriesStats: state.allCountries,
+//     world: state.world,
+//   };
+// };
 
 export default connect(mapStateToProps, { allCountriesData })(CountriesList);

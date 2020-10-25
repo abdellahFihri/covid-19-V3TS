@@ -7,12 +7,13 @@ import {
   ResponsiveContainer,
   XAxis,
 } from "recharts";
-// import connect from "react-redux";
+import style from "./tinyBarChart.module.scss"
 
 const TinyBar = (props: any) => {
-  // console.log("DAAATAAA IN TINBAAARRR", props.history);
+  
   return (
-    <div style={{ width: "100%", height: 150 }}>
+    <div  className={style.barChart} style={{ width: "100%", height: 150 }}>
+       <p>{props.title}</p>
       <ResponsiveContainer>
         <BarChart syncId={props.sync} data={props.history}>
           <XAxis hide={true} dataKey="date" />

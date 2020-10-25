@@ -14,28 +14,49 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { numFormatter, timeFormatter } from "../utils/utilities/helpers";
 
 interface Props {
   // world: any;
   history: any;
+  keyData: string;
+  sync: string;
 }
 
 const TryChart = (props: Props) => {
   // const { worldHistory } = props.world.world;
-  const { history } = props;
+  const { history, keyData, sync } = props;
 
   const chartData = React.useMemo(() => history, [history]);
+
+  const merging = () => {
+    let total2: any[] = [];
+
+    for (let i = 0; i < chartData[1].length; i++) {
+      if (!chartData[1][i].date || !chartData[0][i]) {
+        continue;
+      }
+      let merge = {
+        date: chartData[0][i].date,
+        total_cases: chartData[0][i].total_cases,
+        recovered: chartData[1][i].recovered,
+      };
+      total2.push(merge);
+    }
+    return total2;
+  };
+  let chartArry = merging();
 
   // const { year, month, week } = props.history.history;
   // console.log("WEEEEEEEEEEEEEK", week);
   return (
-    <div style={{ width: "100%", height: 300 }}>
+    <div style={{ width: "100%", height: 300,backgroundColor:'white',color:'#3d3d3d' }}>
       <ResponsiveContainer>
         <AreaChart
           // width={700}
           // height={300}
-          syncId="anyId"
-          data={chartData}
+          syncId={sync}
+          data={chartArry}
           margin={{
             top: 5,
             right: 0,
@@ -45,42 +66,27 @@ const TryChart = (props: Props) => {
         >
           <CartesianGrid strokeDasharray="2 2" vertical={false} />
           <XAxis
+            // tickSize={8}
+
             dataKey="date"
             tickFormatter={function (value: string) {
-              const d = new Date(value);
-
-              const mo = new Intl.DateTimeFormat("en", {
-                month: "short",
-              }).format(d);
-              const da = new Intl.DateTimeFormat("en", {
-                day: "2-digit",
-              }).format(d);
-              return `${da}/${mo}`;
+              return timeFormatter(value);
             }}
           />
           <YAxis
-            dataKey="total_cases"
+            dataKey={keyData}
             type="number"
             tickFormatter={function (value: number) {
-              if (value >= 1000000000) {
-                return (
-                  (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G"
-                );
-              }
-              if (value >= 1000000) {
-                return (value / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-              }
-              if (value >= 1000) {
-                return (value / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-              }
-              return value;
+              return numFormatter(value);
             }}
           />
           <Tooltip />
-          <Legend />
+          <Legend align="right" verticalAlign="top" height={24} />
           <Area
             dot={false}
-            strokeWidth={4}
+            fillOpacity={0.5}
+            strokeWidth={2}
+            name="Total cases"
             type="monotone"
             dataKey="total_cases"
             stroke="#1D89E8"
@@ -88,10 +94,13 @@ const TryChart = (props: Props) => {
           />
           <Area
             dot={false}
+            fillOpacity={0.5}
+            strokeWidth={2}
             type="monotone"
+            name="Recovered"
             dataKey="recovered"
-            strokeWidth={4}
-            stroke="#70C96D"
+            fill="#70C96D"
+            stroke="#127c29"
           />
         </AreaChart>
 
