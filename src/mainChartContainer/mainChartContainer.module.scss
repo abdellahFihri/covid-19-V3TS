@@ -1,11 +1,12 @@
 .main {
-  // background-color: white;
-  color: #3d3d3d;
-  margin-top: 10px;
-}
-.upperRow {
   background-color: white;
+  color: #3d3d3d;
+  margin-top: 15px;
+  font-size: 12px;
+  line-height: 2px;
+  padding: 0 0 2% 2%;
 }
+
 .global {
   display: flex;
   color: #3d3d3d;
@@ -14,8 +15,26 @@
   font-size: 11px;
   span {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 700;
     padding-right: 1%;
-    color: #3d3d3d;
+    color: #5068e0;
   }
+}
+.buttons {
+  // width: 50% !important;
+  // background: forestgreen;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    margin-right: 20px;
+    max-height: 40px;
+  }
+  // align-self: center;
+  margin: 5px 0 5px 0;
+}
+.image {
+  // background: yellow;
+  display: flex;
+  justify-content: flex-end;
 }

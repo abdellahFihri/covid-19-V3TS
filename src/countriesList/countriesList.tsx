@@ -71,7 +71,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
         col4="Recovered"
       >
         <div className="country">
-          <span id="world" onClick={props.handleReset}>
+          <span id="world" style={{color:'#5068e0',fontWeight:'bold'}} onClick={props.handleReset}>
             The world
           </span>{" "}
           {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
@@ -82,7 +82,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
                     className="countEnd"
                     end={i}
                     duration={3}
-                    separator="."
+                    separator=","
                     useEasing={true}
                   />
                 </span>

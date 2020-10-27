@@ -3,7 +3,8 @@ import Chart from "react-apexcharts";
 import styles from "./donut.module.scss";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {selectWorldRow,selectSelectedCountry} from "../redux/reducers/worldDataSelector"
+import { selectWorldRow, selectSelectedCountry } from "../redux/reducers/worldDataSelector";
+import { numberWithCommas } from "../utils/utilities/helpers";
 interface Props {}
 
 interface State {
@@ -121,7 +122,7 @@ class Donut extends Component<State, Props> {
                 color: "#5068e0",
                 offsetY: 8,
                 formatter: function (val: string) {
-                  return parseInt(val).toLocaleString();
+                  return numberWithCommas(val);
                 },
               },
               total: {
@@ -139,7 +140,7 @@ class Donut extends Component<State, Props> {
                       return a + b;
                     }, 0)
                     .toLocaleString()
-                    .replace(/,/g, ".");
+                    .replace(/,/g, ",");
                 },
               },
             },
@@ -200,11 +201,6 @@ const mapStateToProps = createStructuredSelector({
   worldRow: selectWorldRow,
   selectedCountry:selectSelectedCountry
 })
-// const mapStateToProps = (state: any) => {
-//   return {
-//     donut: state.data.donut,
-//     world: state.world,
-//   };
-// };
+
 
 export default connect(mapStateToProps)(Donut);

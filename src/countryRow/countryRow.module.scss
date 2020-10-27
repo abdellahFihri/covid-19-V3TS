@@ -1,6 +1,6 @@
 .country {
   height: 40px;
-  color: #dbdbdb !important;
+  // color: #dbdbdb !important;
   width: 100%;
   font-size: 14px;
   display: flex;
@@ -12,18 +12,19 @@
 
   #world {
     text-decoration: underline;
-
+    color: #5068e0 !important;
     margin: auto;
     padding: 3px;
 
     transition: 0.1s;
     &:hover {
-      color: #6276e6;
+      color: #0026ff;
     }
   }
   button {
     text-decoration: underline;
-    color: #dbdbdb;
+    color: #5068e0;
+    font-weight: 700;
     width: auto;
     background-color: transparent;
     border: none;
@@ -34,7 +35,7 @@
 
     transition: 0.2s;
     &:hover {
-      color: #6276e6;
+      color: #0026ff;
 
       font-size: 15px;
     }
@@ -44,6 +45,7 @@
   }
   span {
     font-size: 12px;
+
     text-align: center;
     width: 25%;
     cursor: pointer;
@@ -58,14 +60,17 @@
     &:last-of-type {
       color: green;
       cursor: unset;
+      font-weight: 700;
     }
     &:nth-child(4) {
       color: #e23030;
       cursor: unset;
+      font-weight: 700;
     }
     &:nth-child(3) {
       color: #1289e8;
       cursor: unset;
+      font-weight: 700;
     }
   }
 }

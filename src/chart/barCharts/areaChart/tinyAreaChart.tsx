@@ -9,30 +9,31 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-// import { connect } from "react-redux";
+import style from "./tinyAreaChart.module.scss";
 
 const TinyArea = (props: any) => {
   // const { year, month, week } = props.history.history;
-  const { history, keyData, filling, stroke } = props;
+  const { history, keyData, filling, stroke,title } = props;
   const chartData = React.useMemo(() => history, [history]);
   console.log("cdata in tyniy area", chartData);
   return (
-    <div style={{ width: "100%", height: 150 ,backgroundColor:'white',color:'#3d3d3d'}}>
+    <div className={style.tinyArea} style={{ width: "100%", height: 150 }}>
+      <p>{props.title}</p>
       <ResponsiveContainer>
         <AreaChart
           syncId={props.sync}
           data={chartData}
           margin={{
-            top: 5,
+            top: 10,
             right: 0,
             left: 0,
-            bottom: 5,
+            bottom: 10,
           }}
         >
           <CartesianGrid
             strokeDasharray="3 3"
-            vertical={false}
-            horizontal={false}
+            // vertical={false}
+            // horizontal={false}
           />
           <XAxis
             hide={true}

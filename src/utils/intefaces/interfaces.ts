@@ -13,8 +13,10 @@ export interface Props {
   countryHistory: any;
   loading: boolean;
   selectedCountry: string;
+  mainChartHistory: any;
   firstRow: any;
-  
+  setPeriod: any;
+  year: any;
   world: any;
   data: any;
   countriesStats: any;

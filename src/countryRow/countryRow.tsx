@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from "react";
 import style from "./countryRow.module.scss";
 import { connect } from "react-redux";
+import {numberWithCommas} from "../utils/utilities/helpers";
 // import { findIso } from "../utils/utilities/helpers";
 interface Props {
   countriesStats: any;
@@ -32,8 +33,8 @@ const CountryRow: FunctionComponent<Props> = (props) => {
 
         {[country.total_cases, country.deaths, country.recovered].map((end) => {
           return (
-            <span key={Math.random()} className={style.end}>
-              {end}
+            <span key={end} className={style.end}>
+              {numberWithCommas(end)}
             </span>
           );
         })}

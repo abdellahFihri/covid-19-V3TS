@@ -23,6 +23,8 @@ import {
   TodayWorldData,
   allCountriesData,
   countryHistory,
+  mainChartHistory,
+  setPeriod
 } from "./redux/actions";
 
 import {
@@ -51,9 +53,9 @@ class App extends Component<Props, State> {
       // chartData,
       TodayWorldData,
       countryHistory,
-      
+      mainChartHistory,
       selectedCountry,
-    
+      setPeriod
     } = this.props;
 
     // multiple concurrent http requests to get the inital data needed at the first render
@@ -76,11 +78,21 @@ class App extends Component<Props, State> {
         iso: "",
         loading:false
       });
+      mainChartHistory({
+        yearHistory: _.orderBy(results[2],['total_cases'],['asc']),
+        monthHistory:_.orderBy( _.take(results[2], 32),['total_cases'],['asc']),
+        weekHistory: _.orderBy( _.take(results[2], 9),['total_cases'],['asc'])
+        
+      })
       countryHistory({
         year: _.orderBy(results[2], ["date"], ["asc"]),
         week: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 8),
         month: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
       });
+      setPeriod({
+        // period: _.orderBy(results[2], ["date"], ["asc"]),
+        period: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
+      })
     });
    
     document.title = `Covid 19 Stats in ${selectedCountry}`;
@@ -92,7 +104,7 @@ class App extends Component<Props, State> {
   }
 
   handleSelectedCountry = (id: string, isoCode: string) => {
-    const { TodayWorldData, countryHistory,firstRow } = this.props;
+    const { TodayWorldData, countryHistory,firstRow ,mainChartHistory,setPeriod} = this.props;
     let worldStat = firstRow;
     // console.log("all countries in handle", this.props.countriesStats.allCountriesStats.filter);
     window.scrollTo(0, this.myRef.current.offsetTop);
@@ -129,6 +141,15 @@ class App extends Component<Props, State> {
         year: results[3],
         
       });
+      mainChartHistory({
+        yearHistory: results[3],
+        monthHistory:results[2],
+        weekHistory: results[1],
+        
+      })
+      setPeriod({
+        period: _.orderBy(results[2],['date','total_cases'],['asc','asc']),
+      })
       // this.setState({
       //   loading: false,
       // });
@@ -209,7 +230,8 @@ class App extends Component<Props, State> {
 const mapStateToProps = createStructuredSelector({
   firstRow:selectFirstRow,
   selectedCountry: selectSelectedCountry,
-  loading:selectLoading
+  loading:selectLoading,
+  
 })
 // const mapStateToProps = (state: any) => {
 //   return {
@@ -225,4 +247,6 @@ export default connect(mapStateToProps, {
   TodayWorldData,
   allCountriesData,
   countryHistory,
+  mainChartHistory,
+  setPeriod
 })(App);

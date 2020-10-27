@@ -25,3 +25,19 @@ export const countryHistory = (data: any) => {
     payload: data,
   };
 };
+
+export const mainChartHistory = (data: any) => {
+  return {
+    type: "MAIN_CHART_HISTORY",
+    payload:data,
+  }
+  
+}
+
+export const setPeriod = (data: any) => {
+  return {
+    type: "SET_PERIOD",
+    payload:data,
+  }
+  
+}

@@ -4,7 +4,7 @@ import { Data, Response } from "../intefaces/interfaces";
 // import countryList, { getCode } from "country-list";
 // import { missingCountries } from "../data/correctedCountries";
 // import axios from "axios";
-import _ from "lodash";
+import _, { difference } from "lodash";
 
 require("dotenv").config();
 
@@ -204,9 +204,15 @@ export const extractDifferences = (data: any, prop: string) => {
   //   return n >= 0;
   // });
   // return _.dropRight(_.reverse(difference));
-  return _.remove(_.dropRight(_.reverse(difference)), function (n) {
-    return n[`${prop}`] >= 0;
+  difference = _.dropRight(difference);
+  difference=_.reverse(difference)
+  // return _.remove(_.dropRight(_.reverse(difference)), function (n) {
+  //   return n[`${prop}`] >= 0;
+  // });
+  difference= _.remove(difference, function (n) {
+      return n[`${prop}`] > -1 
   });
+  return difference
 };
 
 // export const getDaily = (data: any, prop: string) => {
@@ -241,3 +247,28 @@ export const timeFormatter = (value: any) => {
   }).format(d);
   return `${da}/${mo}`;
 };
+
+export const reverseData = (data: any) => {
+  return _.reverse(data)
+}
+
+export const  merging = (history:any) => {
+  let total2: any[] = [];
+
+  for (let i = 0; i < history[1].length; i++) {
+    if (!history[1][i].date || !history[0][i]) {
+      continue;
+    }
+    let merge = {
+      date: history[0][i].date,
+      total_cases: history[0][i].total_cases,
+      recovered: history[1][i].recovered,
+    };
+    total2.push(merge);
+  }
+  return total2;
+};
+
+export const  numberWithCommas = (x:any) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}

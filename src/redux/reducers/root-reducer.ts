@@ -4,8 +4,11 @@ import storage from "redux-persist/lib/storage";
 import getChartData from "./chartDataReducer";
 import getWorldData from "./worldDataReducer";
 import getAllCountriesData from "./allCountiesDataReducer";
+import getMainChartHistory from "./mainCHartHistoryReducer";
+import getPeriod from "./setPeriodReducer";
 
 import getCountryHistory from "./countryHistoryReducer";
+
 
 // import addUserReducer from './addUserReducer';
 // import CurrentUser from './current-user';
@@ -22,8 +25,10 @@ const rootReducer = combineReducers({
   data: getChartData,
   world: getWorldData,
   allCountries: getAllCountriesData,
-
+mainChartHistory:getMainChartHistory,
   history: getCountryHistory,
+  period:getPeriod
+
 });
 
 export default persistReducer(persistConfig, rootReducer);

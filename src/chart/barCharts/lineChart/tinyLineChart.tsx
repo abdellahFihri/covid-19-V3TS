@@ -1,3 +1,4 @@
+
 import React from "react";
 import { LineChart, Line } from "recharts";
 // import connect from "react-redux";
@@ -6,13 +7,17 @@ interface props {
   display?: any;
 }
 const TinyLine = (props: any) => {
-  console.log("DAATAAAA IN LIIINE", props.data);
+  const {data,keyData}=props
+  
+  const chartData = React.useMemo(() => data, [data]);
+  const key = React.useMemo(() => keyData, [keyData]);
+  console.log("in tyinychart",chartData)
   return (
-    <LineChart width={100} height={60} data={props.data}>
+    <LineChart width={150} height={60} data={chartData}>
       <Line
         dot={false}
         type="monotone"
-        dataKey={props.display ? `${props.display}` : "Diff"}
+        dataKey={key}
         stroke="#8884d8"
         strokeWidth={2}
       />

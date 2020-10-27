@@ -24,7 +24,7 @@ const StatsCard = (props: Props) => {
             className={style.countup}
             end={props.end}
             duration={2}
-            separator="."
+            separator=","
             useEasing={true}
           />
 
