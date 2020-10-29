@@ -159,7 +159,7 @@
 
 
 
-import React, { useState} from "react";
+import React from "react";
 import InitialChart  from "../chart/initialChart";
 import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
@@ -198,16 +198,16 @@ const ChartsContainer = (props: Props) => {
       
         switch (period) {
           case 'week':
-            setPeriod('')
+            // setPeriod('')
              setPeriod({ period: weekPeriod })
             break;
           case 'month':
-            setPeriod('')
-             setPeriod({ period: monthPeriod })
+            // setPeriod('')
+             setPeriod({ period: monthPeriod})
             break;
           case 'year':
-            setPeriod('')
-            return setPeriod({ period: yearPeriod })
+            // setPeriod('')
+            return setPeriod({ period: yearPeriod})
           // default:
           //   setPeriod({ period: year })
        } 
@@ -217,7 +217,7 @@ const ChartsContainer = (props: Props) => {
   // let history: any = selectedPeriod;
 
   
- 
+//  console.log('WEEKpERIOD IN MAIN CHARTCONTAINER',props)
 
    
   let shortHistory =_.reverse(_.dropRight(chartPeriod, 1) )
@@ -259,7 +259,7 @@ const ChartsContainer = (props: Props) => {
             </div>
             <div className={` ${style.image} col-sm-4`}>
             <img
-              src={`https://www.countryflags.io/${iso}/shiny/64.png`}
+              src={`https://www.countryflags.io/${iso}/flat/64.png`}
               alt=""
               />
               </div>

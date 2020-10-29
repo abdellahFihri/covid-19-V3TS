@@ -22,7 +22,7 @@ import {
   chartData,
   TodayWorldData,
   allCountriesData,
-  countryHistory,
+  fetchData,
   mainChartHistory,
   setPeriod
 } from "./redux/actions";
@@ -84,11 +84,11 @@ class App extends Component<Props, State> {
         weekHistory: _.orderBy( _.take(results[2], 9),['total_cases'],['asc'])
         
       })
-      countryHistory({
-        year: _.orderBy(results[2], ["date"], ["asc"]),
-        week: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 8),
-        month: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
-      });
+      // countryHistory({
+      //   year: _.orderBy(results[2], ["date"], ["asc"]),
+      //   week: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 8),
+      //   month: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
+      // });
       setPeriod({
         // period: _.orderBy(results[2], ["date"], ["asc"]),
         period: _.takeRight(_.orderBy(results[2], ["date"], ["asc"]), 31),
@@ -100,7 +100,8 @@ class App extends Component<Props, State> {
 
   componentDidMount() {
     console.log("remounted !");
-    this.request();
+    // this.request();
+    this.props.onFetchData()
   }
 
   handleSelectedCountry = (id: string, isoCode: string) => {
@@ -154,7 +155,7 @@ class App extends Component<Props, State> {
       //   loading: false,
       // });
     });
-
+   
     document.title = `Covid 19 Stats in ${selected}`;
   };
 
@@ -226,6 +227,9 @@ class App extends Component<Props, State> {
   }
 }
 
+const mapDispatchprops = (dispatch:any) => {
+  return { onFetchData: () => dispatch(fetchData()) }
+}
 
 const mapStateToProps = createStructuredSelector({
   firstRow:selectFirstRow,
@@ -242,11 +246,14 @@ const mapStateToProps = createStructuredSelector({
 //   };
 // };
 
-export default connect(mapStateToProps, {
-  chartData,
-  TodayWorldData,
-  allCountriesData,
-  countryHistory,
-  mainChartHistory,
-  setPeriod
-})(App);
+export default connect(mapStateToProps,
+  mapDispatchprops
+  // {
+  // chartData,
+  // TodayWorldData,
+  // allCountriesData,
+  // countryHistory,
+  // mainChartHistory,
+  // setPeriod
+  // }
+)(App);

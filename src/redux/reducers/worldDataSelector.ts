@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-const selectWorldData = (state:any)  => state.world.world;
+const selectWorldData = (state:any)  => state.world;
 
 export const selectFirstRow = createSelector(
   [selectWorldData],

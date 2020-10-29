@@ -1,11 +1,14 @@
 import React, { FunctionComponent } from "react";
 import style from "./countryRow.module.scss";
 import { connect } from "react-redux";
-import {numberWithCommas} from "../utils/utilities/helpers";
+import { numberWithCommas } from "../utils/utilities/helpers";
+import { fetchCountryData } from "../redux/actions/index";
 // import { findIso } from "../utils/utilities/helpers";
 interface Props {
   countriesStats: any;
   selectedCountry: (arg0: string, arg1: string) => void;
+  onFetchCountryData: any;
+  dispatch: any;
 }
 
 const CountryRow: FunctionComponent<Props> = (props) => {
@@ -17,7 +20,7 @@ const CountryRow: FunctionComponent<Props> = (props) => {
         
         <button
           className={style.button}
-          onClick={() => props.selectedCountry(country.name, country.iso3166a2)}
+          onClick={() => props.dispatch(fetchCountryData({name:country.name,iso:country.iso3166a2}))}
           id={country.name}
         >
           <span className={style.span}>
@@ -31,10 +34,10 @@ const CountryRow: FunctionComponent<Props> = (props) => {
           />
         </div>
 
-        {[country.total_cases, country.deaths, country.recovered].map((end) => {
+        {[{ val: country.total_cases, i: 0 }, { val: country.deaths, i: 1 }, { val:country.recovered,i:2 }].map((end) => {
           return (
-            <span key={end} className={style.end}>
-              {numberWithCommas(end)}
+            <span key={end.i} className={style.end}>
+              {numberWithCommas(end.val)}
             </span>
           );
         })}
@@ -47,5 +50,9 @@ const mapStateToProps = (state: any) => {
     countriesStats: state.allCountries,
   };
 };
+// const mapDispatchprops = (dispatch:any) => {
+//   return { onFetchCountryData: () => dispatch(fetchCountryData()) }
+// }
+
 
 export default connect(mapStateToProps)(CountryRow);

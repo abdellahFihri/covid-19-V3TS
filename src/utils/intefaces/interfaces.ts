@@ -16,6 +16,7 @@ export interface Props {
   mainChartHistory: any;
   firstRow: any;
   setPeriod: any;
+  onFetchData: any;
   year: any;
   world: any;
   data: any;

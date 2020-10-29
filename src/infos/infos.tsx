@@ -4,7 +4,7 @@ import style from "./infos.module.scss";
 import { connect } from "react-redux";
 import Spinner from "../hoc/spinner/spinner"
 import { createStructuredSelector } from "reselect";
-import {selectMonth}  from "../redux/reducers/HistorySelector"
+import {selectMonth}  from "../redux/reducers/mainChartHistorySelector"
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import _ from "lodash";
 import { extractDifferences ,numberWithCommas} from "../utils/utilities/helpers";

@@ -4,7 +4,7 @@ import StatsCard from "../hoc/statsCard/card";
 import { createStructuredSelector } from "reselect";
 import { selectStatsCards } from "../redux/reducers/worldDataSelector";
 import { selectWorldRow } from "../redux/reducers/worldDataSelector";
-import { selectMonth } from "../redux/reducers/HistorySelector";
+import { selectMonth } from "../redux/reducers/mainChartHistorySelector";
 import style from "./countersFragment.module.scss";
 // import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";

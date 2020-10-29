@@ -1,3 +1,5 @@
+import { getInitialStats,selectedCountryData } from "../../utils/utilities/helpers";
+
 export const chartData = (data: any) => {
   return {
     type: "CHART_DATA",
@@ -19,12 +21,7 @@ export const allCountriesData = (data: any) => {
   };
 };
 
-export const countryHistory = (data: any) => {
-  return {
-    type: "COUNTRY_HISTORY",
-    payload: data,
-  };
-};
+
 
 export const mainChartHistory = (data: any) => {
   return {
@@ -40,4 +37,20 @@ export const setPeriod = (data: any) => {
     payload:data,
   }
   
+}
+
+
+export const fetchData = () => {
+  return async (dispatch: any) => {
+    const results = await getInitialStats();
+    dispatch({ type: 'FETCH_DATA', data: results });
+  }
+}
+ 
+
+export const fetchCountryData = (country:any) => {
+  return async (dispatch: any) => {
+    const results = await selectedCountryData(country.name);
+    dispatch({ type: 'FETCH_COUNTRY_DATA', payload: { data: results, iso: country.iso,selectedCountry:country.name } });
+  }
 }
