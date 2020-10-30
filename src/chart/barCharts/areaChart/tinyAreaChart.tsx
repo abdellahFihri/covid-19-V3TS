@@ -18,7 +18,7 @@ const TinyArea = (props: any) => {
   console.log("cdata in tyniy area", chartData);
   return (
     <div className={style.tinyArea} style={{ width: "100%", height: 150 }}>
-      <p>{props.title}</p>
+      <p>{title}</p>
       <ResponsiveContainer>
         <AreaChart
           syncId={props.sync}
@@ -50,24 +50,6 @@ const TinyArea = (props: any) => {
               return `${da}/${mo}`;
             }}
           />
-          {/*<YAxis
-            dataKey="tested"
-            type="number"
-            tickFormatter={function (value: number) {
-              if (value >= 1000000000) {
-                return (
-                  (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G"
-                );
-              }
-              if (value >= 1000000) {
-                return (value / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-              }
-              if (value >= 1000) {
-                return (value / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-              }
-              return value;
-            }}
-          /> */}
           <Tooltip />
           <Legend />
           <Area
@@ -82,12 +64,4 @@ const TinyArea = (props: any) => {
     </div>
   );
 };
-// const mapStateToProps = (state: any) => {
-//   return {
-//     world: state.world,
-//     history: state.history,
-//   };
-// };
-
-// export default connect(mapStateToProps)(TinyArea);
 export default TinyArea;

@@ -1,5 +1,7 @@
+import { LoDashImplicitNumberArrayWrapper } from "lodash";
+
 export interface Response {
-  [key: string]: string;
+  [key: string]: string |number;
 }
 
 export interface Data {
@@ -25,13 +27,6 @@ export interface Props {
 }
 
 export interface State {
-  // initialState: any[];
-  // worldData: any[];
-  // chartData: any;
-  // countriesData: any[];
-  // filteredCountriesData: any[];
-  // countryHistory: any;
-  // selectedCountry: string;
-  // searchTerm: string;
+
   loading: boolean;
 }

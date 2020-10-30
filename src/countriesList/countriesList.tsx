@@ -10,16 +10,15 @@ import { Data } from "../utils/intefaces/interfaces";
 import { createStructuredSelector } from "reselect";
 import { selectAll, selectFiltered } from "../redux/reducers/allCountriesDataSelector";
 import {selectFirstRow} from "../redux/reducers/worldDataSelector"
-import style from "./countriesList.module.scss";
 interface Props {
   allCountriesData: (arg0: any) => void;
-  handleReset: () => void;
+ 
   countriesStats: any;
   world: any;
   all: any;
   filter: any;
   firstRow: any;
-  handleSelectedCountry: (arg0: string, arg1: string) => void;
+ 
 
   // worldRow:any
 }
@@ -71,7 +70,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
         col4="Recovered"
       >
         <div className="country">
-          <span id="world" style={{color:'#5068e0',fontWeight:'bold'}} onClick={props.handleReset}>
+          <span id="world" style={{color:'#5068e0',fontWeight:'bold'}} >
             The world
           </span>{" "}
           {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
@@ -91,7 +90,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
           )}
         </div>
         {filter.length ? (
-          <CountryRow selectedCountry={props.handleSelectedCountry} />
+          <CountryRow  />
         ) : (
           <Spinner />
         )}

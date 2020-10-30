@@ -11,7 +11,7 @@ const TinyLine = (props: any) => {
   
   const chartData = React.useMemo(() => data, [data]);
   const key = React.useMemo(() => keyData, [keyData]);
-  console.log("in tyinychart",chartData)
+
   return (
     <LineChart width={150} height={60} data={chartData}>
       <Line

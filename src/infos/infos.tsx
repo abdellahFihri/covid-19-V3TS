@@ -6,37 +6,31 @@ import Spinner from "../hoc/spinner/spinner"
 import { createStructuredSelector } from "reselect";
 import {selectMonth}  from "../redux/reducers/mainChartHistorySelector"
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
+import ShortenedNum from "../hoc/shortNumber/shortNumber";
 import _ from "lodash";
-import { extractDifferences ,numberWithCommas} from "../utils/utilities/helpers";
+import { extractDifferences } from "../utils/utilities/helpers";
+
 
 interface Props{
-  info1: any;
-  info2: any;
+  info1: number;
+  info2: number;
   month: any;
 }
 
 const Infos = (props:Props) => {
   const { info1, info2, month } = props
-  const shortHistory = React.useMemo(() => month, [month])
-  const critical = React.useMemo(() => info1, [info1])
-  const tested=React.useMemo(() => info2, [info2])
-  // let history = month
-  // console.log('HISTORY IN INFOS',props)
-  let history=_.dropRight(shortHistory,1)
+  // const shortHistory = React.useMemo(() => month, [month])
+  // const critical = React.useMemo(() => info1, [info1])
+  // const active=React.useMemo(() => info2, [info2])
+  let history=_.dropRight(month,1)
   return (
     <Container>
       <div className={style.infos}>
         <div className={style.spans}>
-       
-        <div className="infoSection">
-          {" "}
-         <span className={style.infoSpan}>{critical ? numberWithCommas( critical) : "Not registered yet"}</span> <br/> Critical cases
-        </div>
-        <div className="infoSection">
-          {" "}
-         
-          <span className={style.infoSpan}>{tested ? numberWithCommas(tested): "Not registered yet"}</span> <br/>{" "} Total tested
-        </div>
+          {
+            [{ title: 'Total active', value: info2 }, { title: 'Total critical', value: info1}]
+              .map((info: any) => <ShortenedNum title={info.title} value={info.value} key={info.title} />)
+          }
         </div>
         {
           !history.length ?

@@ -15,7 +15,7 @@ const Ratio = (props: Props): JSX.Element => {
   return (
     <div className={style.ration}>
       <Donut />
-      <Infos info1={worldRow.critical} info2={worldRow.tested} />
+      <Infos info1={worldRow.critical} info2={worldRow.active_cases} />
     </div>
   );
 };

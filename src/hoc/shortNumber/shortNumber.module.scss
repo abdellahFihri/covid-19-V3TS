@@ -1,0 +1,20 @@
+.shortNumber {
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3d3d3d;
+  }
+}
+.global {
+  display: flex;
+  color: #3d3d3d;
+  justify-items: center;
+  align-items: center;
+  font-size: 11px;
+  span {
+    font-size: 14px;
+    font-weight: 700;
+    padding-right: 1%;
+    color: #5068e0;
+  }
+}

@@ -1,46 +1,10 @@
 import { WorldRequest } from "../../axios/axios";
-import { Data, Response } from "../intefaces/interfaces";
-// import lookup from "country-code-lookup";
-// import countryList, { getCode } from "country-list";
-// import { missingCountries } from "../data/correctedCountries";
-// import axios from "axios";
-import _, { difference } from "lodash";
+import { Data } from "../intefaces/interfaces";
+
+import _ from "lodash";
 
 require("dotenv").config();
 
-// const missingFlags = (land: any, landsArray: any) => {
-//   let term: string = land;
-//   const arr: any = landsArray;
-//   let result: any = arr.filter(function (country: any) {
-//     return country.name.includes(term);
-//   });
-
-//   if (result[0]) {
-//     return result[0].code;
-//   }
-// };
-
-// export const getInitialStats = () => {
-//   function worldStat() {
-//     return CovidRequest.get("worldstat.php");
-//   }
-//   function countriesStat() {
-//     return CovidRequest.get("cases_by_country.php");
-//   }
-//   return Promise.all([worldStat(), countriesStat()]).then(function (
-//     results: Data[]
-//   ) {
-//     const data: Data = extractProps(results[0].data);
-//     const {
-//       data: { countries_stat },
-//     } = results[1];
-//     // removing commas from the values
-//     const dataArray: string[] = Object.values(data).map((val: string) =>
-//       val.replace(/,/g, "")
-//     );
-//     return [data, countries_stat, dataArray];
-//   });
-// };
 export const getInitialStats = async () => {
   function worldStats() {
     return WorldRequest.get("summary/latest");

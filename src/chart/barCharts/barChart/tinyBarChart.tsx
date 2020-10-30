@@ -12,7 +12,7 @@ import style from "./tinyBarChart.module.scss"
 
 const TinyBar = (props: any) => {
   const {history,sync,keyData,filling}=props
-  // const chartData = React.useMemo(() => history, [history]);
+  const chartData = React.useMemo(() => history, [history]);
   const syncID= React.useMemo(() => sync, [sync]);
   const data = React.useMemo(() => keyData, [keyData]);
   const chartFilling = React.useMemo(() => filling, [filling]);
@@ -21,8 +21,8 @@ const TinyBar = (props: any) => {
        
         <p>{props.title}</p>
       <ResponsiveContainer>
-        <BarChart syncId={syncID} data={history}>
-          <XAxis hide={true} dataKey="date" />
+        <BarChart syncId={syncID} data={chartData}>
+          <XAxis hide={true}  dataKey="date" />
           <Bar
             dataKey={data}
             background={false}
