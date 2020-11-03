@@ -11,6 +11,7 @@ import Container from "./hoc/container/container";
 
 import ChartsContainer from "./mainChartContainer/mainChartContainer";
 import CountriesList from "./countriesList/countriesList";
+import Overlay from "./hoc/overlay/overlay"
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {selectFirstRow,selectSelectedCountry,selectLoading} from "./redux/reducers/worldDataSelector"
@@ -22,6 +23,7 @@ import {
 
 
 import { Props, State } from "./utils/intefaces/interfaces";
+import { selectOverlay } from "./redux/reducers/overlaySelector";
 require("dotenv").config();
 
 class App extends Component<Props, State> {
@@ -39,28 +41,31 @@ class App extends Component<Props, State> {
 
   render() {
     const { selectedCountry } = this.props;
-    const { loading } = this.props;
+    const { loading,overlay } = this.props;
     return loading ? (
       <Spinner />
     ) : (
+        
       <div>
-        <div id="main-title">
+          <div id="main-title">
           {" "}
           {`visualization of Covid-19 statistics in ${selectedCountry}`}
         </div>
 
-        <Container>
+          <Container>
+          {overlay? <Overlay/> :''}
+            
           <TopStats />
 
           <div className="col-lg-12">
-            <div className="row">
+            <div className="row" >
+              <div className="col-lg-3" >
+                <Ratio />
+              </div>
               <ChartsContainer />
               <div className="col-lg-3">
                 <CountriesList
                 />
-              </div>
-              <div className="col-lg-3" ref={this.myRef}>
-                <Ratio />
               </div>
             </div>
           </div>
@@ -84,7 +89,8 @@ const mapDispatchprops = (dispatch:any) => {
 const mapStateToProps = createStructuredSelector({
   firstRow:selectFirstRow,
   selectedCountry: selectSelectedCountry,
-  loading:selectLoading,
+  loading: selectLoading,
+  overlay:selectOverlay
   
 })
 

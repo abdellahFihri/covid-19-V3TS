@@ -1,26 +1,33 @@
 
 import React from "react";
-import { LineChart, Line } from "recharts";
+import { LineChart, Line,Tooltip ,XAxis} from "recharts";
+import { numberWithCommas } from "../../../utils/utilities/helpers";
 // import connect from "react-redux";
 interface props {
   data: any;
   display?: any;
 }
 const TinyLine = (props: any) => {
-  const {data,keyData}=props
+  const {history,keyData,sync,filling,height,width}=props
   
-  const chartData = React.useMemo(() => data, [data]);
+
   const key = React.useMemo(() => keyData, [keyData]);
+  const chartData = React.useMemo(() => history, [history]);
+  const syncID= React.useMemo(() => sync, [sync]);
+ 
+  const chartFilling = React.useMemo(() => filling, [filling]);
 
   return (
-    <LineChart width={150} height={60} data={chartData}>
+    <LineChart width={width ? width : 150} height={height ? height : 60} data={chartData} syncId={syncID}>
+      <XAxis dataKey='date' hide={true} />
       <Line
         dot={false}
         type="monotone"
         dataKey={key}
-        stroke="#8884d8"
+        stroke={chartFilling}
         strokeWidth={2}
       />
+      <Tooltip formatter={(value)=> numberWithCommas(value)} />
     </LineChart>
   );
 };

@@ -18,6 +18,7 @@ class Donut extends Component<State, Props> {
         type: "donut",
       },
     },
+  
     series: [],
     chartOptions: {
       responsive: [

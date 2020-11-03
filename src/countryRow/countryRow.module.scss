@@ -29,7 +29,7 @@
     background-color: transparent;
     border: none;
     padding: none;
-
+    outline-color: #5068e0;
     margin: auto;
     text-align: center;
 
@@ -76,6 +76,7 @@
 }
 .img {
   width: 30px;
+  margin-left: 2px;
   img {
     width: 100%;
   }

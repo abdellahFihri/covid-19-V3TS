@@ -8,6 +8,7 @@ import getMainChartHistory from "./mainCHartHistoryReducer";
 import getPeriod from "./setPeriodReducer";
 
 import getCountryHistory from "./countryHistoryReducer";
+import getOverlay from "./overLayReducer";
 
 
 // import addUserReducer from './addUserReducer';
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   allCountries: getAllCountriesData,
 mainChartHistory:getMainChartHistory,
   history: getCountryHistory,
-  period:getPeriod
+  period: getPeriod,
+  overlay:getOverlay
 
 });
 

@@ -36,7 +36,11 @@ const Infos = (props:Props) => {
           !history.length ?
             <Spinner /> :
             
-        <TinyBar history={extractDifferences(_.reverse(history),'critical')} keyData="critical" filling="#d65c0a" title={'Critical index of the last 30 days'}/>
+            <TinyBar
+              history={extractDifferences(_.reverse(history), 'critical')}
+              keyData="critical" filling="#d65c0a"
+              title={'Critical index of the last 30 days'}
+            />
         }
        
         </div>

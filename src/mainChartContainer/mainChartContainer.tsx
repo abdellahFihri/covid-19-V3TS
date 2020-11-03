@@ -7,7 +7,7 @@ import React from "react";
 import InitialChart  from "../chart/initialChart";
 import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
-
+// import TinyLine from "../chart/barCharts/lineChart/tinyLineChart"
 import MainBarChart from "../chart/barCharts/mainBarChart/BarChart";
 import ShortenedNum from "../hoc/shortNumber/shortNumber";
 import { createStructuredSelector } from "reselect";
@@ -73,7 +73,7 @@ const ChartsContainer = (props: Props) => {
  
   return (
     
-    <div  className="col-lg-6" >
+    <div  style={{ boxShadow: '-1px 8px 11px -8px rgba(11, 0, 0, 0.63)'}} className="col-lg-6" >
       <div  className="row">
         <div className={`${style.main} col-md-8`}>
           <h6>Cases and recovered overview in {selectedCountry}</h6>
@@ -122,7 +122,7 @@ const ChartsContainer = (props: Props) => {
               )}
               keyData="total_cases"
               sync="main"
-              filling="#1d89e8"
+              filling="#5068e0"
             />
           )}
         </div>
@@ -134,7 +134,7 @@ const ChartsContainer = (props: Props) => {
             title: 'Global tests',
             chartTitle:"Periodic rate tests",
            global:worldRow.tested,
-            filling: "#5068e0",
+            filling: "#1d89e8",
             stroke: "#ff7b00",
           },
           {
@@ -151,10 +151,11 @@ const ChartsContainer = (props: Props) => {
             <div className="col-md-6">
             <ShortenedNum title={rec.title} value={rec.global}/>
         </div>
-            </div>
+            
             {shortHistory.length > 31 ? (
               <TinyArea
                 history={extractDifferences(shortHistory, rec.param)}
+                // history={shortHistory}
                 keyData={rec.param}
                 sync="main"
                 filling={rec.filling}
@@ -164,13 +165,15 @@ const ChartsContainer = (props: Props) => {
             ) : (
               <TinyBar
                 history={extractDifferences(shortHistory, rec.param)}
+                // history={shortHistory}
                 keyData={rec.param}
                   sync="main"
                   title={rec.chartTitle}
                 filling={rec.filling}
               />
             )}
-          </div>
+            </div>
+            </div>
         ))}
         {/* <div className="col-md-6">
           <TinyArea

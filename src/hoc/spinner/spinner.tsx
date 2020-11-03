@@ -9,6 +9,7 @@ const CircularUnderLoad = () => {
       <Spinner
         style={{ width: "3rem", height: "3rem", color: "#3F51B5" }}
       />{" "}
+      <h4>Fetching initial data...</h4>
     </div>
   );
 };

@@ -5,11 +5,11 @@ import Paper from "../hoc/paper/paper";
 import Spinner from "../hoc/spinner/spinner";
 import CountryRow from "../countryRow/countryRow";
 import CountUp from "react-countup";
-import { allCountriesData } from "../redux/actions";
+import { allCountriesData,fetchData,setOverlay } from "../redux/actions";
 import { Data } from "../utils/intefaces/interfaces";
 import { createStructuredSelector } from "reselect";
 import { selectAll, selectFiltered } from "../redux/reducers/allCountriesDataSelector";
-import {selectFirstRow} from "../redux/reducers/worldDataSelector"
+import {selectFirstRow} from "../redux/reducers/worldDataSelector";
 interface Props {
   allCountriesData: (arg0: any) => void;
  
@@ -18,6 +18,9 @@ interface Props {
   all: any;
   filter: any;
   firstRow: any;
+  dispatch: any;
+  fetchData: () => void;
+  setOverlay:(arg0:boolean,arg1:string,arg2:string)=>void
  
 
   // worldRow:any
@@ -25,7 +28,7 @@ interface Props {
 
 const CountriesList: FunctionComponent<Props> = (props) => {
   const { firstRow } = props
-  const { all, filter } = props
+  const { all, filter ,fetchData,setOverlay} = props
   const [term, setTerm] = useState("");
   const handleChange = (event: { target: { value: string } }) => {
     const { allCountriesData } = props;
@@ -70,7 +73,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
         col4="Recovered"
       >
         <div className="country">
-          <span id="world" style={{color:'#5068e0',fontWeight:'bold'}} >
+          <span id="world" style={{ color: '#5068e0', fontWeight: 'bold' }} onClick={() => { setOverlay(true, '', 'The world'); fetchData() }}>
             The world
           </span>{" "}
           {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
@@ -111,4 +114,4 @@ const mapStateToProps = createStructuredSelector({
 //   };
 // };
 
-export default connect(mapStateToProps, { allCountriesData })(CountriesList);
+export default connect(mapStateToProps, { allCountriesData,fetchData,setOverlay })(CountriesList);

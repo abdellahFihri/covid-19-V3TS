@@ -1,8 +1,13 @@
 .spinner {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  border: solid black;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  flex-direction: column;
+  h4 {
+    color: #5068e0;
+    margin-top: 1%;
+  }
 }

@@ -32,7 +32,7 @@ const INITIAL_STATE = {
             history: {
               yearHistory: action.payload.data[3],
               monthHistory:action.payload.data[2],
-              weekHistory: action.payload.data[1]
+              weekHistory: _.takeRight(action.payload.data[2],10)
             
             }
         };

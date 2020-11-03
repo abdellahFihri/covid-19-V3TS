@@ -8,6 +8,7 @@ import {
   XAxis,
  
 } from "recharts";
+import { numberWithCommas, timeFormatter } from "../../../utils/utilities/helpers";
 import style from "./tinyBarChart.module.scss"
 
 const TinyBar = (props: any) => {
@@ -22,14 +23,16 @@ const TinyBar = (props: any) => {
         <p>{props.title}</p>
       <ResponsiveContainer>
         <BarChart syncId={syncID} data={chartData}>
-          <XAxis hide={true}  dataKey="date" />
+          <XAxis hide={false}  dataKey="date" tickFormatter={function (value: string) {
+              return timeFormatter(value);
+            }} />
           <Bar
             dataKey={data}
-            background={false}
+            // background={false}
             fill={chartFilling}
           />
-          <Tooltip />
-          <Legend />
+          <Tooltip  formatter={(value)=> numberWithCommas(value)} />
+          <Legend  align="right" verticalAlign="top" iconType='circle' iconSize={13} />
         </BarChart>
       </ResponsiveContainer>
     </div>

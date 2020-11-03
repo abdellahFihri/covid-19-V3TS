@@ -2,7 +2,7 @@ import React, { FunctionComponent } from "react";
 import style from "./countryRow.module.scss";
 import { connect } from "react-redux";
 import { numberWithCommas } from "../utils/utilities/helpers";
-import { fetchCountryData } from "../redux/actions/index";
+import { fetchCountryData,setOverlay } from "../redux/actions/index";
 // import { findIso } from "../utils/utilities/helpers";
 interface Props {
   countriesStats: any;
@@ -20,7 +20,9 @@ const CountryRow: FunctionComponent<Props> = (props) => {
         
         <button
           className={style.button}
-          onClick={() => props.dispatch(fetchCountryData({name:country.name,iso:country.iso3166a2}))}
+          onClick={() => {props.dispatch(setOverlay(true, country.iso3166a2,country.name))
+            props.dispatch(fetchCountryData({ name: country.name, iso: country.iso3166a2 }))
+          }}
           id={country.name}
         >
           <span className={style.span}>

@@ -23,7 +23,7 @@ const CountersFragment = (props: Props) => {
   const { statsCards, worldRow, month } = props;
   // const { year } = props.history;
   console.log("PROPS", props);
-  let shortHistory = _.dropRight(_.takeRight(month, 15), 1);
+  let shortHistory = _.takeRight(month, 16);
 
   // const [val, setVal] = useState(statsCards);
   // const [world, setWorld] = useState(worldRow);
@@ -39,11 +39,13 @@ const CountersFragment = (props: Props) => {
             y: worldRow.total_cases,
             chart: (
               <TinyLine
-                data={extractDifferences(
+                history={extractDifferences(
                   _.reverse(shortHistory),
                   "total_cases"
                 )}
                 keyData="total_cases"
+                filling="#8884d8"
+                sync=''
               />
             ),
           },
@@ -53,8 +55,10 @@ const CountersFragment = (props: Props) => {
             y: worldRow.deaths,
             chart: (
               <TinyLine
-                data={extractDifferences(shortHistory, "deaths")}
+                history={extractDifferences(shortHistory, "deaths")}
                 keyData="deaths"
+                filling="#b72429"
+                sync=''
               />
             ),
           },
@@ -66,8 +70,10 @@ const CountersFragment = (props: Props) => {
             y: worldRow.recovered,
             chart: (
               <TinyLine
-                data={extractDifferences(shortHistory, "recovered")}
+                history={extractDifferences(shortHistory, "recovered")}
                 keyData="recovered"
+                filling="#28a745"
+                sync=''
               />
             ),
           },
@@ -76,7 +82,8 @@ const CountersFragment = (props: Props) => {
             i: worldRow.total_cases,
             y: statsCards.total_cases,
             chart: (
-              <TinyLine data={_.reverse(shortHistory)} keyData="total_cases" />
+              <TinyLine history={_.drop(_.reverse(shortHistory),2)} keyData="total_cases"   filling="#8884d8"
+              sync=''/>
             ),
           },
         ].map((card) => (
@@ -102,11 +109,6 @@ const mapStateToProps = createStructuredSelector({
   month:selectMonth
   
 });
-// const mapStateToProps = (state: any) => {
-//   return {
-//     world: state.world,
-//     history: state.history,
-//   };
-// };
+
 
 export default connect(mapStateToProps)(CountersFragment);

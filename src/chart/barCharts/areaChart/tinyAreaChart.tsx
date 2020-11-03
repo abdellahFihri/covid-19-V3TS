@@ -9,6 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { numberWithCommas } from "../../../utils/utilities/helpers";
 import style from "./tinyAreaChart.module.scss";
 
 const TinyArea = (props: any) => {
@@ -24,10 +25,10 @@ const TinyArea = (props: any) => {
           syncId={props.sync}
           data={chartData}
           margin={{
-            top: 10,
+            top: 0,
             right: 0,
             left: 0,
-            bottom: 10,
+            bottom: 0,
           }}
         >
           <CartesianGrid
@@ -50,8 +51,8 @@ const TinyArea = (props: any) => {
               return `${da}/${mo}`;
             }}
           />
-          <Tooltip />
-          <Legend />
+          <Tooltip  formatter={(value)=> numberWithCommas(value)} />
+          <Legend align="right" verticalAlign="top" iconType='circle' />
           <Area
             dot={false}
             dataKey={keyData}

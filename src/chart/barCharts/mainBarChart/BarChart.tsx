@@ -14,6 +14,7 @@ import {
   numFormatter,
   timeFormatter,
   merging,
+  numberWithCommas,
 } from "../../../utils/utilities/helpers";
 
 import style from "./BarChart.module.scss";
@@ -54,8 +55,8 @@ const MainBarChart = (props: any) => {
             }}
             tickSize={4}
           />
-          <Tooltip />
-          <Legend align="right" verticalAlign="top" />
+          <Tooltip  formatter={(value)=> numberWithCommas(value)} />
+          <Legend align="right" verticalAlign="top" iconType='circle' iconSize={13} />
           <Bar
             dataKey="total_cases"
             background={false}

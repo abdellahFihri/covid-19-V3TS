@@ -54,3 +54,10 @@ export const fetchCountryData = (country:any) => {
     dispatch({ type: 'FETCH_COUNTRY_DATA', payload: { data: results, iso: country.iso,selectedCountry:country.name } });
   }
 }
+
+export const setOverlay = (overlay:boolean,iso:string,country:string)=>{
+  return {
+    type: 'SET_OVERLAY',
+    payload:{ overlay,iso,country}
+  }
+}

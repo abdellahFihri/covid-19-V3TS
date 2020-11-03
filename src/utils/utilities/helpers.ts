@@ -1,5 +1,6 @@
 import { WorldRequest } from "../../axios/axios";
-import { Data } from "../intefaces/interfaces";
+// import { Data } from "../intefaces/interfaces";
+
 
 import _ from "lodash";
 
@@ -33,22 +34,11 @@ export const getInitialStats = async () => {
 
     return worldHistoryArr;
   });
-  // console.log("world combined", worldData);
-  // console.log;
+
   return [worldData, countriesArray, worldHistoryArr];
 };
 export const selectedCountryData = async (selected: string) => {
-  // function countryStats() {
-  //   return CovidRequest.get("latest_stat_by_country.php", {
-  //     params: {
-  //       country: `${selected}`,
-  //     },
-  //   });
-  // const data: Data = extractProps(results[0].data.latest_stat_by_country[0]);
-  // iterate in data object to remove the commas from the values
-  // const dataArray: any[] = Object.values(data).map((val) =>
-  //   val.replace(/,/g, "")
-  // );
+
   function summaryCountry() {
     return WorldRequest.get("summary/region", {
       params: {
@@ -90,35 +80,7 @@ export const selectedCountryData = async (selected: string) => {
   ];
 };
 
-export const extractProps = (results: Data) => {
-  const data: Data = _.pick(
-    results,
 
-    [
-      "name",
-      "iso3166a2",
-
-      "total_cases",
-      // "new_cases",
-      "active_cases",
-      // "total_deaths",
-      "deaths",
-      // "new_deaths",
-      // "total_recovered",
-      "recovered",
-      // "serious_critical",
-      "critical",
-      "tested",
-      "change",
-      // "total_cases_per_1m_population",
-      // "total_cases_per1m",
-      // "statistic_taken_at",
-      // "record_date",
-    ]
-  );
-
-  return data;
-};
 
 export const indexing = (total: number, added: number) => {
   let value: number;
@@ -164,29 +126,16 @@ export const extractDifferences = (data: any, prop: string) => {
     let newPeriod = { date: mockUpArr[i].date, [`${prop}`]: diff };
     difference.push(newPeriod);
   }
-  // difference = _.remove(difference, function (n) {
-  //   return n >= 0;
-  // });
-  // return _.dropRight(_.reverse(difference));
+ 
   difference = _.dropRight(difference);
-  difference=_.reverse(difference)
-  // return _.remove(_.dropRight(_.reverse(difference)), function (n) {
-  //   return n[`${prop}`] >= 0;
-  // });
+  difference = _.reverse(difference);
   difference= _.remove(difference, function (n) {
       return n[`${prop}`] > -1 
   });
   return difference
 };
 
-// export const getDaily = (data: any, prop: string) => {
-//   return _.remove(
-//     extractDifferences(_.dropRight(_.reverse(data), 1), prop),
-//     function (n) {
-//       return n[`${prop}`] > 0;
-//     }
-//   );
-// };
+
 export const numFormatter = (value: number) => {
   if (value >= 1000000000) {
     return (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";

@@ -14,7 +14,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { numFormatter, timeFormatter, merging } from "../utils/utilities/helpers";
+import { numFormatter, timeFormatter, merging, numberWithCommas } from "../utils/utilities/helpers";
 import style from "./initialChart.module.scss";
 
 interface Props {
@@ -84,8 +84,8 @@ const TryChart = (props: Props) => {
               return numFormatter(value);
             }}
           />
-          <Tooltip />
-          <Legend align="right" verticalAlign="top" height={24} />
+          <Tooltip  formatter={(value)=> numberWithCommas(value)} />
+          <Legend align="right" verticalAlign="top" height={24} iconSize={13} iconType='circle' />
           <Area
             dot={false}
             fillOpacity={0.5}

@@ -17,6 +17,7 @@ export interface Props {
   selectedCountry: string;
   mainChartHistory: any;
   firstRow: any;
+  overlay: boolean;
   setPeriod: any;
   onFetchData: any;
   year: any;
