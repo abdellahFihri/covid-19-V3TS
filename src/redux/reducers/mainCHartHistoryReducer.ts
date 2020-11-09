@@ -4,7 +4,9 @@ const INITIAL_STATE = {
         yearHistory: "",
         monthHistory: '',
     weekHistory: '',
-        selectedHistory:''
+   
+   
+     
     }
      
   };
@@ -30,12 +32,14 @@ const INITIAL_STATE = {
           return {
             ...state,
             history: {
-              yearHistory: action.payload.data[3],
-              monthHistory:action.payload.data[2],
-              weekHistory: _.takeRight(action.payload.data[2],10)
+              yearHistory: action.payload.data[2],
+              monthHistory:action.payload.data[1],
+              weekHistory: _.takeRight(action.payload.data[1], 10),
+             
             
             }
         };
+       
       
       default:
         return state;

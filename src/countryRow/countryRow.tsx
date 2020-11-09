@@ -13,10 +13,10 @@ interface Props {
 
 const CountryRow: FunctionComponent<Props> = (props) => {
   const { filter } = props.countriesStats.allCountriesStats;
-  return filter.map((country: any) => {
+  return filter.map((country: any,index:any) => {
     // console.log("findIso ", findIso(country.country_name));
     return (
-      <div className={style.country} key={country.name}>
+      <div className={`${style.country} ${index % 2!==0?style.dark:''}`} key={country.name}>
         
         <button
           className={style.button}

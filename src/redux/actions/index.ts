@@ -61,3 +61,10 @@ export const setOverlay = (overlay:boolean,iso:string,country:string)=>{
     payload:{ overlay,iso,country}
   }
 }
+
+export const setCumulative = () => {
+  return {
+    type: 'SET_CUMULATIVE',
+   
+  }
+}

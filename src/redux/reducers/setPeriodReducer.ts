@@ -17,7 +17,7 @@ const INITIAL_STATE = {
         }
       case 'FETCH_COUNTRY_DATA':
         return {
-          ...state,period: action.payload.data[2]
+          ...state,period: action.payload.data[1]
         }
       default:
         return state;

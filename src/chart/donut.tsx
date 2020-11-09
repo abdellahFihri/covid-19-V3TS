@@ -21,16 +21,16 @@ class Donut extends Component<State, Props> {
   
     series: [],
     chartOptions: {
-      responsive: [
-        {
-          breakpoint: 414,
-          options: {
-            chart: {
-              type: "pie",
-            },
-          },
-        },
-      ],
+      // responsive: [
+      //   {
+      //     breakpoint: 414,
+      //     options: {
+      //       chart: {
+      //         type: "pie",
+      //       },
+      //     },
+      //   },
+      // ],
       title: {
         text: "title",
         align: "center",

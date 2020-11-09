@@ -1,4 +1,4 @@
-import { WorldRequest } from "../../axios/axios";
+import { regionHistory, WorldRequest } from "../../axios/axios";
 // import { Data } from "../intefaces/interfaces";
 
 
@@ -60,21 +60,15 @@ export const selectedCountryData = async (selected: string) => {
       },
     });
   }
-  function AllWeek() {
-    return WorldRequest.get("spots/week", {
-      params: {
-        region: `${selected.toLocaleLowerCase()}`,
-      },
-    });
-  }
+
   let year = await AllYear();
-  let week = await AllWeek();
   let month = await AllMonth();
+  
   let selectedCountry = await summaryCountry();
 
   return [
     selectedCountry.data.data,
-    ...[week, month, year].map((res) =>
+    ...[ month, year].map((res) =>
       _.reverse(refactorResponseData(res.data.data))
     ),
   ];

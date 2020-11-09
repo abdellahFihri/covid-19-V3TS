@@ -53,7 +53,7 @@ class App extends Component<Props, State> {
         </div>
 
           <Container>
-          {overlay? <Overlay/> :''}
+            {overlay? <Overlay/> :''}
             
           <TopStats />
 

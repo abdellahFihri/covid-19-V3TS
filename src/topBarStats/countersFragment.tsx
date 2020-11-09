@@ -46,6 +46,8 @@ const CountersFragment = (props: Props) => {
                 keyData="total_cases"
                 filling="#8884d8"
                 sync=''
+                XaxisHide={true}
+                height={60}
               />
             ),
           },
@@ -59,6 +61,8 @@ const CountersFragment = (props: Props) => {
                 keyData="deaths"
                 filling="#b72429"
                 sync=''
+                XaxisHide={true}
+                height={60}
               />
             ),
           },
@@ -74,6 +78,8 @@ const CountersFragment = (props: Props) => {
                 keyData="recovered"
                 filling="#28a745"
                 sync=''
+                XaxisHide={true}
+                height={60}
               />
             ),
           },
@@ -83,7 +89,9 @@ const CountersFragment = (props: Props) => {
             y: statsCards.total_cases,
             chart: (
               <TinyLine history={_.drop(_.reverse(shortHistory),2)} keyData="total_cases"   filling="#8884d8"
-              sync=''/>
+                sync=''
+                XaxisHide={true}
+                height={60}/>
             ),
           },
         ].map((card) => (

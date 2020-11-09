@@ -48,7 +48,7 @@ const StatsCard = (props: Props) => {
             %
           </Badge>
         </div>
-        <div>{props.chart}</div>
+        <div style={{width:'70%'}}>{props.chart}</div>
         <span className={style.description}>{props.description}</span>
       </div>
     </div>
