@@ -8,14 +8,14 @@ import { selectMonth } from "../redux/reducers/mainChartHistorySelector";
 import style from "./countersFragment.module.scss";
 // import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
-// import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
+import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
 import { extractDifferences } from "../utils/utilities/helpers";
 import _ from "lodash";
 
 interface Props {
   world: any;
   history: any;
-  statsCards:any;
+  statsCards: any;
   worldRow: any;
   month: any;
 }
@@ -45,7 +45,7 @@ const CountersFragment = (props: Props) => {
                 )}
                 keyData="total_cases"
                 filling="#8884d8"
-                sync=''
+                sync=""
                 XaxisHide={true}
                 height={60}
               />
@@ -60,7 +60,7 @@ const CountersFragment = (props: Props) => {
                 history={extractDifferences(shortHistory, "deaths")}
                 keyData="deaths"
                 filling="#b72429"
-                sync=''
+                sync=""
                 XaxisHide={true}
                 height={60}
               />
@@ -77,7 +77,7 @@ const CountersFragment = (props: Props) => {
                 history={extractDifferences(shortHistory, "recovered")}
                 keyData="recovered"
                 filling="#28a745"
-                sync=''
+                sync=""
                 XaxisHide={true}
                 height={60}
               />
@@ -88,10 +88,14 @@ const CountersFragment = (props: Props) => {
             i: worldRow.total_cases,
             y: statsCards.total_cases,
             chart: (
-              <TinyLine history={_.drop(_.reverse(shortHistory),2)} keyData="total_cases"   filling="#8884d8"
-                sync=''
+              <TinyLine
+                history={_.drop(_.reverse(shortHistory), 2)}
+                keyData="total_cases"
+                filling="#8884d8"
+                sync=""
                 XaxisHide={true}
-                height={60}/>
+                height={60}
+              />
             ),
           },
         ].map((card) => (
@@ -114,9 +118,7 @@ const mapStateToProps = createStructuredSelector({
 
   statsCards: selectStatsCards,
   worldRow: selectWorldRow,
-  month:selectMonth
-  
+  month: selectMonth,
 });
-
 
 export default connect(mapStateToProps)(CountersFragment);

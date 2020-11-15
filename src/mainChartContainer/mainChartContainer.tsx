@@ -22,8 +22,9 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { extractDifferences } from "../utils/utilities/helpers";
 import style from "./mainChartContainer.module.scss";
-import{Button}from "reactstrap"
+import{Button,ButtonGroup}from "reactstrap"
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
+// import { ButtonGroup } from "@material-ui/core";
 
 
 
@@ -95,15 +96,16 @@ console.log( 'CUMULATIVE',cumulative)
       </div>
       <div className="row">
         <div className="col-md-6">
-          <div style={{display:'flex',alignItems:'center',justifyContent:'space-evenly'}}>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'space-around'}}>
         {[{ title: 'Total cases', value: worldRow.total_cases }, { title: 'Total recovered', value: worldRow.recovered }].map((item) => <div  key={item.title}>
           <ShortenedNum title={item.title} value={item.value}/>
         </div>)}
         </div>
         </div>
         
-            <div className={`${style.buttons} col-md-6`}>
-            {['week', 'month', 'year'].map((period: string) => <Button outline key={period} color="primary" size="sm" onClick={() => selectPeriod(period)} >{period}</Button>)}
+          <div className={`${style.buttons} col-md-6`}>
+            <ButtonGroup  size='sm'>
+            {['week', 'month', 'year'].map((period: string) => <Button outline key={period} color="primary" size="sm" onClick={() => selectPeriod(period)} >{period}</Button>)}</ButtonGroup>
             <span className={style.toggle}>{`Toggle ${!cumulative ? 'cumulative' : 'periodic'}`}
               <div>
             <Switch
@@ -192,7 +194,7 @@ console.log( 'CUMULATIVE',cumulative)
                   sync="main"
                   title={rec.chartTitle}
                       filling={rec.filling}
-                      height={180}
+                      height={250}
                       // width={300}
                       XaxisHide={false}
                       />

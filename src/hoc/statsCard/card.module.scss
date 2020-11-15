@@ -3,7 +3,7 @@
   height: auto;
   display: flex;
   // flex-direction: column;
-
+  min-height: 100px;
   justify-content: space-between;
   justify-items: center;
   align-items: center;
@@ -30,6 +30,7 @@
 .label {
   color: #3d3d3d;
   font-size: 14px;
+  font-weight: 600;
   white-space: nowrap;
   @media (max-width: 1024px) {
     font-size: 12px;

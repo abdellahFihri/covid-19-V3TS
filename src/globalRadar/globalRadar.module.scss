@@ -1,0 +1,17 @@
+.compareRadar {
+  display: flex;
+  color: #3d3d3d;
+  flex-direction: column;
+  justify-items: space-around;
+  align-items: center;
+  background-color: white;
+  // border: solid 0.5px;
+  // box-shadow: -1px 8px 11px -8px rgba(11, 0, 0, 0.63);
+  // border-color: white;
+  // border: solid 0.1px #eeecec;
+  height: auto;
+  min-height: 200px;
+  width: 100%;
+  margin: 10px 0 10px 0;
+  padding: 5% 0 5% 0;
+}

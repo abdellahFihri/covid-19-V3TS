@@ -35,7 +35,7 @@ const TryChart = (props: Props) => {
 
  
   return (
-    <div className={style.initialChart} style={{ width: "100%", height: 350 }}>
+    <div className={style.initialChart} style={{ width: "100%", height: 450 }}>
       <ResponsiveContainer>
         <AreaChart
           // width={700}
@@ -65,6 +65,15 @@ const TryChart = (props: Props) => {
             tickFormatter={function (value: number) {
               return numFormatter(value);
             }}
+            yAxisId="left"
+          />
+           <YAxis dataKey='recovered'  tickFormatter={function (value: number) {
+            return numFormatter(value);
+            
+            }}
+            tickSize={4} orientation="right" yAxisId="right"
+            label={{ value: 'Recovered', angle: 90, offset: 13, position: 'insideBottom' }}
+          hide={true}
           />
           <Tooltip  formatter={(value)=> numberWithCommas(value)} />
           <Legend align="right" verticalAlign="top" height={24} iconSize={13} iconType='circle' />
@@ -77,6 +86,7 @@ const TryChart = (props: Props) => {
             dataKey="total_cases"
             stroke="#1D89E8"
             activeDot={{ r: 8 }}
+            yAxisId="left"
           />
           <Area
             dot={false}
@@ -87,6 +97,7 @@ const TryChart = (props: Props) => {
             dataKey="recovered"
             fill="#70C96D"
             stroke="#127c29"
+            yAxisId="right"
           />
         </AreaChart>
 

@@ -27,7 +27,7 @@ const MainBarChart = (props: any) => {
 
   console.log("THE TOTAL", chartData);
   return (
-    <div className={style.barChart} style={{ width: "100%", height: 350 }}>
+    <div className={style.barChart} style={{ width: "100%", height: 450 }}>
       <ResponsiveContainer>
         <ComposedChart
           // width={500}
@@ -57,14 +57,21 @@ const MainBarChart = (props: any) => {
             }}
             tickSize={4}
             yAxisId='left'
-            label={{ value: 'Total cases', angle:-90, offset:13, position: 'insideBottom' }}
+            label={{
+              value: 'Total cases',
+              // angle: -90,
+              offset: 13,
+              position: 'top'
+            }}
           />
           <YAxis dataKey='recovered'  tickFormatter={function (value: number) {
             return numFormatter(value);
             
             }}
             tickSize={4} orientation="right" yAxisId="right"
-            label={{ value: 'Recovered',angle:90, offset:13, position: 'insideBottom' }}/>
+            label={{ value: 'Recovered', angle: 90, offset: 13, position: 'insideBottom' }}
+          hide={true}
+          />
           <Tooltip  formatter={(value)=> numberWithCommas(value)} />
           <Legend align="right" verticalAlign="top" iconType='circle' height={30} iconSize={13} />
           <Bar

@@ -31,13 +31,13 @@
   // width: 50% !important;
   // background: forestgreen;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   button {
-    margin-right: 20px;
+    // margin-right: 20px;
     max-height: 40px;
   }
-  // align-self: center;
+  align-self: center;
   margin: 5px 0 5px 0;
 }
 .image {

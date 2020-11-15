@@ -84,7 +84,7 @@ export const indexing = (total: number, added: number) => {
   return Math.round(value * 100) / 100;
 };
 
-const refactorResponseData = (res: any) => {
+export const refactorResponseData = (res: any) => {
   let refactored: any = [];
   _.forEach(res, function (key, value) {
     key.date = value;
@@ -93,6 +93,25 @@ const refactorResponseData = (res: any) => {
   });
   // console.log("refactored", refactored);
   return refactored;
+};
+export const refactorRadar = (res: any,initial:string) => {
+  let refactored: any = [];
+  _.forEach(res, function (key, value) {
+    // key = value;
+    refactored.push({ [`${initial}`]:key,subject:value.replace(/_/g,' ').split(' ')[0]});
+    return refactored;
+  });
+  // console.log("refactored", refactored);
+  // return _.orderBy(refactored, [`${initial}`], ['desc']);
+
+  let unnecessaryWords = ['iso3166a2', 'iso3166a3', 'tested','recovery','death','name','change','iso3166numeric'];
+  
+  let betterWords =  _.orderBy(refactored, ['subject', 'desc']).filter(function (el: any) {
+    return !unnecessaryWords.includes(el.subject)
+  })
+  return betterWords
+  
+  // return refactored;
 };
 
 export const extractDifferences = (data: any, prop: string) => {
@@ -175,6 +194,27 @@ export const  merging = (history:any) => {
   }
   return total2;
 };
+
+
+export const mergeRadarData = (country1: any, country2: any) => {
+  let total2: any[] = [];
+
+  for (let i = 0; i < country1.length; i++) {
+    if (!country2 || country1[i].subject!==country2[i].subject ) {
+      continue;
+    }
+    let merge = Object.assign({}, country1[i], country2[i])
+    total2.push(merge);
+  }
+  return total2;
+ 
+  // let unnecessaryWords = ['iso3166a2', 'iso3166a3', 'tested','recovery ratio','death ratio','name','change','iso3166numeric'];
+  
+  // let betterWords = total2.filter(function (el: any) {
+  //   return !unnecessaryWords.includes(el.subject)
+  // })
+  // return betterWords
+}
 
 export const  numberWithCommas = (x:any) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');

@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { refactorRadar } from "../../utils/utilities/helpers";
 
 const selectWorldData = (state:any)  => state.world;
 
@@ -13,6 +14,10 @@ export const selectWorldRow = createSelector(
 export const selectStatsCards = createSelector(
   [selectWorldData],
   (statsCards) => statsCards.statsCards
+);
+export const selectRadarData = createSelector(
+  [selectWorldData],
+  (worldRow) => refactorRadar(worldRow.worldRow,'A')
 );
 export const selectSelectedCountry = createSelector(
   [selectWorldData],

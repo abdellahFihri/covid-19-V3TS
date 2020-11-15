@@ -10,11 +10,7 @@ const INITIAL_STATE = {
 };
 const getWorldData = (state = INITIAL_STATE, action: any) => {
   switch (action.type) {
-    case "WORLD_DATA":
-      return {
-        ...state,
-        world: action.payload,
-      };
+    
       case "FETCH_DATA":
       return Object.assign({},state,{
             

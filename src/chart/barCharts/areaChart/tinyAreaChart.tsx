@@ -14,7 +14,7 @@ import style from "./tinyAreaChart.module.scss";
 
 const TinyArea = (props: any) => {
   // const { year, month, week } = props.history.history;
-  const { history, keyData, filling, stroke,title } = props;
+  const { history, keyData, filling, stroke,title,XaxisHide } = props;
   const chartData = React.useMemo(() => history, [history]);
   console.log("cdata in tyniy area", chartData);
   return (
@@ -37,7 +37,7 @@ const TinyArea = (props: any) => {
             // horizontal={false}
           />
           <XAxis
-            hide={true}
+            hide={XaxisHide}
             dataKey="date"
             tickFormatter={function (value: string) {
               const d = new Date(value);
@@ -54,7 +54,7 @@ const TinyArea = (props: any) => {
           <Tooltip  formatter={(value)=> numberWithCommas(value)} />
           <Legend align="right" verticalAlign="top" iconType='circle' />
           <Area
-            dot={false}
+            dot={XaxisHide}
             dataKey={keyData}
             stroke={stroke}
             fill={filling}

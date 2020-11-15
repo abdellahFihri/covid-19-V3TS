@@ -8,7 +8,7 @@ import Spinner from "./hoc/spinner/spinner";
 
 
 import Container from "./hoc/container/container";
-
+import GlobalRadar from "./globalRadar/globalRadar"
 import ChartsContainer from "./mainChartContainer/mainChartContainer";
 import CountriesList from "./countriesList/countriesList";
 import Overlay from "./hoc/overlay/overlay"
@@ -24,6 +24,8 @@ import {
 
 import { Props, State } from "./utils/intefaces/interfaces";
 import { selectOverlay } from "./redux/reducers/overlaySelector";
+import RadarRatio from "./chart/radar/radar";
+import CompareRadar from "./compare/compareRadar";
 require("dotenv").config();
 
 class App extends Component<Props, State> {
@@ -60,12 +62,14 @@ class App extends Component<Props, State> {
           <div className="col-lg-12">
             <div className="row" >
               <div className="col-lg-3" >
-                <Ratio />
+                  <Ratio />
+                  <GlobalRadar/>
               </div>
               <ChartsContainer />
               <div className="col-lg-3">
                 <CountriesList
-                />
+                  />
+                  <CompareRadar/>
               </div>
             </div>
           </div>
