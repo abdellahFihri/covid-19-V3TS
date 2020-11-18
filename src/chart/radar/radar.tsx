@@ -31,7 +31,7 @@ const RadarRatio = (props: Props) => {
       <ResponsiveContainer>
         <RadarChart outerRadius={95} data={_.orderBy(data, ["A"], ["desc"])}>
           <PolarGrid />
-          <PolarAngleAxis dataKey="subject" />
+          <PolarAngleAxis dataKey="name" />
           <PolarRadiusAxis
             tickFormatter={function (value: number) {
               return numFormatter(value);

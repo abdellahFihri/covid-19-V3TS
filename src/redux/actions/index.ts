@@ -19,8 +19,12 @@ export const setPeriod = (data: any) => {
 
 export const fetchData = () => {
   return async (dispatch: any) => {
-    const results = await getInitialStats();
-    dispatch({ type: "FETCH_DATA", data: results });
+    try {
+      const results = await getInitialStats();
+      dispatch({ type: "FETCH_DATA", data: results });
+    } catch (err) {
+      dispatch({ type: "ERROR", data: err });
+    }
   };
 };
 

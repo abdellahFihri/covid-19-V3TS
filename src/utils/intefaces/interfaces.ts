@@ -1,7 +1,7 @@
 import { LoDashImplicitNumberArrayWrapper } from "lodash";
 
 export interface Response {
-  [key: string]: string |number;
+  [key: string]: string | number;
 }
 
 export interface Data {
@@ -25,9 +25,9 @@ export interface Props {
   data: any;
   countriesStats: any;
   history: any;
+  dispatch: any;
 }
 
 export interface State {
-
   loading: boolean;
 }

@@ -1,7 +1,6 @@
 import { regionHistory, WorldRequest } from "../../axios/axios";
 // import { Data } from "../intefaces/interfaces";
 
-
 import _ from "lodash";
 
 require("dotenv").config();
@@ -38,7 +37,6 @@ export const getInitialStats = async () => {
   return [worldData, countriesArray, worldHistoryArr];
 };
 export const selectedCountryData = async (selected: string) => {
-
   function summaryCountry() {
     return WorldRequest.get("summary/region", {
       params: {
@@ -63,18 +61,16 @@ export const selectedCountryData = async (selected: string) => {
 
   let year = await AllYear();
   let month = await AllMonth();
-  
+
   let selectedCountry = await summaryCountry();
 
   return [
     selectedCountry.data.data,
-    ...[ month, year].map((res) =>
+    ...[month, year].map((res) =>
       _.reverse(refactorResponseData(res.data.data))
     ),
   ];
 };
-
-
 
 export const indexing = (total: number, added: number) => {
   let value: number;
@@ -94,23 +90,37 @@ export const refactorResponseData = (res: any) => {
   // console.log("refactored", refactored);
   return refactored;
 };
-export const refactorRadar = (res: any,initial:string) => {
+export const refactorRadar = (res: any, initial: string) => {
   let refactored: any = [];
   _.forEach(res, function (key, value) {
     // key = value;
-    refactored.push({ [`${initial}`]:key,subject:value.replace(/_/g,' ').split(' ')[0]});
+    refactored.push({
+      [`${initial}`]: key,
+      name: value.replace(/_/g, " ").split(" ")[0],
+    });
     return refactored;
   });
   // console.log("refactored", refactored);
   // return _.orderBy(refactored, [`${initial}`], ['desc']);
 
-  let unnecessaryWords = ['iso3166a2', 'iso3166a3', 'tested','recovery','death','name','change','iso3166numeric'];
-  
-  let betterWords =  _.orderBy(refactored, ['subject', 'desc']).filter(function (el: any) {
-    return !unnecessaryWords.includes(el.subject)
-  })
-  return betterWords
-  
+  let unnecessaryWords = [
+    "iso3166a2",
+    "iso3166a3",
+    "tested",
+    "recovery",
+    "death",
+    "name",
+    "change",
+    "iso3166numeric",
+  ];
+
+  let betterWords = _.orderBy(refactored, ["name", "desc"]).filter(function (
+    el: any
+  ) {
+    return !unnecessaryWords.includes(el.name);
+  });
+  return betterWords;
+
   // return refactored;
 };
 
@@ -139,15 +149,14 @@ export const extractDifferences = (data: any, prop: string) => {
     let newPeriod = { date: mockUpArr[i].date, [`${prop}`]: diff };
     difference.push(newPeriod);
   }
- 
+
   difference = _.dropRight(difference);
   difference = _.reverse(difference);
-  difference= _.remove(difference, function (n) {
-      return n[`${prop}`] > -1 
+  difference = _.remove(difference, function (n) {
+    return n[`${prop}`] > -1;
   });
-  return difference
+  return difference;
 };
-
 
 export const numFormatter = (value: number) => {
   if (value >= 1000000000) {
@@ -175,10 +184,10 @@ export const timeFormatter = (value: any) => {
 };
 
 export const reverseData = (data: any) => {
-  return _.reverse(data)
-}
+  return _.reverse(data);
+};
 
-export const  merging = (history:any) => {
+export const merging = (history: any) => {
   let total2: any[] = [];
 
   for (let i = 0; i < history[1].length; i++) {
@@ -195,27 +204,26 @@ export const  merging = (history:any) => {
   return total2;
 };
 
-
 export const mergeRadarData = (country1: any, country2: any) => {
   let total2: any[] = [];
 
   for (let i = 0; i < country1.length; i++) {
-    if (!country2 || country1[i].subject!==country2[i].subject ) {
+    if (!country2 || country1[i].subject !== country2[i].subject) {
       continue;
     }
-    let merge = Object.assign({}, country1[i], country2[i])
+    let merge = Object.assign({}, country1[i], country2[i]);
     total2.push(merge);
   }
   return total2;
- 
+
   // let unnecessaryWords = ['iso3166a2', 'iso3166a3', 'tested','recovery ratio','death ratio','name','change','iso3166numeric'];
-  
+
   // let betterWords = total2.filter(function (el: any) {
   //   return !unnecessaryWords.includes(el.subject)
   // })
   // return betterWords
-}
+};
 
-export const  numberWithCommas = (x:any) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+export const numberWithCommas = (x: any) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
