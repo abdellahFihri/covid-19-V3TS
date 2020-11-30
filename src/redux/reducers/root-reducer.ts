@@ -1,37 +1,33 @@
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import { persistReducer } from "redux-persist";
+// import storage from "redux-persist/lib/storage";
 
-import getWorldData from "./worldDataReducer";
-import getAllCountriesData from "./allCountiesDataReducer";
-import getMainChartHistory from "./mainCHartHistoryReducer";
-import getPeriod from "./setPeriodReducer";
-import getCumulative from "./cumulativeReducer";
-import getCountryHistory from "./countryHistoryReducer";
-import getOverlay from "./overLayReducer";
-import getCountriesToCompare from "./comparableCountriesReducer";
+import getWorldData from "./world/worldDataReducer";
+import getAllCountriesData from "./allCountries/allCountiesDataReducer";
+import getMainChartHistory from "./mainChart/mainCHartHistoryReducer";
+import getPeriod from "./period/setPeriodReducer";
+import getCumulative from "./cumulative/cumulativeReducer";
+import getCountryHistory from "./countryHistory/countryHistoryReducer";
+import getOverlay from "./overlay/overLayReducer";
+import getCountriesToCompare from "./comparableCountries/comparableCountriesReducer";
+import getFetchingErrorMessage from "./fetchingError/fetchErrorReducer";
 
-
-
-
-
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["users"],
-};
+// const persistConfig = {
+//   key: "root",
+//   storage,
+//   whiteList: ["period"],
+// };
 
 const rootReducer = combineReducers({
-  
   world: getWorldData,
   allCountries: getAllCountriesData,
-mainChartHistory:getMainChartHistory,
+  mainChartHistory: getMainChartHistory,
   history: getCountryHistory,
   period: getPeriod,
   overlay: getOverlay,
   cumulative: getCumulative,
-  countriesToCompare:getCountriesToCompare
-
+  countriesToCompare: getCountriesToCompare,
+  fetchingDataError: getFetchingErrorMessage,
 });
 
-export default persistReducer(persistConfig, rootReducer);
+export default rootReducer;

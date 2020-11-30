@@ -4,9 +4,11 @@ const INITIAL_STATE = {
   option_1: "",
   country_1: "",
   iso_1: "",
+  history_1: "",
   option_2: "",
   country_2: "",
   iso_2: "",
+  history_2: "",
 };
 
 const getCountriesToCompare = (state = INITIAL_STATE, action: any) => {
@@ -16,12 +18,14 @@ const getCountriesToCompare = (state = INITIAL_STATE, action: any) => {
         option_1: refactorRadar(action.payload, "A"),
         iso_1: action.payload.iso3166a2,
         country_1: action.payload.name,
+        history_1: action.history,
       });
     case "SET_OPTION_2":
       return Object.assign({}, state, {
         option_2: refactorRadar(action.payload, "B"),
         iso_2: action.payload.iso3166a2,
         country_2: action.payload.name,
+        history_2: action.history,
       });
     default:
       return state;

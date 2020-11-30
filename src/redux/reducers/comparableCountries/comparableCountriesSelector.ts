@@ -1,4 +1,6 @@
+import _ from "lodash";
 import { createSelector } from "reselect";
+import { extractDifferences, merging } from "../../../utils/utilities/helpers";
 
 const comparableCountries = (state: any) => state.countriesToCompare;
 
@@ -25,4 +27,22 @@ export const selectCountryData_1 = createSelector(
 export const selectCountryData_2 = createSelector(
   [comparableCountries],
   (option_2) => option_2.option_2
+);
+export const selectHistory_1 = createSelector(
+  [comparableCountries],
+  (history_1) =>
+    merging(
+      ["total_cases", "recovered", "deaths"].map((val: string) =>
+        extractDifferences(_.reverse(_.dropRight(history_1.history_1, 1)), val)
+      )
+    )
+);
+export const selectHistory_2 = createSelector(
+  [comparableCountries],
+  (history_2) =>
+    merging(
+      ["total_cases", "recovered", "deaths"].map((val: string) =>
+        extractDifferences(_.reverse(_.dropRight(history_2.history_2, 1)), val)
+      )
+    )
 );

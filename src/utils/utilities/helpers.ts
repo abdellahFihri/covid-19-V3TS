@@ -1,5 +1,4 @@
-import { regionHistory, WorldRequest } from "../../axios/axios";
-// import { Data } from "../intefaces/interfaces";
+import { WorldRequest } from "../../axios/axios";
 
 import _ from "lodash";
 
@@ -70,6 +69,37 @@ export const selectedCountryData = async (selected: string) => {
       _.reverse(refactorResponseData(res.data.data))
     ),
   ];
+};
+
+export const comparedCountriesHistory = async (country: string) => {
+  console.log("country in compare history helper", country);
+  function AllYear() {
+    return WorldRequest.get("spots/year", {
+      params: {
+        region: `${country.toLocaleLowerCase()}`,
+      },
+    });
+  }
+  let res: any = await AllYear();
+  return _.reverse(refactorResponseData(res.data.data));
+};
+
+export const selectedCountryDate = async (
+  country: string,
+  date: string,
+  period: string
+) => {
+  function getSelectedPeriod() {
+    return WorldRequest.get(`spots/${period}`, {
+      params: {
+        region: `${country.toLocaleLowerCase()}`,
+        date: `${pickerFormatter(date)}`,
+      },
+    });
+  }
+  let selectedPeriod = await getSelectedPeriod();
+
+  return _.reverse(refactorResponseData(selectedPeriod.data.data));
 };
 
 export const indexing = (total: number, added: number) => {
@@ -182,6 +212,20 @@ export const timeFormatter = (value: any) => {
   }).format(d);
   return `${da}/${mo}`;
 };
+export const pickerFormatter = (value: any) => {
+  const d = new Date(value);
+
+  const mo = new Intl.DateTimeFormat("en", {
+    month: "numeric",
+  }).format(d);
+  const da = new Intl.DateTimeFormat("en", {
+    day: "2-digit",
+  }).format(d);
+  const ye = new Intl.DateTimeFormat("en", {
+    year: "numeric",
+  }).format(d);
+  return `${ye}-${mo}-${da}`;
+};
 
 export const reverseData = (data: any) => {
   return _.reverse(data);
@@ -198,6 +242,7 @@ export const merging = (history: any) => {
       date: history[0][i].date,
       total_cases: history[0][i].total_cases,
       recovered: history[1][i].recovered,
+      deaths: history[2] ? history[2][i].deaths : "",
     };
     total2.push(merge);
   }

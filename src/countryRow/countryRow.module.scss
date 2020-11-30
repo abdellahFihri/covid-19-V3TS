@@ -52,6 +52,7 @@
     font-size: 12px;
 
     text-align: center;
+
     width: 25%;
     cursor: pointer;
     &:hover {
@@ -62,23 +63,44 @@
     font-weight: 750;
   }
   .end {
-    &:last-of-type {
-      color: green;
-      cursor: unset;
-      font-weight: 700;
-    }
-    &:nth-child(4) {
+    // &:last-of-type {
+    //   color: green;
+    //   cursor: unset;
+    //   font-weight: 700;
+    // }
+    &:nth-child(3) {
       color: #e23030;
       cursor: unset;
       font-weight: 700;
     }
-    &:nth-child(3) {
+    &:nth-child(2) {
       color: #1289e8;
+      cursor: unset;
+      font-weight: 700;
+    }
+    &:nth-child(4) {
+      color: #28a745;
+      cursor: unset;
+      font-weight: 700;
+    }
+    &:nth-child(5) {
+      color: #f7ab13;
+      cursor: unset;
+      font-weight: 700;
+    }
+    &:nth-child(6) {
+      color: #ff7b00;
+      cursor: unset;
+      font-weight: 700;
+    }
+    &:nth-child(7) {
+      color: #964fff;
       cursor: unset;
       font-weight: 700;
     }
   }
 }
+
 .img {
   width: 30px;
   margin-left: 2px;

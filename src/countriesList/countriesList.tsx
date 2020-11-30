@@ -4,31 +4,35 @@ import SearchBar from "../hoc/searchbar/searchbar";
 import Paper from "../hoc/paper/paper";
 import Spinner from "../hoc/spinner/spinner";
 import CountryRow from "../countryRow/countryRow";
-import CountUp from "react-countup";
-import { allCountriesData,fetchData,setOverlay } from "../redux/actions";
+import { allCountriesData, fetchData, setOverlay } from "../redux/actions";
 import { Data } from "../utils/intefaces/interfaces";
 import { createStructuredSelector } from "reselect";
-import { selectAll, selectFiltered } from "../redux/reducers/allCountriesDataSelector";
-import {selectFirstRow} from "../redux/reducers/worldDataSelector";
+import {
+  selectAll,
+  selectFiltered,
+} from "../redux/reducers/allCountries/allCountriesDataSelector";
+import { selectFirstRow } from "../redux/reducers/world/worldDataSelector";
+import { numFormatter } from "../utils/utilities/helpers";
+
 interface Props {
   allCountriesData: (arg0: any) => void;
- 
+  cols: string[];
+  vals: string[];
   countriesStats: any;
   world: any;
   all: any;
   filter: any;
   firstRow: any;
   dispatch: any;
+  executeScroll: any;
   fetchData: () => void;
-  setOverlay:(arg0:boolean,arg1:string,arg2:string)=>void
- 
-
-  // worldRow:any
+  setOverlay: (arg0: boolean, arg1: string, arg2: string) => void;
 }
 
 const CountriesList: FunctionComponent<Props> = (props) => {
-  const { firstRow } = props
-  const { all, filter ,fetchData,setOverlay} = props
+  const { firstRow, executeScroll, cols, vals } = props;
+  const { all, filter, fetchData, setOverlay } = props;
+  console.log("COLMNS IN COUNTRIES LIST", cols);
   const [term, setTerm] = useState("");
   const handleChange = (event: { target: { value: string } }) => {
     const { allCountriesData } = props;
@@ -67,33 +71,50 @@ const CountriesList: FunctionComponent<Props> = (props) => {
             onChange={handleChange}
           />
         }
-        col1="Country"
-        col2="Cases"
-        col3="Deaths"
-        col4="Recovered"
+        columns={cols}
       >
-        <div className="country">
-          <span id="world" style={{ color: '#5068e0', fontWeight: 'bold' }} onClick={() => { setOverlay(true, '', 'The world'); fetchData() }}>
-            The world
-          </span>{" "}
-          {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
-            (i) => {
-              return (
-                <span key={i} className="end">
-                  <CountUp
+        {cols.length < 3 ? (
+          <div className="country">
+            <span
+              id="world"
+              style={{ color: "#5068e0", fontWeight: "bold" }}
+              onClick={() => {
+                setOverlay(true, "", "The world");
+                fetchData();
+                // executeScroll();
+              }}
+            >
+              The globe
+            </span>{" "}
+            {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
+              (i) => {
+                return (
+                  <span
+                    key={i}
+                    className="end"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    {/* <CountUp
                     className="countEnd"
                     end={i}
                     duration={3}
                     separator=","
                     useEasing={true}
-                  />
-                </span>
-              );
-            }
-          )}
-        </div>
+                  /> */}
+                    {numFormatter(i)}
+                  </span>
+                );
+              }
+            )}
+          </div>
+        ) : (
+          ""
+        )}
         {filter.length ? (
-          <CountryRow  />
+          <CountryRow
+            // executeScroll={() => executeScroll()}
+            values={vals}
+          />
         ) : (
           <Spinner />
         )}
@@ -102,16 +123,14 @@ const CountriesList: FunctionComponent<Props> = (props) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({ 
+const mapStateToProps = createStructuredSelector({
   all: selectAll,
   filter: selectFiltered,
-  firstRow:selectFirstRow
-})
-// const mapStateToProps = (state: any) => {
-//   return {
-//     countriesStats: state.allCountries,
-//     world: state.world,
-//   };
-// };
+  firstRow: selectFirstRow,
+});
 
-export default connect(mapStateToProps, { allCountriesData,fetchData,setOverlay })(CountriesList);
+export default connect(mapStateToProps, {
+  allCountriesData,
+  fetchData,
+  setOverlay,
+})(CountriesList);

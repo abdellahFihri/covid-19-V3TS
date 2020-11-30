@@ -54,7 +54,7 @@ const DonutChart = (props: Props) => {
   };
 
   return (
-    <div style={{ width: "100%", height: 350 }}>
+    <div style={{ width: "100%", height: 350, textAlign: "center" }}>
       <h6>{title}</h6>
       <ResponsiveContainer>
         <PieChart>
@@ -79,7 +79,7 @@ const DonutChart = (props: Props) => {
           <Legend
             align="center"
             verticalAlign="top"
-            height={10}
+            height={25}
             iconSize={13}
             iconType="circle"
           />

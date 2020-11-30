@@ -2,13 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import StatsCard from "../hoc/statsCard/card";
 import { createStructuredSelector } from "reselect";
-import { selectStatsCards } from "../redux/reducers/worldDataSelector";
-import { selectWorldRow } from "../redux/reducers/worldDataSelector";
-import { selectMonth } from "../redux/reducers/mainChartHistorySelector";
+import { selectStatsCards } from "../redux/reducers/world/worldDataSelector";
+import { selectWorldRow } from "../redux/reducers/world/worldDataSelector";
+import { selectMonth } from "../redux/reducers/mainChart/mainChartHistorySelector";
 import style from "./countersFragment.module.scss";
-// import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
+
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
-import TinyArea from "../chart/barCharts/areaChart/tinyAreaChart";
+
 import { extractDifferences } from "../utils/utilities/helpers";
 import _ from "lodash";
 
@@ -21,22 +21,19 @@ interface Props {
 }
 const CountersFragment = (props: Props) => {
   const { statsCards, worldRow, month } = props;
-  // const { year } = props.history;
+
   console.log("PROPS", props);
   let shortHistory = _.takeRight(month, 16);
-
-  // const [val, setVal] = useState(statsCards);
-  // const [world, setWorld] = useState(worldRow);
 
   return (
     <div className={`col-lg-12 ${style.counters}`}>
       <div className="row">
         {[
-          // { title: "New cases", i: 1 },
           {
             title: "New cases",
             i: statsCards.total_cases,
             y: worldRow.total_cases,
+            delay: 0,
             chart: (
               <TinyLine
                 history={extractDifferences(
@@ -55,6 +52,7 @@ const CountersFragment = (props: Props) => {
             title: "New deaths",
             i: statsCards.deaths,
             y: worldRow.deaths,
+            delay: 0.5,
             chart: (
               <TinyLine
                 history={extractDifferences(shortHistory, "deaths")}
@@ -66,12 +64,12 @@ const CountersFragment = (props: Props) => {
               />
             ),
           },
-          // { title: "Total Deaths", i: 3 },
-          // { title: "Total Recovered", i: 5 },
+
           {
             title: "New recovered",
             i: statsCards.recovered,
             y: worldRow.recovered,
+            delay: 1,
             chart: (
               <TinyLine
                 history={extractDifferences(shortHistory, "recovered")}
@@ -87,6 +85,7 @@ const CountersFragment = (props: Props) => {
             title: "Total cases",
             i: worldRow.total_cases,
             y: statsCards.total_cases,
+            delay: 1.5,
             chart: (
               <TinyLine
                 history={_.drop(_.reverse(shortHistory), 2)}
@@ -106,6 +105,7 @@ const CountersFragment = (props: Props) => {
             end={card.i}
             new={card.y}
             chart={card.chart}
+            delay={card.delay}
           />
         ))}
       </div>
@@ -114,8 +114,6 @@ const CountersFragment = (props: Props) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  //using selectors prevents component from rerendering if the data is unchanged
-
   statsCards: selectStatsCards,
   worldRow: selectWorldRow,
   month: selectMonth,

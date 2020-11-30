@@ -1,5 +1,20 @@
+.container {
+  border: solid 0.1px #dde4eb;
+  margin-top: 10.5px;
+  background-color: white;
+  padding: 1%;
+}
+.header {
+  height: 280px;
+  @media (max-width: 400px) {
+    height: 300px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 .main {
-  // background-color: white;
   color: #3d3d3d;
   margin-top: 15px;
   font-size: 12px;
@@ -43,5 +58,9 @@
 .image {
   // background: yellow;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  img {
+    width: 80px;
+  }
 }

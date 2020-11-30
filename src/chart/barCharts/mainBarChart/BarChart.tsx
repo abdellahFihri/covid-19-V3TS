@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   ComposedChart,
   Line,
- 
+  Brush,
 } from "recharts";
 import {
   numFormatter,
@@ -20,18 +20,19 @@ import {
 
 import style from "./BarChart.module.scss";
 const MainBarChart = (props: any) => {
-  const { history, sync, filling,cumulative } = props;
-  const chartData = React.useMemo(() =>cumulative?history: merging(history), [history,cumulative]);
+  const { history, sync, filling, cumulative } = props;
+  const chartData = React.useMemo(
+    () => (cumulative ? history : merging(history)),
+    [history, cumulative]
+  );
   const syncID = React.useMemo(() => sync, [sync]);
   const chartFilling = React.useMemo(() => filling, [filling]);
 
   console.log("THE TOTAL", chartData);
   return (
-    <div className={style.barChart} style={{ width: "100%", height: 450 }}>
+    <div className={style.barChart} style={{ width: "100%", height: 500 }}>
       <ResponsiveContainer>
         <ComposedChart
-          // width={500}
-          // height={400}
           data={chartData}
           syncId={syncID}
           margin={{
@@ -41,7 +42,7 @@ const MainBarChart = (props: any) => {
             left: 0,
           }}
         >
-          <CartesianGrid strokeDasharray="2 2" vertical={false}/>
+          <CartesianGrid strokeDasharray="2 2" vertical={false} />
           <XAxis
             dataKey="date"
             tickFormatter={function (value: string) {
@@ -53,33 +54,47 @@ const MainBarChart = (props: any) => {
             dataKey="total_cases"
             tickFormatter={function (value: number) {
               return numFormatter(value);
-             
             }}
             tickSize={4}
-            yAxisId='left'
+            yAxisId="left"
             label={{
-              value: 'Total cases',
-              // angle: -90,
+              value: "Total cases",
+
               offset: 13,
-              position: 'top'
+              position: "top",
             }}
           />
-          <YAxis dataKey='recovered'  tickFormatter={function (value: number) {
-            return numFormatter(value);
-            
+          <YAxis
+            dataKey="recovered"
+            tickFormatter={function (value: number) {
+              return numFormatter(value);
             }}
-            tickSize={4} orientation="right" yAxisId="right"
-            label={{ value: 'Recovered', angle: 90, offset: 13, position: 'insideBottom' }}
-          hide={true}
+            tickSize={4}
+            orientation="right"
+            yAxisId="right"
+            label={{
+              value: "Recovered",
+              angle: 90,
+              offset: 13,
+              position: "insideBottom",
+            }}
+            hide={true}
           />
-          <Tooltip  formatter={(value)=> numberWithCommas(value)} />
-          <Legend align="right" verticalAlign="top" iconType='circle' height={30} iconSize={13} />
+          <Tooltip formatter={(value) => numberWithCommas(value)} />
+          <Legend
+            align="center"
+            verticalAlign="top"
+            iconType="circle"
+            height={30}
+            iconSize={13}
+          />
           <Bar
             dataKey="total_cases"
             background={false}
             name="Total cases"
             fill={chartFilling}
-            yAxisId='left'
+            yAxisId="left"
+            animationDuration={500}
           />
           <Line
             type="monotone"
@@ -87,7 +102,17 @@ const MainBarChart = (props: any) => {
             name="Recovered"
             dataKey="recovered"
             stroke="#70c96d"
-            yAxisId='right'
+            yAxisId="right"
+            animationDuration={500}
+            animationBegin={500}
+          />
+          <Brush
+            dataKey="date"
+            height={40}
+            data={chartData}
+            tickFormatter={function (value: string) {
+              return timeFormatter(value);
+            }}
           />
         </ComposedChart>
       </ResponsiveContainer>

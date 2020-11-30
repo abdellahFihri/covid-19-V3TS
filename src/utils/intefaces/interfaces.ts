@@ -26,6 +26,9 @@ export interface Props {
   countriesStats: any;
   history: any;
   dispatch: any;
+  fetchError: string | null;
+  axiosLoading: any;
+  axiosTotalReq: any;
 }
 
 export interface State {

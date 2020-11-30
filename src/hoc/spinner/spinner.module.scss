@@ -1,4 +1,4 @@
-.spinner {
+.container {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -6,8 +6,33 @@
   align-items: center;
   text-align: center;
   flex-direction: column;
-  h6 {
+  .spinner {
+    animation: fade-in-top 0.6s ease-in-out 1.5s both;
+  }
+  .h6 {
     color: #394ba5;
     margin-top: 1%;
+    animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s
+      both;
+  }
+}
+@keyframes fade-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

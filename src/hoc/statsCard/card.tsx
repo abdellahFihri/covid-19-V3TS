@@ -11,6 +11,7 @@ interface Props {
   end: number;
   new: number;
   chart: any;
+  delay: number;
 
   description?: string;
 }
@@ -26,6 +27,7 @@ const StatsCard = (props: Props) => {
             duration={2}
             separator=","
             useEasing={true}
+            delay={props.delay}
           />
 
           <div className={style.label}>
@@ -48,7 +50,7 @@ const StatsCard = (props: Props) => {
             %
           </Badge>
         </div>
-        <div style={{width:'70%'}}>{props.chart}</div>
+        <div style={{ width: "70%" }}>{props.chart}</div>
         <span className={style.description}>{props.description}</span>
       </div>
     </div>

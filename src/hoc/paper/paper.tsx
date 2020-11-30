@@ -3,18 +3,23 @@ import style from "./paper.module.scss";
 import List from "@material-ui/core/List";
 interface Props {
   children?: any;
+  columns: string[];
   [key: string]: string | React.ReactNode;
 }
 
-const Paper = ({ children, col1, col2, col3, col4, title, bar }: Props) => {
+const Paper = ({ children, columns, title, bar }: Props) => {
+  console.log("COLUMNS IN PAPER", columns);
   return (
     <div className="col-md-12">
       <div className={style.paper}>
-        <span className={style.label}>{title}</span>
+        <span className={style.label}>
+          <h6>{title}</h6>
+        </span>
         {bar}
         <div className={style.tabhead}>
-          <span> {col1}</span> <span>{col2} </span> <span>{col3} </span>{" "}
-          <span>{col4} </span>{" "}
+          {columns.map((col: string) => (
+            <span key={col}>{col}</span>
+          ))}
         </div>
 
         <div className={style.content}>

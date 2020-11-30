@@ -1,6 +1,8 @@
 import {
+  comparedCountriesHistory,
   getInitialStats,
   selectedCountryData,
+  selectedCountryDate,
 } from "../../utils/utilities/helpers";
 
 export const allCountriesData = (data: any) => {
@@ -21,6 +23,7 @@ export const fetchData = () => {
   return async (dispatch: any) => {
     try {
       const results = await getInitialStats();
+
       dispatch({ type: "FETCH_DATA", data: results });
     } catch (err) {
       dispatch({ type: "ERROR", data: err });
@@ -41,6 +44,21 @@ export const fetchCountryData = (country: any) => {
     });
   };
 };
+export const fetchCountrySelectedDate = (data: any) => {
+  return async (dispatch: any) => {
+    const results = await selectedCountryDate(
+      data.selectedCountry,
+      data.date,
+      data.period
+    );
+    dispatch({
+      type: "FETCH_COUNTRY_DATE_PERIOD",
+      payload: {
+        data: results,
+      },
+    });
+  };
+};
 
 export const setOverlay = (overlay: boolean, iso: string, country: string) => {
   return {
@@ -55,9 +73,20 @@ export const setCumulative = () => {
   };
 };
 
-export const setComparable = (data: any) => {
+export const setPeriodTimeRange = (data: string) => {
   return {
-    type: `${data.id === "first" ? "SET_OPTION_1" : "SET_OPTION_2"}`,
-    payload: data.country,
+    type: "SET_TIME_RANGE",
+    payload: data,
+  };
+};
+
+export const setComparable = (data: any) => {
+  return async (dispatch: any) => {
+    const results = await comparedCountriesHistory(data.country.name);
+    dispatch({
+      type: `${data.id === "first" ? "SET_OPTION_1" : "SET_OPTION_2"}`,
+      payload: data.country,
+      history: results,
+    });
   };
 };
