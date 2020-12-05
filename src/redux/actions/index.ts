@@ -33,33 +33,47 @@ export const fetchData = () => {
 
 export const fetchCountryData = (country: any) => {
   return async (dispatch: any) => {
-    const results = await selectedCountryData(country.name);
-    dispatch({
-      type: "FETCH_COUNTRY_DATA",
-      payload: {
-        data: results,
-        iso: country.iso,
-        selectedCountry: country.name,
-      },
-    });
+    try {
+      const results = await selectedCountryData(country.name);
+      dispatch({
+        type: "FETCH_COUNTRY_DATA",
+        payload: {
+          data: results,
+          iso: country.iso,
+          selectedCountry: country.name,
+        },
+      });
+    } catch (err) {
+      dispatch({ type: "ERROR", data: err });
+    }
   };
 };
 export const fetchCountrySelectedDate = (data: any) => {
   return async (dispatch: any) => {
-    const results = await selectedCountryDate(
-      data.selectedCountry,
-      data.date,
-      data.period
-    );
-    dispatch({
-      type: "FETCH_COUNTRY_DATE_PERIOD",
-      payload: {
-        data: results,
-      },
-    });
+    try {
+      const results = await selectedCountryDate(
+        data.selectedCountry,
+        data.date,
+        data.period
+      );
+      dispatch({
+        type: "FETCH_COUNTRY_DATE_PERIOD",
+        payload: {
+          data: results,
+        },
+      });
+    } catch (err) {
+      dispatch({ type: "ERROR", data: err });
+    }
   };
 };
 
+export const setSearchTerm = (data: string) => {
+  return {
+    type: "SEARCH_TERM",
+    payload: data,
+  };
+};
 export const setOverlay = (overlay: boolean, iso: string, country: string) => {
   return {
     type: "SET_OVERLAY",
@@ -82,11 +96,15 @@ export const setPeriodTimeRange = (data: string) => {
 
 export const setComparable = (data: any) => {
   return async (dispatch: any) => {
-    const results = await comparedCountriesHistory(data.country.name);
-    dispatch({
-      type: `${data.id === "first" ? "SET_OPTION_1" : "SET_OPTION_2"}`,
-      payload: data.country,
-      history: results,
-    });
+    try {
+      const results = await comparedCountriesHistory(data.country.name);
+      dispatch({
+        type: `${data.id === "first" ? "SET_OPTION_1" : "SET_OPTION_2"}`,
+        payload: data.country,
+        history: results,
+      });
+    } catch (err) {
+      dispatch({ type: "ERROR", data: err });
+    }
   };
 };

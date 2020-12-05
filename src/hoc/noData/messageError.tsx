@@ -5,7 +5,7 @@ interface Props {
   errMsg: string;
   iconFill: string;
 }
-const DataErr = (props: Props) => {
+const DataErr: React.FunctionComponent<Props> = (props) => {
   const { errMsg, iconFill } = props;
   return (
     <div className={style.errorMsg}>

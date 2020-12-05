@@ -23,7 +23,7 @@ import { connect } from "react-redux";
 import _ from "lodash";
 import { extractDifferences } from "../utils/utilities/helpers";
 import style from "./mainChartContainer.module.scss";
-import { Button, ButtonGroup, Col } from "reactstrap";
+import { Button, ButtonGroup, Col, Row } from "reactstrap";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
 import CovidDatePicker from "../hoc/datePicker/DatePicker";
 // import { ButtonGroup } from "@material-ui/core";
@@ -42,7 +42,7 @@ interface Props {
   cumulative: boolean;
   setCumulative: any;
 }
-const ChartsContainer = (props: Props) => {
+const ChartsContainer: React.FunctionComponent<Props> = (props) => {
   const {
     year,
     month,
@@ -55,7 +55,7 @@ const ChartsContainer = (props: Props) => {
     cumulative,
     setCumulative,
   } = props;
-  //  const [cumulative,setCumulative]=useState(false)
+
   const yearPeriod = React.useMemo(() => year, [year]);
   const monthPeriod = React.useMemo(() => month, [month]);
   const weekPeriod = React.useMemo(() => week, [week]);
@@ -67,20 +67,16 @@ const ChartsContainer = (props: Props) => {
   const selectPeriod = (period: string) => {
     switch (period) {
       case "week":
-        // setPeriod('')
         setPeriod({ period: weekPeriod, periodRange: "week" });
         break;
       case "month":
-        // setPeriod('')
         setPeriod({ period: monthPeriod, periodRange: "month" });
         break;
       case "year":
-        // setPeriod('')
         setPeriod({ period: yearPeriod, periodRange: "year" });
         break;
     }
   };
-  console.log("CUMULATIVE", cumulative);
 
   let shortHistory = _.reverse(_.dropRight(chartPeriod, 1));
 
@@ -88,13 +84,13 @@ const ChartsContainer = (props: Props) => {
     <Col lg={6}>
       <div className={style.container}>
         <div className={style.header}>
-          <div className="row">
-            <div className={`${style.main} col-md-6`}>
+          <Row>
+            <Col className={style.main} md={6}>
               <h6>Cases and recovered overview in {selectedCountry}</h6>
               <span>
                 Presenting the global contamination and revovery indexes
               </span>
-            </div>
+            </Col>
             <div className={` ${style.image} col-md-6`}>
               <div style={{ width: "70%" }}>
                 <CovidDatePicker country={selectedCountry} />
@@ -104,9 +100,9 @@ const ChartsContainer = (props: Props) => {
                 alt=""
               />
             </div>
-          </div>
-          <div className="row">
-            <div className="col-md-6">
+          </Row>
+          <Row>
+            <Col md={6}>
               <div
                 style={{
                   display: "flex",
@@ -123,9 +119,9 @@ const ChartsContainer = (props: Props) => {
                   </div>
                 ))}
               </div>
-            </div>
+            </Col>
 
-            <div className={`${style.buttons} col-md-6`}>
+            <Col className={style.buttons} md={6}>
               <ButtonGroup size="sm">
                 {["week", "month", "year"].map((period: string) => (
                   <Button
@@ -140,7 +136,7 @@ const ChartsContainer = (props: Props) => {
                 ))}
               </ButtonGroup>
               <span className={style.toggle}>
-                {`Toggle ${!cumulative ? "cumulative" : "periodic"}`}
+                {`${cumulative ? "cumulative" : "periodic"}`}
                 <div>
                   <Switch
                     checked={cumulative}
@@ -150,11 +146,11 @@ const ChartsContainer = (props: Props) => {
                   />
                 </div>
               </span>
-            </div>
-          </div>
+            </Col>
+          </Row>
         </div>
-        <div className="row">
-          <div className="col-md-12">
+        <Row>
+          <Col md={12}>
             {shortHistory.length > 31 ? (
               <InitialChart
                 history={
@@ -183,9 +179,9 @@ const ChartsContainer = (props: Props) => {
                 filling="#5068e0"
               />
             )}
-          </div>
-        </div>
-        <div className="row">
+          </Col>
+        </Row>
+        <Row>
           {[
             {
               param: "tested",
@@ -204,13 +200,13 @@ const ChartsContainer = (props: Props) => {
               stroke: "#d62d33",
             },
           ].map((rec: any) => (
-            <div className="col-md-6" key={rec.param}>
-              <div className="row">
-                <div className="col-md-6">
+            <Col md={6} key={rec.param}>
+              <Row>
+                <Col md={6}>
                   <ShortenedNum title={rec.title} value={rec.global} />
-                </div>
+                </Col>
 
-                <div className="col-md-12">
+                <Col md={12}>
                   <TinyLine
                     history={
                       !cumulative
@@ -224,11 +220,11 @@ const ChartsContainer = (props: Props) => {
                     height={260}
                     XaxisHide={false}
                   />
-                </div>
-              </div>
-            </div>
+                </Col>
+              </Row>
+            </Col>
           ))}
-        </div>
+        </Row>
       </div>
     </Col>
   );

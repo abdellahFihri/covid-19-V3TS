@@ -16,12 +16,26 @@ import {
   timeFormatter,
 } from "../../../utils/utilities/helpers";
 
-interface props {
-  data: any;
-  display?: any;
+interface Props {
+  history: { [key: string]: number | string }[] | any;
+  keyData: string;
+  sync: string;
+  filling: string;
+  height: number;
+  XaxisHide: boolean;
+  marginTop?: number;
+  title?: string;
 }
-const TinyLine = (props: any) => {
-  const { history, keyData, sync, filling, height, XaxisHide } = props;
+const TinyLine: React.FunctionComponent<Props> = (props) => {
+  const {
+    history,
+    keyData,
+    sync,
+    filling,
+    height,
+    XaxisHide,
+    marginTop,
+  } = props;
 
   const key = React.useMemo(() => keyData, [keyData]);
   const chartData = React.useMemo(
@@ -37,6 +51,7 @@ const TinyLine = (props: any) => {
       style={{
         width: "100%",
         height: `${height}px`,
+        marginTop: `${marginTop}px`,
       }}
     >
       <ResponsiveContainer>
@@ -78,7 +93,7 @@ const TinyLine = (props: any) => {
             <Legend
               align="center"
               verticalAlign="top"
-              iconType="circle"
+              iconType="line"
               iconSize={13}
             />
           ) : (

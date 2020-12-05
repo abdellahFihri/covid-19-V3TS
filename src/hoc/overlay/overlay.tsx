@@ -11,9 +11,8 @@ interface Props {
   iso: string;
   selectedCountry: string;
 }
-const Overlay = (props: Props) => {
+const Overlay: React.FunctionComponent<Props> = (props) => {
   const { iso, selectedCountry } = props;
-  console.log("iso and country in overlay", iso, selectedCountry);
 
   return (
     <div className={style.overlay}>

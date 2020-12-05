@@ -9,7 +9,11 @@ import {
   selectSelectedCountry,
 } from "../redux/reducers/world/worldDataSelector";
 
-const GlobalRadar = (props: any) => {
+interface Props {
+  radarData: { [key: string]: number | string | null }[];
+  country: string;
+}
+const GlobalRadar: React.FunctionComponent<Props> = (props) => {
   const { radarData, country } = props;
 
   return (

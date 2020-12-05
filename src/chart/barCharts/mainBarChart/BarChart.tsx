@@ -19,7 +19,14 @@ import {
 } from "../../../utils/utilities/helpers";
 
 import style from "./BarChart.module.scss";
-const MainBarChart = (props: any) => {
+interface Props {
+  history: any;
+  sync: string;
+  filling: string;
+  cumulative: boolean;
+  keyData?: string;
+}
+const MainBarChart = (props: Props) => {
   const { history, sync, filling, cumulative } = props;
   const chartData = React.useMemo(
     () => (cumulative ? history : merging(history)),
@@ -28,9 +35,8 @@ const MainBarChart = (props: any) => {
   const syncID = React.useMemo(() => sync, [sync]);
   const chartFilling = React.useMemo(() => filling, [filling]);
 
-  console.log("THE TOTAL", chartData);
   return (
-    <div className={style.barChart} style={{ width: "100%", height: 500 }}>
+    <div className={style.barChart} style={{ width: "100%", height: 550 }}>
       <ResponsiveContainer>
         <ComposedChart
           data={chartData}
@@ -108,7 +114,7 @@ const MainBarChart = (props: any) => {
           />
           <Brush
             dataKey="date"
-            height={40}
+            height={50}
             data={chartData}
             tickFormatter={function (value: string) {
               return timeFormatter(value);

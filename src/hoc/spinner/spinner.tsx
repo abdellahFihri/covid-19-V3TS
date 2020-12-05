@@ -2,7 +2,7 @@ import React from "react";
 import { Spinner } from "reactstrap";
 import style from "./spinner.module.scss";
 
-const CircularUnderLoad = () => {
+const CircularUnderLoad: React.FunctionComponent = () => {
   return (
     <div className={style.container}>
       {" "}

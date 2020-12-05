@@ -10,7 +10,7 @@ import {
 } from "../redux/reducers/world/worldDataSelector";
 
 import { mergeRadarData } from "../utils/utilities/helpers";
-import _ from "lodash";
+
 import {
   selectIso_1,
   selectIso_2,
@@ -19,10 +19,16 @@ import {
   selectCountryName_1,
   selectCountryName_2,
 } from "../redux/reducers/comparableCountries/comparableCountriesSelector";
-
-const CompareRadar = (props: any) => {
+interface Props {
+  comparable_1: { [key: string]: number | string | null }[];
+  comparable_2: { [key: string]: number | string | null }[];
+  country_1: string;
+  country_2: string;
+  iso1: string;
+  iso2: string;
+}
+const CompareRadar: React.FunctionComponent<Props> = (props) => {
   const {
-    radarData,
     comparable_1,
     comparable_2,
     country_1,
@@ -33,15 +39,6 @@ const CompareRadar = (props: any) => {
   const mergedData = React.useMemo(
     () => mergeRadarData(comparable_1, comparable_2),
     [comparable_1, comparable_2]
-  );
-
-  console.log(
-    "RADAR DATA",
-    mergeRadarData(comparable_1, comparable_2),
-    "comparable1: ",
-    comparable_1,
-    "radarData: ",
-    _.orderBy(radarData, ["A"], ["desc"])
   );
 
   return (

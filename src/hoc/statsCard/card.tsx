@@ -16,7 +16,7 @@ interface Props {
   description?: string;
 }
 
-const StatsCard = (props: Props) => {
+const StatsCard: React.FunctionComponent<Props> = (props) => {
   return (
     <div className={`col-md-${props.colSize}`}>
       <div className={style.card}>

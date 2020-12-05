@@ -6,7 +6,7 @@
   justify-content: space-evenly;
   align-items: flex-start;
   justify-items: start;
-
+  overflow: hidden;
   @media (max-width: 380px) {
     align-items: center;
   }

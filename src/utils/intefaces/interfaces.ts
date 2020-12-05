@@ -29,6 +29,7 @@ export interface Props {
   fetchError: string | null;
   axiosLoading: any;
   axiosTotalReq: any;
+  ifCountry: boolean;
 }
 
 export interface State {

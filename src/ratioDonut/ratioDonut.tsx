@@ -17,7 +17,7 @@ interface Props {
   country: string;
 }
 
-const Ratio = (props: Props): JSX.Element => {
+const Ratio: React.FunctionComponent<Props> = (props): JSX.Element => {
   const { worldRow, radarData, country } = props;
   return (
     <div className={style.ration}>

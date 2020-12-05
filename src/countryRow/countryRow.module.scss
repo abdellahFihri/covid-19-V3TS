@@ -1,14 +1,16 @@
 .country,
 .dark {
   height: 40px;
-  // color: #dbdbdb !important;
-  width: 100%;
+
+  width: auto;
+  @media (max-width: 450px) {
+  }
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-items: center;
   justify-content: space-between;
-  // border-bottom: solid 0.2px #898989;
+
   transition: 0.4s;
 
   &.dark {
@@ -63,11 +65,6 @@
     font-weight: 750;
   }
   .end {
-    // &:last-of-type {
-    //   color: green;
-    //   cursor: unset;
-    //   font-weight: 700;
-    // }
     &:nth-child(3) {
       color: #e23030;
       cursor: unset;

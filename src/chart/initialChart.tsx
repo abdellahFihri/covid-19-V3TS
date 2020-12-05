@@ -1,11 +1,7 @@
 import React from "react";
-// import { connect } from "react-redux";
+
 import {
-  // LineChart,
   AreaChart,
-  // BarChart,
-  // Line,
-  // Bar,
   Area,
   XAxis,
   YAxis,
@@ -13,6 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  Brush,
 } from "recharts";
 import {
   numFormatter,
@@ -30,7 +27,7 @@ interface Props {
   cumulative: boolean;
 }
 
-const TryChart = (props: Props) => {
+const TryChart: React.FunctionComponent<Props> = (props) => {
   const { history, keyData, sync, cumulative } = props;
 
   const chartData = React.useMemo(
@@ -41,7 +38,7 @@ const TryChart = (props: Props) => {
   const syncID = React.useMemo(() => sync, [sync]);
 
   return (
-    <div className={style.initialChart} style={{ width: "100%", height: 500 }}>
+    <div className={style.initialChart} style={{ width: "100%", height: 550 }}>
       <ResponsiveContainer>
         <AreaChart
           // width={700}
@@ -121,6 +118,14 @@ const TryChart = (props: Props) => {
             yAxisId="right"
             animationDuration={500}
             animationBegin={500}
+          />
+          <Brush
+            dataKey="date"
+            height={50}
+            data={chartData}
+            tickFormatter={function (value: string) {
+              return timeFormatter(value);
+            }}
           />
         </AreaChart>
       </ResponsiveContainer>

@@ -1,0 +1,131 @@
+.navLinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #3f51b596;
+  height: 50px;
+  font-weight: 700;
+
+  width: 100%;
+  @media (max-width: 600px) {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 3;
+    background-color: #7382e2;
+    justify-content: space-between;
+    padding-bottom: 50%;
+    flex-direction: column;
+    display: none;
+    &.open {
+      display: flex;
+      animation: slide-in-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    }
+    &.close {
+      display: flex;
+      animation: slide-out-left 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) 0.2s
+        both;
+    }
+  }
+}
+.menu {
+  color: #5068e0;
+  // background-color: yellow;
+  // position: absolute;
+  margin: 15px 0 0 15px;
+  &.open {
+    animation: scale-out-center 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  }
+  &.close {
+    animation: scale-in-center 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+      both;
+  }
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+.closeMenu {
+  width: 100%;
+  display: flex;
+  color: #05255f;
+  padding: 5% 10% 0 0;
+  align-items: center;
+  justify-content: flex-end;
+  &.open {
+    animation: rotate-in-center 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s
+      both;
+  }
+  &.close {
+    animation: rotate-out-center 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+  }
+  &:hover {
+    color: rgb(167, 14, 14);
+  }
+  @media (min-width: 600px) {
+    display: none;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
+@keyframes scale-out-center {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 1;
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes rotate-in-center {
+  0% {
+    transform: rotate(-360deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes rotate-out-center {
+  0% {
+    transform: rotate(0);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(-360deg);
+    opacity: 0;
+  }
+}

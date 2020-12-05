@@ -1,17 +1,15 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.scss";
-import NavBar from "./navbar/navbar";
-import Ratio from "./ratioDonut/ratioDonut";
+import NavLinks from "./navbar/navbar";
+
 import MainPage from "./pages/mainPage";
 import DetailedCountriesList from "./pages/DetailedCountriesListPage";
-import TopStats from "./topBarStats/topStats";
+
 import Spinner from "./hoc/spinner/spinner";
 import CompareCountries from "./pages/compareCountriesPage";
 import Container from "./hoc/container/container";
 
-import ChartsContainer from "./mainChartContainer/mainChartContainer";
-import CountriesList from "./countriesList/countriesList";
 import Overlay from "./hoc/overlay/overlay";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -21,13 +19,16 @@ import {
   selectLoading,
 } from "./redux/reducers/world/worldDataSelector";
 import { fetchData } from "./redux/actions/index";
-import GlobalRadar from "./globalRadar/globalRadar";
+
 import { Props, State } from "./utils/intefaces/interfaces";
 import { selectOverlay } from "./redux/reducers/overlay/overlaySelector";
 import Footer from "./footer/footer";
-import CompareRadar from "./compare/compareRadar";
+
 import { selectFetchErrorMsg } from "./redux/reducers/fetchingError/fetchingErrorSelector";
 import DataErr from "./hoc/noData/messageError";
+
+import NotFound from "./pages/notFound";
+import QuickMenu from "./widget/quickMenu";
 
 require("dotenv").config();
 
@@ -40,7 +41,10 @@ class App extends Component<Props, State> {
     this.props.onFetchData();
   }
   myRef: any = React.createRef();
-  executeScroll = () => this.myRef.current.scrollIntoView();
+  executeScroll = () => {
+    this.myRef.current.scrollIntoView();
+    console.log("scroll fired");
+  };
   render() {
     const { selectedCountry } = this.props;
     const { loading, overlay, fetchError } = this.props;
@@ -58,54 +62,21 @@ class App extends Component<Props, State> {
         <DataErr errMsg={fetchError} iconFill="#ff0000" />
       </div>
     ) : (
-      <div ref={this.myRef}>
-        <NavBar />
-        <Switch>
-          <Container>
-            {overlay ? <Overlay /> : ""}
-            <div id="main-title">
-              {" "}
-              {`visualization of Covid-19 statistics in ${selectedCountry}`}
-            </div>
+      <div className="App" ref={this.myRef}>
+        {overlay ? <Overlay /> : ""}
+        <NavLinks />
+
+        <Container>
+          <QuickMenu executeScroll={this.executeScroll} />
+          <Switch>
             <Route exact path="/" component={MainPage} />
-            <Route
-              exact
-              path="/countries-list"
-              component={DetailedCountriesList}
-            />
-            <Route
-              exact
-              path="/compare-countries"
-              component={CompareCountries}
-            />
-            {/* <Container>
-          {overlay ? <Overlay /> : ""}
+            <Route path={`/${selectedCountry}`} component={MainPage} />
+            <Route path="/countries-list" component={DetailedCountriesList} />
+            <Route path="/compare-countries" component={CompareCountries} />
+            <Route component={NotFound} />
+          </Switch>
+        </Container>
 
-          <TopStats />
-
-          <div className="col-lg-12">
-            <div className="row">
-              <div className="col-lg-3">
-                <Ratio />
-                <GlobalRadar />
-              </div>
-              <ChartsContainer />
-              <div className="col-lg-3">
-                <CountriesList executeScroll={this.executeScroll} />
-                <CompareRadar />
-              </div>
-            </div>
-          </div>
-        </Container> */}
-
-            {/* <div className="col-lg-12"> */}
-
-            {/* <div id="footer">
-            <span id="update"> Developed by Abdellah Fihri</span>
-          </div>
-        </div> */}
-          </Container>
-        </Switch>
         <Footer />
       </div>
     );

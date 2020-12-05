@@ -51,7 +51,6 @@ const ComboBox = (props: Props) => {
           </div>
         </React.Fragment>
       )}
-      //   size="small"
       style={{ width: "120px" }}
       renderInput={(params) => (
         <TextField

@@ -15,11 +15,11 @@ import { selectSelectedCountry } from "../redux/reducers/world/worldDataSelector
 interface Props {
   info1: number;
   info2: number;
-  month: any;
+  month: { [key: string]: number | string | null }[];
   country: string;
 }
 
-const Infos = (props: Props) => {
+const Infos: React.FunctionComponent<Props> = (props) => {
   const { info1, info2, month, country } = props;
 
   let history: any[] = _.dropRight(month, 1);

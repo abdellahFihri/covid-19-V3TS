@@ -20,11 +20,7 @@ interface Props {
 const CovidDatePicker = (props: Props) => {
   const { country, ifCountry, periodRange, fetchCountrySelectedDate } = props;
   const [selectedDate, handleDateChange] = useState(new Date());
-  // fetchCountrySelectedDate({
-  //   selectedCountry: country,
-  //   date: selectedDate,
-  //   period: periodRange,
-  // });
+
   console.log(
     "DATE",
     pickerFormatter(selectedDate),
@@ -39,8 +35,6 @@ const CovidDatePicker = (props: Props) => {
         value={selectedDate}
         size="small"
         color="primary"
-        // placeholder="choose a date"
-
         onChange={(date: any) => {
           handleDateChange(date);
         }}

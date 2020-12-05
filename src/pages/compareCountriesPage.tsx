@@ -13,6 +13,9 @@ import {
   selectIso_1,
   selectIso_2,
 } from "../redux/reducers/comparableCountries/comparableCountriesSelector";
+import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
+import style from "./compareCountriesPage.module.scss";
+
 interface Props {
   iso1: string;
   iso2: String;
@@ -29,26 +32,65 @@ const CompareCountries: React.FunctionComponent<Props> = ({
   history1,
   history2,
 }) => {
-  console.log("DATA IM COMPARECOUNTRIES PAGE", history2);
   return (
     <Container>
+      {/* <NavLinks /> */}
+      <div id="main-title"> Compare total and history between 2 countries</div>
       <Row>
-        <Col lg={6}>
-          <CompareRadar />
-        </Col>
-        <Col lg={6}>
+        <Col lg={5}>
           <Row>
-            <Col>
-              <MixedChart data={history1} />{" "}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <MixedChart data={history2} />
-            </Col>
+            {" "}
+            <CompareRadar />
           </Row>
         </Col>
+        {history1.length ? (
+          <Col lg={7} className={style.charts}>
+            <Row>
+              <Col>
+                <MixedChart data={history1} country={country1} iso={iso1} />{" "}
+              </Col>
+            </Row>
+            <Row className={style.deaths}>
+              <Col lg={8} center="true">
+                <TinyLine
+                  history={history1}
+                  keyData="deaths"
+                  sync="main"
+                  title="deaths registered"
+                  filling="#d62d33"
+                  height={260}
+                  marginTop={20}
+                  XaxisHide={false}
+                />
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <MixedChart data={history2} country={country2} iso={iso2} />
+              </Col>
+            </Row>
+            <Row className={style.deaths}>
+              <Col lg={8}>
+                <TinyLine
+                  history={history2}
+                  keyData="deaths"
+                  sync="main"
+                  title="deaths registered"
+                  filling="#d62d33"
+                  height={260}
+                  marginTop={20}
+                  XaxisHide={false}
+                />
+              </Col>
+            </Row>
+          </Col>
+        ) : (
+          ""
+        )}
       </Row>
+
+      {/* <Footer /> */}
     </Container>
   );
 };

@@ -40,13 +40,13 @@ const RadarRatio = (props: Props) => {
     data,
   ]);
   return (
-    <div style={{ width: "100%", height: 400 }}>
+    <div style={{ width: "100%", height: 385 }}>
       {iso1 ? (
         <div className={style.flags}>
           <span>
             {" "}
             <img
-              src={`https://www.countryflags.io/${iso1}/flat/32.png`}
+              src={`https://www.countryflags.io/${iso1}/flat/64.png`}
               alt=""
             />
           </span>{" "}
@@ -54,7 +54,7 @@ const RadarRatio = (props: Props) => {
           <span>
             {" "}
             <img
-              src={`https://www.countryflags.io/${iso2}/flat/32.png`}
+              src={`https://www.countryflags.io/${iso2}/flat/64.png`}
               alt=""
             />
           </span>
@@ -67,6 +67,7 @@ const RadarRatio = (props: Props) => {
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
           <PolarRadiusAxis
+            angle={18}
             tickFormatter={function (value: number) {
               return numFormatter(value);
             }}

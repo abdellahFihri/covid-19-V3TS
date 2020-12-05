@@ -1,8 +1,12 @@
 .App {
   margin: 0;
-  text-align: center;
+  min-height: 100vh;
+
   scroll-behavior: smooth;
   overflow-x: hidden !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 #main-title {
   color: #898989;
@@ -52,78 +56,6 @@
   }
 }
 
-.country {
-  height: 40px;
-  color: #dbdbdb !important;
-  width: 100%;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  justify-content: space-between;
-  border-bottom: solid 0.2px #898989;
-  transition: 0.4s;
-
-  #world {
-    text-decoration: underline;
-
-    margin: auto;
-    padding: 3px;
-
-    transition: 0.1s;
-    &:hover {
-      color: #6276e6;
-    }
-  }
-  button {
-    text-decoration: underline;
-    color: #dbdbdb;
-    width: auto;
-    background-color: transparent;
-    border: none;
-    padding: none;
-
-    margin: auto;
-    text-align: center;
-
-    transition: 0.2s;
-    &:hover {
-      color: #6276e6;
-
-      font-size: 15px;
-    }
-    &:active {
-      color: rgb(40, 184, 40);
-    }
-  }
-  span {
-    font-size: 12px;
-    text-align: center;
-    width: 25%;
-    cursor: pointer;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-  .countEnd {
-    font-weight: 750;
-  }
-  .end {
-    &:last-of-type {
-      color: green;
-      cursor: unset;
-    }
-    &:nth-child(3) {
-      color: #e23030;
-      cursor: unset;
-    }
-    &:nth-child(2) {
-      color: #1289e8;
-      cursor: unset;
-    }
-  }
-}
-
 // .country .end:last-of-type {
 //   color: green;
 //   cursor: unset;
@@ -137,23 +69,23 @@
 //   cursor: unset;
 // }
 
-#footer {
-  width: 100%;
-  margin-top: 60px;
-  display: flex;
-  justify-content: space-between;
-}
+// #footer {
+//   width: 100%;
+//   margin-top: 60px;
+//   display: flex;
+//   justify-content: space-between;
+// }
 
-#update {
-  color: #898989 !important;
-  font-size: 15px;
-}
-@media (max-width: 390px) {
-  #update {
-    font-size: 12px;
-  }
-  #footer {
-    flex-direction: column;
-    text-align: center;
-  }
-}
+// #update {
+//   color: #898989 !important;
+//   font-size: 15px;
+// }
+// @media (max-width: 390px) {
+//   #update {
+//     font-size: 12px;
+//   }
+//   #footer {
+//     flex-direction: column;
+//     text-align: center;
+//   }
+// }

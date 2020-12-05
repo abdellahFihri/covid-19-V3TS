@@ -6,37 +6,53 @@ import GlobalRadar from "../globalRadar/globalRadar";
 import ChartsContainer from "../mainChartContainer/mainChartContainer";
 import CountriesList from "../countriesList/countriesList";
 
-const MainPage = () => {
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import { selectSelectedCountry } from "../redux/reducers/world/worldDataSelector";
+import { Col, Row } from "reactstrap";
+
+interface Props {
+  selectedCountry: string;
+}
+const MainPage: React.FunctionComponent<Props> = ({ selectedCountry }) => {
   const columns: string[] = ["Country", "Cases", "Deaths", "Recovered"];
   const values: string[] = ["total_cases", "deaths", "recovered"];
   return (
     <Container>
+      <div id="main-title">
+        {" "}
+        {`visualization of Covid-19 statistics in ${selectedCountry}`}
+      </div>
       <TopStats />
 
-      <div className="col-lg-12">
-        <div className="row">
-          <div className="col-lg-6">
-            <div className="row">
-              <div className="col-lg-6">
+      <Col lg={12}>
+        <Row>
+          <Col lg={6}>
+            <Row>
+              <Col lg={6}>
                 <CountriesList
                   // executeScroll={this.executeScroll}
                   cols={columns}
                   vals={values}
+                  detailed={false}
                 />
-                {/* <CompareRadar /> */}
-              </div>
-              <div className="col-lg-6">
+              </Col>
+              <Col lg={6}>
                 <Ratio />
-              </div>
-              <div className="col-lg-12">
+              </Col>
+              <Col lg={12}>
                 <GlobalRadar />
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Col>
           <ChartsContainer />
-        </div>
-      </div>
+        </Row>
+      </Col>
     </Container>
   );
 };
-export default MainPage;
+const mapStateToProps = createStructuredSelector({
+  selectedCountry: selectSelectedCountry,
+});
+export default connect(mapStateToProps)(MainPage);

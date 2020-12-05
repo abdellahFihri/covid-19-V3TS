@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  BarChart,
   Bar,
   XAxis,
   YAxis,
@@ -8,7 +7,6 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  Line,
   ComposedChart,
 } from "recharts";
 import {
@@ -16,25 +14,34 @@ import {
   numFormatter,
   timeFormatter,
 } from "../../utils/utilities/helpers";
-
-const MixedChart = ({ data }: any) => {
+import style from "./mixedBarChart.module.scss";
+interface Props {
+  data: any;
+  country: string;
+  iso: any;
+}
+const MixedChart: React.FunctionComponent<Props> = ({ data, country, iso }) => {
   const chartData = React.useMemo(() => data, [data]);
 
   return (
     <div style={{ width: "100%", height: 300 }}>
+      <div className={style.country}>
+        <span>{country}</span>
+        <img
+          src={`https://www.countryflags.io/${iso}/flat/32.png`}
+          alt=""
+        />{" "}
+      </div>
       <ResponsiveContainer>
         <ComposedChart
-          //   width={500}
-          //   height={300}
           data={chartData}
           margin={{
             top: 20,
-            right: 30,
-            left: 20,
+
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} />
           <XAxis
             dataKey="date"
             tickFormatter={function (value: string) {

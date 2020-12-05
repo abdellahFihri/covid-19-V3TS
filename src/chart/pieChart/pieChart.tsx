@@ -15,7 +15,7 @@ interface Props {
   data: any;
   title: string;
 }
-const DonutChart = (props: Props) => {
+const DonutChart: React.FunctionComponent<Props> = (props) => {
   const { data, title } = props;
   const chartData = React.useMemo(() => [0, 2, 3].map((i: number) => data[i]), [
     data,

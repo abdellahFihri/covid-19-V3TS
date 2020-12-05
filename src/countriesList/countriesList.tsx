@@ -4,7 +4,12 @@ import SearchBar from "../hoc/searchbar/searchbar";
 import Paper from "../hoc/paper/paper";
 import Spinner from "../hoc/spinner/spinner";
 import CountryRow from "../countryRow/countryRow";
-import { allCountriesData, fetchData, setOverlay } from "../redux/actions";
+import {
+  allCountriesData,
+  fetchData,
+  setOverlay,
+  setSearchTerm,
+} from "../redux/actions";
 import { Data } from "../utils/intefaces/interfaces";
 import { createStructuredSelector } from "reselect";
 import {
@@ -13,26 +18,40 @@ import {
 } from "../redux/reducers/allCountries/allCountriesDataSelector";
 import { selectFirstRow } from "../redux/reducers/world/worldDataSelector";
 import { numFormatter } from "../utils/utilities/helpers";
+import { Link } from "react-router-dom";
+import style from "./countriesList.module.scss";
 
 interface Props {
   allCountriesData: (arg0: any) => void;
   cols: string[];
+  detailed: boolean;
   vals: string[];
   countriesStats: any;
-  world: any;
-  all: any;
+  world: { [key: string]: number | string | null }[];
+  all: { [key: string]: number | string | null }[];
   filter: any;
   firstRow: any;
   dispatch: any;
   executeScroll: any;
   fetchData: () => void;
   setOverlay: (arg0: boolean, arg1: string, arg2: string) => void;
+  setSearchTerm: (arg0: string) => void;
 }
 
 const CountriesList: FunctionComponent<Props> = (props) => {
-  const { firstRow, executeScroll, cols, vals } = props;
-  const { all, filter, fetchData, setOverlay } = props;
-  console.log("COLMNS IN COUNTRIES LIST", cols);
+  const {
+    firstRow,
+    // executeScroll,
+    cols,
+    vals,
+    detailed,
+    all,
+    filter,
+    fetchData,
+    setOverlay,
+    setSearchTerm,
+  } = props;
+
   const [term, setTerm] = useState("");
   const handleChange = (event: { target: { value: string } }) => {
     const { allCountriesData } = props;
@@ -42,7 +61,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
     term.length ? (term = term[0].toUpperCase() + term.slice(1)) : (term = "");
 
     setTerm(event.target.value);
-
+    setSearchTerm(event.target.value);
     let arrayOfCountries: any = all;
     // filtering and returning a new array with countries matching the search term
     let filteredCountries: any[] = arrayOfCountries.filter(function (
@@ -52,7 +71,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
     });
 
     setTerm(event.target.value);
-
+    setSearchTerm(event.target.value);
     allCountriesData({
       all: arrayOfCountries,
       filter: filteredCountries,
@@ -73,34 +92,29 @@ const CountriesList: FunctionComponent<Props> = (props) => {
         }
         columns={cols}
       >
-        {cols.length < 3 ? (
-          <div className="country">
-            <span
-              id="world"
-              style={{ color: "#5068e0", fontWeight: "bold" }}
-              onClick={() => {
-                setOverlay(true, "", "The world");
-                fetchData();
-                // executeScroll();
-              }}
-            >
-              The globe
-            </span>{" "}
+        {!detailed ? (
+          <div className={style.country}>
+            <Link to="/">
+              <span
+                id="world"
+                style={{ color: "#5068e0", fontWeight: "bold" }}
+                onClick={() => {
+                  setOverlay(true, "", "The world");
+                  fetchData();
+                  // executeScroll();
+                }}
+              >
+                The globe
+              </span>{" "}
+            </Link>
             {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
               (i) => {
                 return (
                   <span
                     key={i}
-                    className="end"
+                    className={style.end}
                     style={{ fontWeight: "bolder" }}
                   >
-                    {/* <CountUp
-                    className="countEnd"
-                    end={i}
-                    duration={3}
-                    separator=","
-                    useEasing={true}
-                  /> */}
                     {numFormatter(i)}
                   </span>
                 );
@@ -110,6 +124,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
         ) : (
           ""
         )}
+
         {filter.length ? (
           <CountryRow
             // executeScroll={() => executeScroll()}
@@ -133,4 +148,5 @@ export default connect(mapStateToProps, {
   allCountriesData,
   fetchData,
   setOverlay,
+  setSearchTerm,
 })(CountriesList);

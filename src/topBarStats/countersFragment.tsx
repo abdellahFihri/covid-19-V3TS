@@ -11,15 +11,15 @@ import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
 
 import { extractDifferences } from "../utils/utilities/helpers";
 import _ from "lodash";
-
+type data = { [key: string]: number | string | null }[];
 interface Props {
-  world: any;
-  history: any;
+  world: data;
+  history: data;
   statsCards: any;
   worldRow: any;
-  month: any;
+  month: data;
 }
-const CountersFragment = (props: Props) => {
+const CountersFragment: React.FunctionComponent<Props> = (props) => {
   const { statsCards, worldRow, month } = props;
 
   console.log("PROPS", props);

@@ -10,11 +10,14 @@
   margin: 10px 0 10px 0;
   padding: 1% 5% 1% 5%;
   background-color: white;
-  // background-color: yellow;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease-in-out;
+  animation: scale-in-ver-center 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
 
-  // box-shadow: -1px 8px 5px -8px rgba(11, 0, 0, 0.63);
-
-  border: solid 0.1px #dde4eb;
+  // border: solid 0.1px #dde4eb;
   @media (max-width: 800px) {
     flex-direction: column;
   }
@@ -54,4 +57,14 @@
 .description {
   color: #898989;
   font-size: 16px;
+}
+@keyframes scale-in-ver-center {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }

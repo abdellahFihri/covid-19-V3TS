@@ -11,6 +11,7 @@ import getCountryHistory from "./countryHistory/countryHistoryReducer";
 import getOverlay from "./overlay/overLayReducer";
 import getCountriesToCompare from "./comparableCountries/comparableCountriesReducer";
 import getFetchingErrorMessage from "./fetchingError/fetchErrorReducer";
+import getSearchTerm from "./searchBar/searchBarReducer";
 
 // const persistConfig = {
 //   key: "root",
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   cumulative: getCumulative,
   countriesToCompare: getCountriesToCompare,
   fetchingDataError: getFetchingErrorMessage,
+  searchTerm: getSearchTerm,
 });
 
 export default rootReducer;

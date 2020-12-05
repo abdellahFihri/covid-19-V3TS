@@ -8,7 +8,6 @@ interface Props {
 }
 
 const Paper = ({ children, columns, title, bar }: Props) => {
-  console.log("COLUMNS IN PAPER", columns);
   return (
     <div className="col-md-12">
       <div className={style.paper}>
