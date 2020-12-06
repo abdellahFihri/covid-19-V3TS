@@ -21,7 +21,7 @@ export const getInitialStats = async () => {
     countriesArray.push(key);
     return countriesArray;
   });
-  // console.log("countries array ", countriesArray);
+
   const worldData: any[] = [worldSummary, worldDaily];
 
   const worldHistory: any = await allSpots();
@@ -72,7 +72,6 @@ export const selectedCountryData = async (selected: string) => {
 };
 
 export const comparedCountriesHistory = async (country: string) => {
-  console.log("country in compare history helper", country);
   function AllYear() {
     return WorldRequest.get("spots/year", {
       params: {
@@ -117,7 +116,7 @@ export const refactorResponseData = (res: any) => {
     refactored.push(key);
     return refactored;
   });
-  // console.log("refactored", refactored);
+
   return refactored;
 };
 export const refactorRadar = (res: any, initial: string) => {
@@ -130,7 +129,7 @@ export const refactorRadar = (res: any, initial: string) => {
     });
     return refactored;
   });
-  // console.log("refactored", refactored);
+
   // return _.orderBy(refactored, [`${initial}`], ['desc']);
 
   let unnecessaryWords = [
@@ -260,13 +259,6 @@ export const mergeRadarData = (country1: any, country2: any) => {
     total2.push(merge);
   }
   return total2;
-
-  // let unnecessaryWords = ['iso3166a2', 'iso3166a3', 'tested','recovery ratio','death ratio','name','change','iso3166numeric'];
-
-  // let betterWords = total2.filter(function (el: any) {
-  //   return !unnecessaryWords.includes(el.subject)
-  // })
-  // return betterWords
 };
 
 export const numberWithCommas = (x: any) => {

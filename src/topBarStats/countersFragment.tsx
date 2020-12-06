@@ -22,7 +22,6 @@ interface Props {
 const CountersFragment: React.FunctionComponent<Props> = (props) => {
   const { statsCards, worldRow, month } = props;
 
-  console.log("PROPS", props);
   let shortHistory = _.takeRight(month, 16);
 
   return (

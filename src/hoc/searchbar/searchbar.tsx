@@ -16,7 +16,6 @@ const searchBar: React.FunctionComponent<Props> = ({
   term,
 }) => (
   <div className={styles.input}>
-    {console.log("seRHCTERM", term)}
     <input
       type="text"
       name=""

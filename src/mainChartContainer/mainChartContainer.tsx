@@ -96,7 +96,8 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
                 <CovidDatePicker country={selectedCountry} />
               </div>
               <img
-                src={`https://www.countryflags.io/${iso}/flat/64.png`}
+                src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
+                width="80"
                 alt=""
               />
             </div>

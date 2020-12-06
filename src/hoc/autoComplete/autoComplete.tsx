@@ -41,12 +41,19 @@ const ComboBox = (props: Props) => {
             <span>{option.iso3166a3}</span>{" "}
             <span>
               {" "}
-              <img
+              {/* <img
                 src={`https://www.countryflags.io/${
                   option.iso3166a2 ? option.iso3166a2 : ""
                 }/flat/32.png`}
                 alt=""
-              />{" "}
+              />{" "} */}
+              <img
+                src={`https://flagcdn.com/${
+                  option.iso3166a2 ? option.iso3166a2.toLocaleLowerCase() : ""
+                }.svg`}
+                width="30"
+                alt=""
+              />
             </span>
           </div>
         </React.Fragment>

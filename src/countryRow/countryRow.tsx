@@ -65,9 +65,18 @@ const CountryRow: FunctionComponent<Props> = (props) => {
             </Link>
             <div className={style.img}>
               <img
-                src={`https://www.countryflags.io/${country.iso3166a2}/flat/32.png`}
+                src={`https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg`}
+                width="40"
                 alt=""
               />
+              {/* <img
+                src={`https://flagcdn.com/16x12/${country.iso3166a2}.png`}
+                srcSet={`https://flagcdn.com/32x24/${country.iso3166a2}.png 2x,
+    https://flagcdn.com/48x36/${country.iso3166a2}.png 3x`}
+                alt="South Africa"
+                height="16"
+                width="16"
+              /> */}
             </div>
           </div>
         </span>

@@ -14,7 +14,9 @@ import {
   selectIso_2,
 } from "../redux/reducers/comparableCountries/comparableCountriesSelector";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
+import { Helmet } from "react-helmet";
 import style from "./compareCountriesPage.module.scss";
+import { Typography } from "@material-ui/core";
 
 interface Props {
   iso1: string;
@@ -34,8 +36,37 @@ const CompareCountries: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <Container>
+      <Helmet>
+        <html lang="en" />
+        <title>Compare Covid-19 data between countries</title>
+        <meta
+          name="Covid-19 countries comparator"
+          content="A page to compare covid-19 data between countries with data visualization and graphics"
+        />
+      </Helmet>
       {/* <NavLinks /> */}
-      <div id="main-title"> Compare total and history between 2 countries</div>
+      <div id="main-title">
+        {" "}
+        Compare covid-19 totals and history between two countries
+      </div>
+      <Typography
+        style={{
+          padding: "0  5% 0 5%",
+          fontSize: "14px",
+          textAlign: "center",
+          color: "#898989",
+        }}
+      >
+        Choose countries you want to compare from the countries list below, at
+        the end of the selection a graphic radar will render a visualization of
+        covid-19 total, active and critical cases for each country, along with
+        the total number of deaths and the total number of recovered.
+        <br />
+        Also at the end of the countries selection, a mixed bar chart will
+        visualize the periodic total cases and recovered and a line chart to
+        visualize the covid-19 deaths since the beginning of the pandemic
+        outbreak.
+      </Typography>
       <Row>
         <Col lg={5}>
           <Row>
@@ -50,7 +81,7 @@ const CompareCountries: React.FunctionComponent<Props> = ({
             </Col>
           </Row>
           <Row className={style.deaths}>
-            <Col lg={8} center>
+            <Col lg={8}>
               <TinyLine
                 history={history1}
                 keyData="deaths"

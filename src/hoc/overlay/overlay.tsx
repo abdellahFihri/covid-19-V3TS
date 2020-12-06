@@ -19,7 +19,11 @@ const Overlay: React.FunctionComponent<Props> = (props) => {
       <span
         className={style.span}
       >{`Collecting data for ${selectedCountry}`}</span>
-      <img src={`https://www.countryflags.io/${iso}/flat/64.png`} alt="" />
+      <img
+        src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
+        width="60"
+        alt=""
+      />
       <div className={style.spinners}>
         {[0, 1, 2].map((i: number) => (
           <Spinner type="grow" color="light" size="sm" key={i} />

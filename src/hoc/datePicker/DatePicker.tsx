@@ -3,7 +3,7 @@ import DateFnsUtils from "@date-io/date-fns";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { pickerFormatter } from "../../utils/utilities/helpers";
+// import { pickerFormatter } from "../../utils/utilities/helpers";
 import {
   selectIfCountry,
   selectPeriodRange,
@@ -21,13 +21,6 @@ const CovidDatePicker = (props: Props) => {
   const { country, ifCountry, periodRange, fetchCountrySelectedDate } = props;
   const [selectedDate, handleDateChange] = useState(new Date());
 
-  console.log(
-    "DATE",
-    pickerFormatter(selectedDate),
-    props.country,
-    ifCountry,
-    periodRange
-  );
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <DatePicker
