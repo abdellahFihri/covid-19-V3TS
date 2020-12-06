@@ -24,6 +24,7 @@ interface Props {
   height: number;
   XaxisHide: boolean;
   marginTop?: number;
+  marginRight?: number;
   title?: string;
 }
 const TinyLine: React.FunctionComponent<Props> = (props) => {
@@ -35,6 +36,7 @@ const TinyLine: React.FunctionComponent<Props> = (props) => {
     height,
     XaxisHide,
     marginTop,
+    marginRight,
   } = props;
 
   const key = React.useMemo(() => keyData, [keyData]);
@@ -52,6 +54,7 @@ const TinyLine: React.FunctionComponent<Props> = (props) => {
         width: "100%",
         height: `${height}px`,
         marginTop: `${marginTop}px`,
+        marginLeft: `${marginRight}px`,
       }}
     >
       <ResponsiveContainer>

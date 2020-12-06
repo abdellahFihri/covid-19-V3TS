@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button } from "reactstrap";
+
 import style from "./quickMenu.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretUp, faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
 
 const QuickMenu = (props: any) => {
   const [top, setTop] = useState(0);

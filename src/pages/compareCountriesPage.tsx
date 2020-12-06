@@ -43,51 +43,47 @@ const CompareCountries: React.FunctionComponent<Props> = ({
             <CompareRadar />
           </Row>
         </Col>
-        {history1.length ? (
-          <Col lg={7} className={style.charts}>
-            <Row>
-              <Col>
-                <MixedChart data={history1} country={country1} iso={iso1} />{" "}
-              </Col>
-            </Row>
-            <Row className={style.deaths}>
-              <Col lg={8} center="true">
-                <TinyLine
-                  history={history1}
-                  keyData="deaths"
-                  sync="main"
-                  title="deaths registered"
-                  filling="#d62d33"
-                  height={260}
-                  marginTop={20}
-                  XaxisHide={false}
-                />
-              </Col>
-            </Row>
+        <Col lg={7} className={style.charts}>
+          <Row>
+            <Col>
+              <MixedChart data={history1} country={country1} iso={iso1} />{" "}
+            </Col>
+          </Row>
+          <Row className={style.deaths}>
+            <Col lg={8} center>
+              <TinyLine
+                history={history1}
+                keyData="deaths"
+                sync="main"
+                title="deaths registered"
+                filling="#d62d33"
+                height={260}
+                marginTop={20}
+                XaxisHide={false}
+              />
+            </Col>
+          </Row>
 
-            <Row>
-              <Col>
-                <MixedChart data={history2} country={country2} iso={iso2} />
-              </Col>
-            </Row>
-            <Row className={style.deaths}>
-              <Col lg={8}>
-                <TinyLine
-                  history={history2}
-                  keyData="deaths"
-                  sync="main"
-                  title="deaths registered"
-                  filling="#d62d33"
-                  height={260}
-                  marginTop={20}
-                  XaxisHide={false}
-                />
-              </Col>
-            </Row>
-          </Col>
-        ) : (
-          ""
-        )}
+          <Row>
+            <Col>
+              <MixedChart data={history2} country={country2} iso={iso2} />
+            </Col>
+          </Row>
+          <Row className={style.deaths}>
+            <Col lg={8}>
+              <TinyLine
+                history={history2}
+                keyData="deaths"
+                sync="main"
+                title="deaths registered"
+                filling="#d62d33"
+                height={260}
+                marginTop={20}
+                XaxisHide={false}
+              />
+            </Col>
+          </Row>
+        </Col>
       </Row>
 
       {/* <Footer /> */}
