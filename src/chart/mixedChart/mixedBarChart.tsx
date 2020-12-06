@@ -28,9 +28,10 @@ const MixedChart: React.FunctionComponent<Props> = ({ data, country, iso }) => {
       <div className={style.country}>
         <span>{country}</span>
         <img
-          src={`https://www.countryflags.io/${iso}/flat/32.png`}
+          src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
+          width="40"
           alt=""
-        />{" "}
+        />
       </div>
       <ResponsiveContainer>
         <ComposedChart

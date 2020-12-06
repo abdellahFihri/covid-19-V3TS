@@ -67,7 +67,7 @@ const RadarRatio = (props: Props) => {
         ""
       )}
       <ResponsiveContainer>
-        <RadarChart outerRadius={130} data={chartData}>
+        <RadarChart outerRadius={120} data={chartData}>
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
           <PolarRadiusAxis

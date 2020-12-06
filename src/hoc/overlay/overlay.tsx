@@ -21,7 +21,7 @@ const Overlay: React.FunctionComponent<Props> = (props) => {
       >{`Collecting data for ${selectedCountry}`}</span>
       <img
         src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
-        width="60"
+        width="50"
         alt=""
       />
       <div className={style.spinners}>
