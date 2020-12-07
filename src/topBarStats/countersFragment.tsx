@@ -22,7 +22,7 @@ interface Props {
 const CountersFragment: React.FunctionComponent<Props> = (props) => {
   const { statsCards, worldRow, month } = props;
 
-  let shortHistory = _.takeRight(month, 20);
+  let shortHistory = _.takeRight(month, 10);
 
   return (
     <div className={`col-lg-12 ${style.counters}`}>
