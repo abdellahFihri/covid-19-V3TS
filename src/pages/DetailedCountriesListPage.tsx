@@ -23,7 +23,7 @@ const DetailedCountriesList: React.FunctionComponent = () => (
         lineHeight: "30px",
       }}
     >
-      This is an expended list of countries containing covid-19 totals for each
+      This is an expanded list of countries containing covid-19 totals for each
       country, use the quick search bar to find a specific country.
       <br />
       If the country name is clicked, you will be redirected to the country
