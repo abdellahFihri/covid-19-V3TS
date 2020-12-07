@@ -6,9 +6,11 @@ import {
   Legend,
   ResponsiveContainer,
   XAxis,
+  YAxis,
 } from "recharts";
 import {
   numberWithCommas,
+  numFormatter,
   timeFormatter,
 } from "../../../utils/utilities/helpers";
 import style from "./tinyBarChart.module.scss";
@@ -29,6 +31,13 @@ const TinyBar = (props: any) => {
             dataKey="date"
             tickFormatter={function (value: string) {
               return timeFormatter(value);
+            }}
+          />
+          <YAxis
+            hide={props.YaxisHide}
+            dataKey={data}
+            tickFormatter={function (value: number) {
+              return numFormatter(value);
             }}
           />
           <Bar dataKey={data} fill={chartFilling} animationDuration={500} />

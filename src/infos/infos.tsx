@@ -51,6 +51,7 @@ const Infos: React.FunctionComponent<Props> = (props) => {
             keyData="critical"
             filling="#d65c0a"
             title={"Critical index of the last 30 days"}
+            YaxisHide={true}
           />
         )}
       </div>

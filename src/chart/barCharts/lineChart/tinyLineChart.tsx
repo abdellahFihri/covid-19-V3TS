@@ -79,6 +79,7 @@ const TinyLine: React.FunctionComponent<Props> = (props) => {
               tickFormatter={function (value: number) {
                 return numFormatter(value);
               }}
+              domain={["auto", "auto"]}
             />
           ) : (
             ""

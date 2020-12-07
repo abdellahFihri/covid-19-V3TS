@@ -26,6 +26,7 @@ import style from "./mainChartContainer.module.scss";
 import { Button, ButtonGroup, Col, Row } from "reactstrap";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
 import CovidDatePicker from "../hoc/datePicker/DatePicker";
+import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
 // import { ButtonGroup } from "@material-ui/core";
 
 interface Props {
@@ -208,19 +209,35 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
                 </Col>
 
                 <Col md={12}>
-                  <TinyLine
-                    history={
-                      !cumulative
-                        ? extractDifferences(shortHistory, rec.param)
-                        : _.reverse(shortHistory)
-                    }
-                    keyData={rec.param}
-                    sync="main"
-                    title={rec.chartTitle}
-                    filling={rec.filling}
-                    height={260}
-                    XaxisHide={false}
-                  />
+                  {shortHistory.length > 31 ? (
+                    <TinyBar
+                      history={
+                        !cumulative
+                          ? extractDifferences(shortHistory, rec.param)
+                          : _.reverse(shortHistory)
+                      }
+                      keyData={rec.param}
+                      sync="main"
+                      title={rec.chartTitle}
+                      filling={rec.filling}
+                      height={260}
+                      YaxisHide={false}
+                    />
+                  ) : (
+                    <TinyLine
+                      history={
+                        !cumulative
+                          ? extractDifferences(shortHistory, rec.param)
+                          : _.reverse(shortHistory)
+                      }
+                      keyData={rec.param}
+                      sync="main"
+                      title={rec.chartTitle}
+                      filling={rec.filling}
+                      height={260}
+                      XaxisHide={false}
+                    />
+                  )}
                 </Col>
               </Row>
             </Col>

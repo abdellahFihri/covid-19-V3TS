@@ -69,6 +69,8 @@ const MainBarChart = (props: Props) => {
               offset: 13,
               position: "top",
             }}
+            type="number"
+            domain={["auto", "auto"]}
           />
           <YAxis
             dataKey="recovered"
@@ -85,6 +87,7 @@ const MainBarChart = (props: Props) => {
               position: "insideBottom",
             }}
             hide={true}
+            domain={["auto", "auto"]}
           />
           <Tooltip formatter={(value) => numberWithCommas(value)} />
           <Legend

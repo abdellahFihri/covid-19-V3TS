@@ -56,6 +56,14 @@ const MixedChart: React.FunctionComponent<Props> = ({ data, country, iso }) => {
             tickFormatter={function (value: number) {
               return numFormatter(value);
             }}
+            label={{
+              value: "Total",
+
+              offset: 10,
+              position: "top",
+            }}
+            type="number"
+            domain={["auto", "auto"]}
           />
           <YAxis
             dataKey="recovered"
@@ -64,6 +72,14 @@ const MixedChart: React.FunctionComponent<Props> = ({ data, country, iso }) => {
             tickFormatter={function (value: number) {
               return numFormatter(value);
             }}
+            label={{
+              value: "Recovered",
+
+              offset: 10,
+              position: "top",
+            }}
+            type="number"
+            domain={["auto", "auto"]}
           />
           <Tooltip formatter={(value) => numberWithCommas(value)} />
           <Legend />
