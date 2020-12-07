@@ -16,10 +16,11 @@ const DetailedCountriesList: React.FunctionComponent = () => (
     <div id="main-title"> Detailed countries list</div>
     <Typography
       style={{
-        padding: "0  5% 0 5%",
+        padding: "0  10% 0 10%",
         fontSize: "14px",
         textAlign: "center",
         color: "#898989",
+        lineHeight: "30px",
       }}
     >
       This is an expended list of countries containing covid-19 totals for each

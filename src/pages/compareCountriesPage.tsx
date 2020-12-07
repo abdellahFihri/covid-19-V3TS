@@ -35,7 +35,7 @@ const CompareCountries: React.FunctionComponent<Props> = ({
   history2,
 }) => {
   return (
-    <Container>
+    <React.Fragment>
       <Helmet>
         <html lang="en" />
         <title>Compare Covid-19 data between countries</title>
@@ -44,81 +44,70 @@ const CompareCountries: React.FunctionComponent<Props> = ({
           content="A page to compare covid-19 data between countries with data visualization and graphics"
         />
       </Helmet>
-      {/* <NavLinks /> */}
+
       <div id="main-title">
         {" "}
         Compare covid-19 totals and history between two countries
       </div>
       <Typography
         style={{
-          padding: "0  5% 0 5%",
+          padding: "0  10% 0 10%",
           fontSize: "14px",
           textAlign: "center",
           color: "#898989",
+          lineHeight: "30px",
         }}
       >
-        Choose countries you want to compare from the countries list below, at
-        the end of the selection a graphic radar will render a visualization of
-        covid-19 total, active and critical cases for each country, along with
-        the total number of deaths and the total number of recovered.
+        Choose countries you want to compare from the countries selectors bellow
+        or simply type in the country name, at the end of the selection a
+        graphic radar will render a visualization of covid-19 total, active and
+        critical cases for each country, along with the total number of deaths
+        and the total number of recovered.
         <br />
         Also at the end of the countries selection, a mixed bar chart will
         visualize the periodic total cases and recovered and a line chart to
         visualize the covid-19 deaths since the beginning of the pandemic
         outbreak.
       </Typography>
-      <Row>
-        <Col lg={5}>
-          <Row>
-            {" "}
+      <Container container-fluid>
+        <Row>
+          <Col lg={5}>
             <CompareRadar />
-          </Row>
-        </Col>
-        <Col lg={7} className={style.charts}>
-          <Row>
-            <Col>
-              <MixedChart data={history1} country={country1} iso={iso1} />{" "}
-            </Col>
-          </Row>
-          <Row className={style.deaths}>
-            <Col lg={8}>
-              <TinyLine
-                history={history1}
-                keyData="deaths"
-                sync="main"
-                title="deaths registered"
-                filling="#d62d33"
-                height={260}
-                marginTop={20}
-                XaxisHide={false}
-              />
-            </Col>
-          </Row>
-
-          <Row>
-            <Col>
+          </Col>
+          <Col lg={7} className={style.col}>
+            <div className={style.charts}>
+              {" "}
+              <MixedChart data={history1} country={country1} iso={iso1} />
+              <div className={style.deaths}>
+                <TinyLine
+                  history={history1}
+                  keyData="deaths"
+                  sync="main"
+                  title="deaths registered"
+                  filling="#d62d33"
+                  height={260}
+                  marginTop={20}
+                  XaxisHide={false}
+                />
+              </div>{" "}
               <MixedChart data={history2} country={country2} iso={iso2} />
-            </Col>
-          </Row>
-          <Row className={style.deaths}>
-            <Col lg={8}>
-              <TinyLine
-                history={history2}
-                keyData="deaths"
-                sync="main"
-                title="deaths registered"
-                filling="#d62d33"
-                height={260}
-                marginTop={20}
-                XaxisHide={false}
-              />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-
-      {/* <Footer /> */}
-    </Container>
+              <div className={style.deaths}>
+                <TinyLine
+                  history={history2}
+                  keyData="deaths"
+                  sync="main"
+                  title="deaths registered"
+                  filling="#d62d33"
+                  height={260}
+                  marginTop={20}
+                  XaxisHide={false}
+                />
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </React.Fragment>
   );
 };
 const mapStateToProps = createStructuredSelector({

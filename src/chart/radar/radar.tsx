@@ -47,7 +47,7 @@ const RadarRatio = (props: Props) => {
             {" "}
             <img
               src={`https://flagcdn.com/${iso1.toLocaleLowerCase()}.svg`}
-              width="80"
+              width="40"
               alt=""
             />
           </span>{" "}
@@ -58,7 +58,7 @@ const RadarRatio = (props: Props) => {
               src={`https://flagcdn.com/${
                 iso2 ? iso2.toLocaleLowerCase() : ""
               }.svg`}
-              width="80"
+              width="40"
               alt=""
             />
           </span>

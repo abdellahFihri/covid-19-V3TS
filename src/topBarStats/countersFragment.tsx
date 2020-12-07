@@ -22,7 +22,7 @@ interface Props {
 const CountersFragment: React.FunctionComponent<Props> = (props) => {
   const { statsCards, worldRow, month } = props;
 
-  let shortHistory = _.takeRight(month, 16);
+  let shortHistory = _.takeRight(month, 20);
 
   return (
     <div className={`col-lg-12 ${style.counters}`}>
@@ -43,7 +43,7 @@ const CountersFragment: React.FunctionComponent<Props> = (props) => {
                 filling="#8884d8"
                 sync=""
                 XaxisHide={true}
-                height={60}
+                height={100}
               />
             ),
           },
@@ -59,7 +59,7 @@ const CountersFragment: React.FunctionComponent<Props> = (props) => {
                 filling="#b72429"
                 sync=""
                 XaxisHide={true}
-                height={60}
+                height={100}
               />
             ),
           },
@@ -76,7 +76,7 @@ const CountersFragment: React.FunctionComponent<Props> = (props) => {
                 filling="#28a745"
                 sync=""
                 XaxisHide={true}
-                height={60}
+                height={100}
               />
             ),
           },
@@ -92,7 +92,7 @@ const CountersFragment: React.FunctionComponent<Props> = (props) => {
                 filling="#8884d8"
                 sync=""
                 XaxisHide={true}
-                height={60}
+                height={100}
               />
             ),
           },
