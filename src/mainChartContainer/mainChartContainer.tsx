@@ -188,7 +188,7 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
             {
               param: "tested",
               title: "Total tests",
-              chartTitle: "Periodic rate tests",
+              // chartTitle: "Periodic rate tests",
               global: worldRow.tested,
               filling: "#1d89e8",
               stroke: "#ff7b00",
@@ -197,7 +197,7 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
               param: "deaths",
               title: "Total deaths",
               global: worldRow.deaths,
-              chartTitle: "Periodic rate of deaths",
+              // chartTitle: "Periodic rate of deaths",
               filling: "#b72429",
               stroke: "#d62d33",
             },
