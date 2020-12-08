@@ -16,18 +16,20 @@ const Overlay: React.FunctionComponent<Props> = (props) => {
 
   return (
     <div className={style.overlay}>
-      <span
-        className={style.span}
-      >{`Collecting data for ${selectedCountry}`}</span>
-      <img
-        src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
-        width="50"
-        alt=""
-      />
-      <div className={style.spinners}>
-        {[0, 1, 2].map((i: number) => (
-          <Spinner type="grow" color="light" size="sm" key={i} />
-        ))}
+      <div className={style.center}>
+        <span
+          className={style.span}
+        >{`Collecting data for ${selectedCountry}`}</span>
+        <img
+          src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
+          width="50"
+          alt=""
+        />
+        <div className={style.spinners}>
+          {[0, 1, 2].map((i: number) => (
+            <Spinner type="grow" color="light" size="sm" key={i} />
+          ))}
+        </div>
       </div>
     </div>
   );

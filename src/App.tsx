@@ -73,7 +73,7 @@ class App extends Component<Props, State> {
             <Route path={`/${selectedCountry}`} component={MainPage} />
             <Route path="/countries-list" component={DetailedCountriesList} />
             <Route path="/compare-countries" component={CompareCountries} />
-            <Route component={NotFound} />
+            <Route path="*" component={NotFound} />
           </Switch>
         </Container>
 

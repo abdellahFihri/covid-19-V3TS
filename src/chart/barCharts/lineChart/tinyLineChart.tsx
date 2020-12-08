@@ -54,7 +54,7 @@ const TinyLine: React.FunctionComponent<Props> = (props) => {
         width: "100%",
         height: `${height}px`,
         marginTop: `${marginTop}px`,
-        marginLeft: `${marginRight}px`,
+        marginRight: `${marginRight}px`,
       }}
     >
       <ResponsiveContainer>
@@ -73,7 +73,7 @@ const TinyLine: React.FunctionComponent<Props> = (props) => {
           />
           {!XaxisHide ? (
             <YAxis
-              mirror={true}
+              mirror={false}
               dataKey={key}
               type="number"
               tickFormatter={function (value: number) {

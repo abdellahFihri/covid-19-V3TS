@@ -1,14 +1,22 @@
 .country {
   height: 40px;
   color: #dbdbdb !important;
+  text-align: center;
   width: 100%;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   border-bottom: solid 0.2px #898989;
-  padding: 0 4% 0 5%;
+  padding-left: 4%;
+  @media (max-width: 780px) {
+    padding: 0 4% 0 10%;
+    justify-content: space-between;
+  }
+  @media (max-width: 400px) {
+    padding-left: 0%;
+  }
   // background-color: green;
   transition: 0.4s;
 

@@ -39,8 +39,18 @@ const RadarRatio = (props: Props) => {
   const chartData = React.useMemo(() => _.orderBy(data, ["A"], ["desc"]), [
     data,
   ]);
+
+  const size = window.innerWidth;
+  console.log("window size", size);
+
   return (
-    <div style={{ width: "100%", height: 385 }}>
+    <div
+      style={{
+        width: "100%",
+        minWidth: "260px",
+        height: 385,
+      }}
+    >
       {iso1 ? (
         <div className={style.flags}>
           <span>
@@ -67,7 +77,7 @@ const RadarRatio = (props: Props) => {
         ""
       )}
       <ResponsiveContainer>
-        <RadarChart outerRadius={110} data={chartData}>
+        <RadarChart outerRadius={size <= 320 ? 88 : 110} data={chartData}>
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
           <PolarRadiusAxis

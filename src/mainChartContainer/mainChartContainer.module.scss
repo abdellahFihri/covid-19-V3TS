@@ -27,6 +27,11 @@
   font-size: 12px;
   // line-height: 2px;
   padding: 0 0 0 5%;
+  span {
+    @media (max-width: 400px) {
+      font-size: 12px;
+    }
+  }
 }
 .toggle {
   color: #3d3d3d;
