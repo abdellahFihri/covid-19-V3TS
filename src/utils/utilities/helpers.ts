@@ -234,14 +234,15 @@ export const merging = (history: any) => {
   let total2: any[] = [];
 
   for (let i = 0; i < history[1].length; i++) {
-    if (!history[1][i].date || !history[0][i] || !history[2][i]) {
+    if (!history[1][i].date || !history[0][i]) {
       continue;
     }
     let merge = {
       date: history[0][i].date,
       total_cases: history[0][i].total_cases,
       recovered: history[1][i].recovered,
-      deaths: history[2] ? history[2][i].deaths : "",
+      deaths:
+        history[2] && history[2][i] !== undefined ? history[2][i].deaths : "",
     };
     total2.push(merge);
   }

@@ -40,7 +40,8 @@ const Infos: React.FunctionComponent<Props> = (props) => {
         </div>
         {!history.length ? (
           <Spinner />
-        ) : history[0].critical === history[5].critical ? (
+        ) : history[0].critical === history[5].critical ||
+          history.length < 8 ? (
           <DataErr
             errMsg={`No data available for critical cases in ${country}`}
             iconFill="#f1a51b"
