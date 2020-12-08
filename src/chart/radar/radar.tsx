@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Radar,
   RadarChart,
@@ -40,15 +40,39 @@ const RadarRatio = (props: Props) => {
     data,
   ]);
 
-  const size = window.innerWidth;
+  const size = useWindowSize();
   console.log("window size", size);
+  function useWindowSize() {
+    const [windowSize, setWindowSize] = useState({
+      width: 0,
+      height: 0,
+    });
+    useEffect(() => {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    return windowSize;
+  }
 
   return (
     <div
       style={{
         width: "100%",
-        minWidth: "260px",
+
+        // minWidth: "260px",
         height: 385,
+        overflow: "visible",
       }}
     >
       {iso1 ? (
@@ -77,7 +101,19 @@ const RadarRatio = (props: Props) => {
         ""
       )}
       <ResponsiveContainer>
-        <RadarChart outerRadius={size <= 320 ? 88 : 110} data={chartData}>
+        <RadarChart
+          // cx={150}
+          outerRadius={
+            size.width <= 320
+              ? 88
+              : size.width <= 400
+              ? 110
+              : size.width <= 600
+              ? 120
+              : 150
+          }
+          data={chartData}
+        >
           <PolarGrid />
           <PolarAngleAxis dataKey="name" />
           <PolarRadiusAxis
