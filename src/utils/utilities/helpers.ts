@@ -234,7 +234,7 @@ export const merging = (history: any) => {
   let total2: any[] = [];
 
   for (let i = 0; i < history[1].length; i++) {
-    if (!history[1][i].date || !history[0][i]) {
+    if (!history[1][i].date || !history[0][i] || !history[2][i]) {
       continue;
     }
     let merge = {
