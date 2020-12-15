@@ -1,5 +1,4 @@
 import * as React from "react";
-import RadarRatio from "../chart/radar/radar";
 import style from "./compareRadar.module.scss";
 import ComboBox from "../hoc/autoComplete/autoComplete";
 import { createStructuredSelector } from "reselect";
@@ -19,6 +18,8 @@ import {
   selectCountryName_1,
   selectCountryName_2,
 } from "../redux/reducers/comparableCountries/comparableCountriesSelector";
+import { lazy, Suspense } from "react";
+import { Spinner } from "reactstrap";
 interface Props {
   comparable_1: { [key: string]: number | string | null }[];
   comparable_2: { [key: string]: number | string | null }[];
@@ -27,6 +28,7 @@ interface Props {
   iso1: string;
   iso2: string;
 }
+const RadarRatio = lazy(() => import("../chart/radar/radar"));
 const CompareRadar: React.FunctionComponent<Props> = (props) => {
   const {
     comparable_1,
@@ -49,15 +51,26 @@ const CompareRadar: React.FunctionComponent<Props> = (props) => {
         <ComboBox id="second" label="Option 2" />
       </div>
       {mergedData.length ? (
-        <RadarRatio
-          data={mergedData}
-          comparable={comparable_2 ? true : false}
-          country1={country_1}
-          country2={country_2}
-          iso1={iso1}
-          iso2={iso2}
-          filling2="#1d89e8"
-        />
+        <Suspense
+          fallback={
+            <div className={style.spinner}>
+              {" "}
+              <Spinner
+                style={{ width: "3rem", height: "3rem", color: "#3F51B5" }}
+              />{" "}
+            </div>
+          }
+        >
+          <RadarRatio
+            data={mergedData}
+            comparable={comparable_2 ? true : false}
+            country1={country_1}
+            country2={country_2}
+            iso1={iso1}
+            iso2={iso2}
+            filling2="#1d89e8"
+          />
+        </Suspense>
       ) : (
         ""
       )}

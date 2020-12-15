@@ -7,7 +7,7 @@ const DetailedCountriesList: React.FunctionComponent = () => (
   <React.Fragment>
     <Helmet>
       <html lang="en" />
-      <title>Covid-19 detailed country list</title>
+      <title>Covid-19 detailed countries list</title>
       <meta
         name="Covid-19 country list"
         content="A page showing detailed covid-19 data for each country including number of total cases, deaths, active, critical and tests"

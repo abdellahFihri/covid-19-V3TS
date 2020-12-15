@@ -41,7 +41,7 @@ const RadarRatio = (props: Props) => {
   ]);
 
   const size = useWindowSize();
-  console.log("window size", size);
+
   function useWindowSize() {
     const [windowSize, setWindowSize] = useState({
       width: 0,

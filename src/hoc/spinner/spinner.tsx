@@ -1,8 +1,11 @@
 import React from "react";
 import { Spinner } from "reactstrap";
 import style from "./spinner.module.scss";
-
-const CircularUnderLoad: React.FunctionComponent = () => {
+interface Props {
+  title?: string;
+  style?: any;
+}
+const CircularUnderLoad: React.FunctionComponent<Props> = ({ title }) => {
   return (
     <div className={style.container}>
       {" "}
@@ -11,7 +14,7 @@ const CircularUnderLoad: React.FunctionComponent = () => {
       </div>
       <span className={style.h6}>
         {" "}
-        <h6>Fetching initial data</h6>
+        <h6>{title}</h6>
       </span>
     </div>
   );

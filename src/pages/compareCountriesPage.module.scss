@@ -17,6 +17,14 @@
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(88, 107, 216);
   }
+  overflow: hidden;
+}
+.shortNums {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 80px;
+  width: 300px;
 }
 .charts {
   height: 525px;

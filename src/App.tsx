@@ -50,7 +50,7 @@ class App extends Component<Props, State> {
     const { loading, overlay, fetchError } = this.props;
 
     return loading ? (
-      <Spinner />
+      <Spinner title="Fetching initial data" />
     ) : fetchError ? (
       <div
         style={{
@@ -68,6 +68,7 @@ class App extends Component<Props, State> {
 
         <Container>
           <QuickMenu executeScroll={this.executeScroll} />
+
           <Switch>
             <Route exact path="/" component={MainPage} />
             <Route path={`/${selectedCountry}`} component={MainPage} />

@@ -6,7 +6,7 @@ import { numberWithCommas, numFormatter } from "../utils/utilities/helpers";
 import { fetchCountryData, setOverlay } from "../redux/actions/index";
 import { selectFiltered } from "../redux/reducers/allCountries/allCountriesDataSelector";
 import { createStructuredSelector } from "reselect";
-// import { findIso } from "../utils/utilities/helpers";
+
 interface Props {
   countriesStats: { [key: string]: number | string | null }[];
   selectedCountry: (arg0: string, arg1: string) => void;
