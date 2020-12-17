@@ -1,0 +1,31 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .sideIcon {
+    height: 35px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+.arrows {
+  height: 35px;
+
+  width: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  .icon {
+    margin-bottom: -20px;
+    &:hover {
+      color: #5068e0;
+      cursor: pointer;
+    }
+    &:active {
+      color: greenyellow;
+    }
+  }
+}

@@ -4,8 +4,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { numberWithCommas, numFormatter } from "../utils/utilities/helpers";
 import { fetchCountryData, setOverlay } from "../redux/actions/index";
-import { selectFiltered } from "../redux/reducers/allCountries/allCountriesDataSelector";
+import {
+  listFiltering,
+  selectFiltered,
+} from "../redux/reducers/allCountries/allCountriesDataSelector";
 import { createStructuredSelector } from "reselect";
+import _ from "lodash";
 
 interface Props {
   countriesStats: { [key: string]: number | string | null }[];
@@ -15,16 +19,23 @@ interface Props {
   filtered: any;
   executeScroll: any;
   values: string[];
+  filtering: any;
 }
 
 const CountryRow: FunctionComponent<Props> = (props) => {
   const {
     filtered,
-    // executeScroll,
+
     values,
+    filtering,
   } = props;
 
-  return filtered.map((country: any, index: any) => {
+  const countriesList: any = _.orderBy(
+    filtered,
+    [filtering.value],
+    [filtering.operator]
+  );
+  return countriesList.map((country: any, index: any) => {
     const extractValues = values.map((value: string) => country[`${value}`]);
 
     return (
@@ -97,5 +108,6 @@ const CountryRow: FunctionComponent<Props> = (props) => {
 
 const mapStateToProps = createStructuredSelector({
   filtered: selectFiltered,
+  filtering: listFiltering,
 });
 export default connect(mapStateToProps)(CountryRow);

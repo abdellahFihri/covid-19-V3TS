@@ -18,6 +18,12 @@ export const setPeriod = (data: any) => {
     payload: data,
   };
 };
+export const setTableFilter = (data: any) => {
+  return {
+    type: "SET_FILTER",
+    payload: data,
+  };
+};
 
 export const fetchData = () => {
   return async (dispatch: any) => {

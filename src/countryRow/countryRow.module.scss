@@ -3,7 +3,7 @@
   height: 40px;
 
   width: auto;
-
+  background-color: #a0aef53c;
   font-size: 14px;
   display: flex;
   align-items: center;
@@ -12,7 +12,7 @@
   transition: 0.4s;
 
   &.dark {
-    background-color: #edf2f7;
+    background-color: #a0aef565;
   }
 
   #world {
@@ -101,6 +101,7 @@
   margin-left: 2px;
   img {
     width: 100%;
+
     min-height: 20px;
   }
 }

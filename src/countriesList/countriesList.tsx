@@ -30,6 +30,7 @@ interface Props {
   world: { [key: string]: number | string | null }[];
   all: { [key: string]: number | string | null }[];
   filter: any;
+  filtering: any;
   firstRow: any;
   dispatch: any;
   executeScroll: any;
@@ -91,6 +92,8 @@ const CountriesList: FunctionComponent<Props> = (props) => {
           />
         }
         columns={cols}
+        values={vals}
+        detailed={detailed}
       >
         {!detailed ? (
           <div className={style.country}>

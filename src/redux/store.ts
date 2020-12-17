@@ -5,7 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers/root-reducer";
 import thunk from "redux-thunk";
 const middlewares = [
-  // logger
+  // logger,
   thunk,
 ];
 
