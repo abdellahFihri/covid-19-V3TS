@@ -45,12 +45,17 @@ const CompareCountries: React.FunctionComponent<Props> = ({
     <React.Fragment>
       <Helmet>
         <html lang="en" />
+        <meta charSet="utf-8" />
         <title>{`Compare Covid-19 data between ${
           country1 ? `${country1} and ` : "countries"
         } ${country2 ? country2 : "..."}`}</title>
         <meta
-          name="Covid-19 countries comparator"
+          name="description"
           content="A page to compare covid-19 data between countries with data visualization and graphics"
+        />
+        <meta
+          content="covid 19 statistics, covid-19 dashboard, corona virus dashboard, covid 19 compare countries, countries comparator, covid-19 data comparator, compare data between countries, corona virus,corona virus compare between countries"
+          name="keywords"
         />
       </Helmet>
 

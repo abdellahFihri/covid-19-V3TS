@@ -22,11 +22,17 @@ const MainPage: React.FunctionComponent<Props> = ({ selectedCountry }) => {
     <Container>
       <Helmet>
         <html lang="en" />
+        <meta charSet="utf-8" />
         <title>{`Covid-19 data dashboard for ${selectedCountry}`}</title>
         <meta
-          name="corona virus dashboard"
+          name="description"
           content="A dashboard presenting a rich detailed visualisation of covid-19 data  in the world or in a specific country,including the history by year, month or week, or simply by setting a specific date, and the death/recovery ratio."
         />
+        <meta
+          content="covid 19 statistics, covid-19 dashboard, corona virus dashboard, covid 19 list of countries, live data, covid-19 countries list, all infected countries list, corona virus,covid-19 charts, corona virus graphics, corona virus death ration, corona virus live data, covid 19 live update, covid 19 recovered ratio"
+          name="keywords"
+        />
+        <meta name="theme-color" content="#7382e2" />
       </Helmet>
       <div id="main-title">
         {" "}

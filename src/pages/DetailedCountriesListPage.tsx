@@ -7,10 +7,15 @@ const DetailedCountriesList: React.FunctionComponent = () => (
   <React.Fragment>
     <Helmet>
       <html lang="en" />
+      <meta charSet="utf-8" />
       <title>Covid-19 detailed countries list</title>
       <meta
-        name="Covid-19 country list"
+        name="description"
         content="A page showing detailed covid-19 data for each country including number of total cases, deaths, active, critical and tests"
+      />
+      <meta
+        content="covid 19 statistics, covid-19 dashboard, corona virus dashboard, covid 19 list of countries, countries detailed list, covid-19 countries list,all infected countries list, corona virus,corona virus full countries list"
+        name="keywords"
       />
     </Helmet>
     <div id="main-title"> Detailed countries list</div>

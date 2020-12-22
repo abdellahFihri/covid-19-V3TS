@@ -12,10 +12,11 @@ import { createStructuredSelector } from "reselect";
 import { setTableFilter } from "../../redux/actions/index";
 import style from "./sortingArrows.module.scss";
 import { listFiltering } from "../../redux/reducers/allCountries/allCountriesDataSelector";
+type operator = { operator: string; value: string };
 interface Props {
   value: string;
-  setTableFilter: (arg0: any) => void;
-  filter: any;
+  setTableFilter: (arg0: operator) => void;
+  filter: operator;
 }
 const SortingArrows: React.FunctionComponent<Props> = ({
   value,
@@ -53,26 +54,6 @@ const SortingArrows: React.FunctionComponent<Props> = ({
             }}
           />
         ))}
-        {/* <FontAwesomeIcon
-          icon={faSortUp}
-          className={style.icon}
-          size="lg"
-          onClick={() => {
-            setTableFilter({ operator: "asc", value: value });
-            setOrder("asc");
-            setLocalValue(value);
-          }}
-        />
-        <FontAwesomeIcon
-          icon={faSortDown}
-          className={style.icon}
-          size="lg"
-          onClick={() => {
-            setTableFilter({ operator: "desc", value: value });
-            setOrder("desc");
-            setLocalValue(value);
-          }}
-        /> */}
       </div>{" "}
       <div className={style.sideIcon}>
         <FontAwesomeIcon
