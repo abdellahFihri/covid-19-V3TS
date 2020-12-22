@@ -14,25 +14,23 @@ import {
   numFormatter,
   timeFormatter,
 } from "../../utils/utilities/helpers";
-import style from "./mixedBarChart.module.scss";
+// import style from "./mixedBarChart.module.scss";
 interface Props {
   data: any;
-  country: string;
-  iso: any;
 }
-const MixedChart: React.FunctionComponent<Props> = ({ data, country, iso }) => {
+const MixedChart: React.FunctionComponent<Props> = ({ data }) => {
   const chartData = React.useMemo(() => data, [data]);
 
   return (
     <div style={{ width: "100%", height: 300 }}>
-      <div className={style.country}>
+      {/* <div className={style.country}>
         <span>{country}</span>
         <img
           src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
           width="40"
           alt=""
         />
-      </div>
+      </div> */}
       <ResponsiveContainer>
         <ComposedChart
           data={chartData}

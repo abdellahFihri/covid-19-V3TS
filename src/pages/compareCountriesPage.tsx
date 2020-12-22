@@ -104,6 +104,14 @@ const CompareCountries: React.FunctionComponent<Props> = ({
               ].map((country: any) => (
                 <React.Fragment key={country.key}>
                   <div className={style.shortNums}>
+                    <div className={style.country}>
+                      <span>{country.country}</span>
+                      <img
+                        src={`https://flagcdn.com/${country.iso.toLocaleLowerCase()}.svg`}
+                        width="40"
+                        alt=""
+                      />
+                    </div>
                     {country.compare.length
                       ? [
                           { i: 4, title: "Total cases" },
@@ -117,11 +125,7 @@ const CompareCountries: React.FunctionComponent<Props> = ({
                         ))
                       : ""}
                   </div>
-                  <MixedChart
-                    data={country.data}
-                    country={country.country}
-                    iso={country.iso}
-                  />
+                  <MixedChart data={country.data} />
                   <div className={style.shortNums}>
                     {country.compare.length ? (
                       <ShortenedNum

@@ -104,7 +104,9 @@ const RadarRatio = (props: Props) => {
         <RadarChart
           // cx={150}
           outerRadius={
-            size.width <= 320
+            size.width <= 280
+              ? 68
+              : size.width <= 320
               ? 88
               : size.width <= 400
               ? 110

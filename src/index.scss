@@ -10,7 +10,8 @@ html body {
   scroll-behavior: smooth;
 
   overflow-x: hidden !important;
-
+  min-height: 100vh;
+  min-width: -webkit-fill-available;
   tspan {
     font-size: 12px;
     font-weight: 500;
@@ -20,8 +21,4 @@ html body {
   color: #3d3d3d;
   font-size: 14px;
   font-weight: 500;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
