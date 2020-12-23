@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../hoc/container/container";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -11,8 +13,10 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import style from "./navbar.module.scss";
+import { selectIso } from "../redux/reducers/world/worldDataSelector";
+import { setTableFilter } from "../redux/actions";
 
-const NavLinks: React.FunctionComponent = () => {
+const NavLinks: React.FunctionComponent = ({ setTableFilter }: any) => {
   const [toggle, setToggle] = useState("");
   return (
     <Container>
@@ -36,7 +40,12 @@ const NavLinks: React.FunctionComponent = () => {
             />
           </span>
         </div>
-        <span onClick={() => setToggle("close")}>
+        <span
+          onClick={() => {
+            setToggle("close");
+            setTableFilter({ operator: "desc", value: "total_cases" });
+          }}
+        >
           {" "}
           <Link to="/">
             {" "}
@@ -60,4 +69,7 @@ const NavLinks: React.FunctionComponent = () => {
     </Container>
   );
 };
-export default NavLinks;
+const mapStateToProps = createStructuredSelector({
+  iso: selectIso,
+});
+export default connect(mapStateToProps, { setTableFilter })(NavLinks);

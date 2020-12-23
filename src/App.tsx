@@ -43,7 +43,6 @@ class App extends Component<Props, State> {
   myRef: any = React.createRef();
   executeScroll = () => {
     this.myRef.current.scrollIntoView();
-    console.log("scroll fired");
   };
   render() {
     const { selectedCountry } = this.props;
@@ -70,9 +69,25 @@ class App extends Component<Props, State> {
           <QuickMenu executeScroll={this.executeScroll} />
 
           <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route exact path={`/${selectedCountry}`} component={MainPage} />
-            <Route path="/countries-list" component={DetailedCountriesList} />
+            <Route
+              exact
+              path="/"
+              // component={MainPage}
+              render={() => <MainPage executeScroll={this.executeScroll} />}
+            />
+            <Route
+              exact
+              path={`/${selectedCountry}`}
+              // component={MainPage}
+              render={() => <MainPage executeScroll={this.executeScroll} />}
+            />
+            <Route
+              path="/countries-list"
+              component={DetailedCountriesList}
+              // render={() => (
+              //   <DetailedCountriesList executeScroll={this.executeScroll} />
+              // )}
+            />
             <Route path="/compare-countries" component={CompareCountries} />
             <Route path="*" component={NotFound} />
           </Switch>

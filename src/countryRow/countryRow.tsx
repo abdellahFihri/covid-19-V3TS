@@ -17,18 +17,13 @@ interface Props {
 
   dispatch: any;
   filtered: any;
-  executeScroll: any;
+  executeScroll?: any;
   values: string[];
   filtering: any;
 }
 
 const CountryRow: FunctionComponent<Props> = (props) => {
-  const {
-    filtered,
-
-    values,
-    filtering,
-  } = props;
+  const { filtered, executeScroll, values, filtering } = props;
 
   const countriesList: any = _.orderBy(
     filtered,
@@ -42,13 +37,24 @@ const CountryRow: FunctionComponent<Props> = (props) => {
       <div
         className={`${style.country} ${index % 2 !== 0 ? style.dark : ""}`}
         key={country.name}
+        // style={{
+        //   background: `linear-gradient(to right, transparent, #a0aef53c),  url(https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg)`,
+        //   backgroundPosition: "center",
+        //   backgroundSize: "cover",
+        // }}
       >
         <span
           style={{
             display: "flex",
             width: "25%",
+            height: "100%",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "start",
+            background: `linear-gradient(to left, transparent, white),  url(https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg)`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            // backgroundColor: "rgba(120, 120, 120, 0.2) ",
+            clipPath: "polygon(0 0, 100% 0%, 66% 100%, 0% 100%)",
           }}
         >
           <div style={{ display: "flex", width: "65px" }}>
@@ -65,7 +71,11 @@ const CountryRow: FunctionComponent<Props> = (props) => {
                       iso: country.iso3166a2,
                     })
                   );
-                  // executeScroll();
+                  if (executeScroll === "") {
+                    return;
+                  } else {
+                    executeScroll();
+                  }
                 }}
                 id={country.name}
               >
@@ -74,21 +84,13 @@ const CountryRow: FunctionComponent<Props> = (props) => {
                 </span>{" "}
               </button>
             </Link>
-            <div className={style.img}>
+            {/* <div className={style.img}>
               <img
                 src={`https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg`}
                 width="40"
                 alt=""
               />
-              {/* <img
-                src={`https://flagcdn.com/16x12/${country.iso3166a2}.png`}
-                srcSet={`https://flagcdn.com/32x24/${country.iso3166a2}.png 2x,
-    https://flagcdn.com/48x36/${country.iso3166a2}.png 3x`}
-                alt="South Africa"
-                height="16"
-                width="16"
-              /> */}
-            </div>
+            </div> */}
           </div>
         </span>
 

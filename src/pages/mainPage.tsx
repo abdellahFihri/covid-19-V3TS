@@ -14,8 +14,12 @@ import { Col, Row } from "reactstrap";
 
 interface Props {
   selectedCountry: string;
+  executeScroll?: any;
 }
-const MainPage: React.FunctionComponent<Props> = ({ selectedCountry }) => {
+const MainPage: React.FunctionComponent<Props> = ({
+  selectedCountry,
+  executeScroll,
+}) => {
   const columns: string[] = ["Country", "Cases", "Deaths", "Recovered"];
   const values: string[] = ["total_cases", "deaths", "recovered"];
   return (
@@ -46,7 +50,7 @@ const MainPage: React.FunctionComponent<Props> = ({ selectedCountry }) => {
             <Row>
               <Col lg={6}>
                 <CountriesList
-                  // executeScroll={this.executeScroll}
+                  executeScroll={executeScroll}
                   cols={columns}
                   vals={values}
                   detailed={false}

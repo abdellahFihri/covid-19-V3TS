@@ -33,7 +33,7 @@ interface Props {
   filtering: any;
   firstRow: any;
   dispatch: any;
-  executeScroll: any;
+  executeScroll?: any;
   fetchData: () => void;
   setOverlay: (arg0: boolean, arg1: string, arg2: string) => void;
   setSearchTerm: (arg0: string) => void;
@@ -42,7 +42,7 @@ interface Props {
 const CountriesList: FunctionComponent<Props> = (props) => {
   const {
     firstRow,
-    // executeScroll,
+    executeScroll,
     cols,
     vals,
     detailed,
@@ -104,7 +104,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
                 onClick={() => {
                   setOverlay(true, "", "The world");
                   fetchData();
-                  // executeScroll();
+                  executeScroll();
                 }}
               >
                 The globe
@@ -130,7 +130,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
 
         {filter.length ? (
           <CountryRow
-            // executeScroll={() => executeScroll()}
+            executeScroll={executeScroll ? executeScroll : ""}
             values={vals}
           />
         ) : (

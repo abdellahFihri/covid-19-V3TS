@@ -27,7 +27,6 @@ import { Button, ButtonGroup, Col, Row } from "reactstrap";
 import TinyLine from "../chart/barCharts/lineChart/tinyLineChart";
 import CovidDatePicker from "../hoc/datePicker/DatePicker";
 import TinyBar from "../chart/barCharts/barChart/tinyBarChart";
-// import { ButtonGroup } from "@material-ui/core";
 
 interface Props {
   history: any;
@@ -84,6 +83,20 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
   return (
     <Col lg={6}>
       <div className={style.container}>
+        {/* {!iso ? (
+          ""
+        ) : (
+          <div
+            style={{
+              height: "120px",
+              width: "100%",
+              background: `linear-gradient(to bottom right, transparent, white),  url(https://flagcdn.com/${iso.toLocaleLowerCase()}.svg)`,
+              backgroundPosition: "center",
+              opacity: "0.8",
+              backgroundSize: "cover",
+            }}
+          ></div>
+        )} */}
         <div className={style.header}>
           <Row>
             <Col className={style.main} md={6}>

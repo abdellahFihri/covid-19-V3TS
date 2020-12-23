@@ -11,12 +11,11 @@ const QuickMenu = (props: any) => {
   };
 
   return (
-    <div className={top >= 100 ? style.menu : style.hide}>
-      <FontAwesomeIcon
-        icon={faAngleDoubleUp}
-        size="2x"
-        onClick={() => props.executeScroll()}
-      />
+    <div
+      className={top >= 100 ? style.menu : style.hide}
+      onClick={() => props.executeScroll()}
+    >
+      <FontAwesomeIcon icon={faAngleDoubleUp} size="2x" />
     </div>
   );
 };
