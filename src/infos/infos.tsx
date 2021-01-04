@@ -1,6 +1,5 @@
 import React from "react";
-import Container from "../hoc/container/container";
-import style from "./infos.module.scss";
+
 import { connect } from "react-redux";
 import Spinner from "../hoc/spinner/spinner";
 import { createStructuredSelector } from "reselect";
@@ -11,6 +10,7 @@ import _ from "lodash";
 import { extractDifferences } from "../utils/utilities/helpers";
 import DataErr from "../hoc/noData/messageError";
 import { selectSelectedCountry } from "../redux/reducers/world/worldDataSelector";
+import style from "./infos.module.scss";
 
 interface Props {
   info1: number;
@@ -24,7 +24,7 @@ const Infos: React.FunctionComponent<Props> = (props) => {
 
   let history: any[] = _.dropRight(month, 1);
   return (
-    <Container>
+    <div style={{ width: "100%" }}>
       <div className={style.infos}>
         <div className={style.spans}>
           {[
@@ -55,7 +55,7 @@ const Infos: React.FunctionComponent<Props> = (props) => {
           />
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 const mapStateToProps = createStructuredSelector({

@@ -18,7 +18,7 @@
   }
 
   // border: solid 0.1px #dde4eb;
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     flex-direction: column;
   }
 }
@@ -50,11 +50,23 @@
 }
 .badge {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 700;
   width: 50px;
   margin-top: 2%;
+  animation: scale-in-hor-center 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s
+    both;
 }
 .description {
   color: #898989;
   font-size: 16px;
+}
+@keyframes scale-in-hor-center {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }

@@ -1,12 +1,12 @@
 .infos {
   width: 100%;
-  height: auto;
+  // height: ;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
   justify-items: start;
-  overflow: hidden;
+  overflow: visible;
   @media (max-width: 380px) {
     align-items: center;
   }
@@ -29,7 +29,7 @@
     text-align: center;
     font-size: 12px;
     align-items: center;
-    padding-bottom: 5%;
+    // padding-bottom: 5%;
     // background-color: aqua;
 
     .infoSection {

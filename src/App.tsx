@@ -28,7 +28,6 @@ import { selectFetchErrorMsg } from "./redux/reducers/fetchingError/fetchingErro
 import DataErr from "./hoc/noData/messageError";
 
 import NotFound from "./pages/notFound";
-import QuickMenu from "./widget/quickMenu";
 
 require("dotenv").config();
 
@@ -66,28 +65,18 @@ class App extends Component<Props, State> {
         <NavLinks />
 
         <Container>
-          <QuickMenu executeScroll={this.executeScroll} />
-
           <Switch>
             <Route
               exact
               path="/"
-              // component={MainPage}
               render={() => <MainPage executeScroll={this.executeScroll} />}
             />
             <Route
               exact
               path={`/${selectedCountry}`}
-              // component={MainPage}
               render={() => <MainPage executeScroll={this.executeScroll} />}
             />
-            <Route
-              path="/countries-list"
-              component={DetailedCountriesList}
-              // render={() => (
-              //   <DetailedCountriesList executeScroll={this.executeScroll} />
-              // )}
-            />
+            <Route path="/countries-list" component={DetailedCountriesList} />
             <Route path="/compare-countries" component={CompareCountries} />
             <Route path="*" component={NotFound} />
           </Switch>

@@ -81,9 +81,8 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
   let shortHistory = _.reverse(_.dropRight(chartPeriod, 1));
 
   return (
-    <Col lg={6}>
-      <div className={style.container}>
-        {/* {!iso ? (
+    <div className={style.container}>
+      {/* {!iso ? (
           ""
         ) : (
           <div
@@ -97,167 +96,166 @@ const ChartsContainer: React.FunctionComponent<Props> = (props) => {
             }}
           ></div>
         )} */}
-        <div className={style.header}>
-          <Row>
-            <Col className={style.main} md={6}>
-              <h6>Cases and recovered overview in {selectedCountry}</h6>
-              <span>
-                Presenting the global contamination and revovery indexes
-              </span>
-            </Col>
-            <div className={` ${style.image} col-md-6`}>
-              <div style={{ width: "70%" }}>
-                <CovidDatePicker country={selectedCountry} />
-              </div>
-              <img
-                src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
-                width="80"
-                alt=""
-              />
-            </div>
-          </Row>
-          <Row>
-            <Col md={6}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                }}
-              >
-                {[
-                  { title: "Total cases", value: worldRow.total_cases },
-                  { title: "Total recovered", value: worldRow.recovered },
-                ].map((item) => (
-                  <div key={item.title}>
-                    <ShortenedNum title={item.title} value={item.value} />
-                  </div>
-                ))}
-              </div>
-            </Col>
-
-            <Col className={style.buttons} md={6}>
-              <ButtonGroup size="sm">
-                {["week", "month", "year"].map((period: string) => (
-                  <Button
-                    outline
-                    key={period}
-                    color="primary"
-                    size="sm"
-                    onClick={() => selectPeriod(period)}
-                  >
-                    {period}
-                  </Button>
-                ))}
-              </ButtonGroup>
-              <span className={style.toggle}>
-                {`${cumulative ? "cumulative" : "periodic"}`}
-                <div>
-                  <Switch
-                    checked={cumulative}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{ "aria-label": "primary checkbox" }}
-                  />
-                </div>
-              </span>
-            </Col>
-          </Row>
-        </div>
+      <div className={style.header}>
         <Row>
-          <Col md={12}>
-            {shortHistory.length > 31 ? (
-              <InitialChart
-                history={
-                  !cumulative
-                    ? ["total_cases", "recovered"].map((rec: any) =>
-                        extractDifferences(shortHistory, rec)
-                      )
-                    : _.reverse(shortHistory)
-                }
-                keyData="total_cases"
-                sync="main"
-                cumulative={cumulative}
-              />
-            ) : (
-              <MainBarChart
-                history={
-                  !cumulative
-                    ? ["total_cases", "recovered"].map((rec: any) =>
-                        extractDifferences(shortHistory, rec)
-                      )
-                    : _.reverse(shortHistory)
-                }
-                keyData="total_cases"
-                sync="main"
-                cumulative={cumulative}
-                filling="#5068e0"
-              />
-            )}
+          <Col className={style.main} md={6}>
+            <h6>Cases and recovered overview in {selectedCountry}</h6>
+            <span>
+              Presenting the global contamination and revovery indexes
+            </span>
+          </Col>
+          <div className={` ${style.image} col-md-6`}>
+            <div style={{ width: "70%" }}>
+              <CovidDatePicker country={selectedCountry} />
+            </div>
+            <img
+              src={`https://flagcdn.com/${iso.toLocaleLowerCase()}.svg`}
+              width="80"
+              alt=""
+            />
+          </div>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
+              }}
+            >
+              {[
+                { title: "Total cases", value: worldRow.total_cases },
+                { title: "Total recovered", value: worldRow.recovered },
+              ].map((item) => (
+                <div key={item.title}>
+                  <ShortenedNum title={item.title} value={item.value} />
+                </div>
+              ))}
+            </div>
+          </Col>
+
+          <Col className={style.buttons} md={6}>
+            <ButtonGroup size="sm">
+              {["week", "month", "year"].map((period: string) => (
+                <Button
+                  outline
+                  key={period}
+                  color="primary"
+                  size="sm"
+                  onClick={() => selectPeriod(period)}
+                >
+                  {period}
+                </Button>
+              ))}
+            </ButtonGroup>
+            <span className={style.toggle}>
+              {`${cumulative ? "cumulative" : "periodic"}`}
+              <div>
+                <Switch
+                  checked={cumulative}
+                  onChange={handleChange}
+                  color="primary"
+                  inputProps={{ "aria-label": "primary checkbox" }}
+                />
+              </div>
+            </span>
           </Col>
         </Row>
-        <Row>
-          {[
-            {
-              param: "tested",
-              title: "Total tests",
-              // chartTitle: "Periodic rate tests",
-              global: worldRow.tested,
-              filling: "#1d89e8",
-              stroke: "#ff7b00",
-            },
-            {
-              param: "deaths",
-              title: "Total deaths",
-              global: worldRow.deaths,
-              // chartTitle: "Periodic rate of deaths",
-              filling: "#b72429",
-              stroke: "#d62d33",
-            },
-          ].map((rec: any) => (
-            <Col md={6} key={rec.param}>
-              <Row>
-                <Col md={6}>
-                  <ShortenedNum title={rec.title} value={rec.global} />
-                </Col>
-
-                <Col md={12}>
-                  {shortHistory.length > 31 ? (
-                    <TinyBar
-                      history={
-                        !cumulative
-                          ? extractDifferences(shortHistory, rec.param)
-                          : _.reverse(shortHistory)
-                      }
-                      keyData={rec.param}
-                      sync="main"
-                      title={rec.chartTitle}
-                      filling={rec.filling}
-                      height={260}
-                      YaxisHide={false}
-                    />
-                  ) : (
-                    <TinyLine
-                      history={
-                        !cumulative
-                          ? extractDifferences(shortHistory, rec.param)
-                          : _.reverse(shortHistory)
-                      }
-                      keyData={rec.param}
-                      sync="main"
-                      title={rec.chartTitle}
-                      filling={rec.filling}
-                      height={260}
-                      XaxisHide={false}
-                    />
-                  )}
-                </Col>
-              </Row>
-            </Col>
-          ))}
-        </Row>
       </div>
-    </Col>
+      <Row>
+        <Col md={12}>
+          {shortHistory.length > 31 ? (
+            <InitialChart
+              history={
+                !cumulative
+                  ? ["total_cases", "recovered"].map((rec: any) =>
+                      extractDifferences(shortHistory, rec)
+                    )
+                  : _.reverse(shortHistory)
+              }
+              keyData="total_cases"
+              sync="main"
+              cumulative={cumulative}
+            />
+          ) : (
+            <MainBarChart
+              history={
+                !cumulative
+                  ? ["total_cases", "recovered"].map((rec: any) =>
+                      extractDifferences(shortHistory, rec)
+                    )
+                  : _.reverse(shortHistory)
+              }
+              keyData="total_cases"
+              sync="main"
+              cumulative={cumulative}
+              filling="#5068e0"
+            />
+          )}
+        </Col>
+      </Row>
+      <Row>
+        {[
+          {
+            param: "tested",
+            title: "Total tests",
+            // chartTitle: "Periodic rate tests",
+            global: worldRow.tested,
+            filling: "#1d89e8",
+            stroke: "#ff7b00",
+          },
+          {
+            param: "deaths",
+            title: "Total deaths",
+            global: worldRow.deaths,
+            // chartTitle: "Periodic rate of deaths",
+            filling: "#b72429",
+            stroke: "#d62d33",
+          },
+        ].map((rec: any) => (
+          <Col md={6} key={rec.param}>
+            <Row>
+              <Col md={6}>
+                <ShortenedNum title={rec.title} value={rec.global} />
+              </Col>
+
+              <Col md={12}>
+                {shortHistory.length > 31 ? (
+                  <TinyBar
+                    history={
+                      !cumulative
+                        ? extractDifferences(shortHistory, rec.param)
+                        : _.reverse(shortHistory)
+                    }
+                    keyData={rec.param}
+                    sync="main"
+                    title={rec.chartTitle}
+                    filling={rec.filling}
+                    height={260}
+                    YaxisHide={false}
+                  />
+                ) : (
+                  <TinyLine
+                    history={
+                      !cumulative
+                        ? extractDifferences(shortHistory, rec.param)
+                        : _.reverse(shortHistory)
+                    }
+                    keyData={rec.param}
+                    sync="main"
+                    title={rec.chartTitle}
+                    filling={rec.filling}
+                    height={260}
+                    XaxisHide={false}
+                  />
+                )}
+              </Col>
+            </Row>
+          </Col>
+        ))}
+      </Row>
+    </div>
   );
 };
 const mapStateToProps = createStructuredSelector({

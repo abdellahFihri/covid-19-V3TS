@@ -46,6 +46,7 @@ const CountryRow: FunctionComponent<Props> = (props) => {
         <span
           style={{
             display: "flex",
+
             width: "25%",
             height: "100%",
             alignItems: "center",
@@ -53,7 +54,7 @@ const CountryRow: FunctionComponent<Props> = (props) => {
             background: `linear-gradient(to left, transparent, white),  url(https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg)`,
             backgroundPosition: "center",
             backgroundSize: "cover",
-            // backgroundColor: "rgba(120, 120, 120, 0.2) ",
+
             clipPath: "polygon(0 0, 100% 0%, 66% 100%, 0% 100%)",
           }}
         >

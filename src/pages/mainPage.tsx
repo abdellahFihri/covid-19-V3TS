@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import Container from "../hoc/container/container";
 import TopStats from "../topBarStats/topStats";
 import Ratio from "../ratioDonut/ratioDonut";
 import GlobalRadar from "../globalRadar/globalRadar";
 import ChartsContainer from "../mainChartContainer/mainChartContainer";
 import CountriesList from "../countriesList/countriesList";
+import MainPageSpeedDial from "../widget/mainPageMenu/mainPageSpeedDial";
 import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -22,6 +23,26 @@ const MainPage: React.FunctionComponent<Props> = ({
 }) => {
   const columns: string[] = ["Country", "Cases", "Deaths", "Recovered"];
   const values: string[] = ["total_cases", "deaths", "recovered"];
+  const toTop: any = useRef();
+  const toRatio: any = useRef();
+  const toMainChart: any = useRef();
+  const toList: any = useRef();
+
+  function handleClick(path: string) {
+    switch (path) {
+      case "toList": {
+        return toList.current.scrollIntoView();
+      }
+      case "toRatio": {
+        return toRatio.current.scrollIntoView();
+      }
+      case "toMainChart": {
+        return toMainChart.current.scrollIntoView();
+      }
+      default:
+        return toTop.current.scrollIntoView();
+    }
+  }
   return (
     <Container>
       <Helmet>
@@ -38,7 +59,8 @@ const MainPage: React.FunctionComponent<Props> = ({
         />
         <meta name="theme-color" content="#7382e2" />
       </Helmet>
-      <div id="main-title">
+      <MainPageSpeedDial scroll={handleClick} />
+      <div id="main-title" ref={toTop}>
         {" "}
         {`visualization of Covid-19 statistics in ${selectedCountry}`}
       </div>
@@ -48,23 +70,25 @@ const MainPage: React.FunctionComponent<Props> = ({
         <Row>
           <Col lg={6}>
             <Row>
-              <Col lg={6}>
+              <div className="col-lg-6" ref={toList}>
                 <CountriesList
                   executeScroll={executeScroll}
                   cols={columns}
                   vals={values}
                   detailed={false}
                 />
-              </Col>
-              <Col lg={6}>
+              </div>
+              <div className="col-lg-6" ref={toRatio}>
                 <Ratio />
-              </Col>
+              </div>
               <Col lg={12}>
                 <GlobalRadar />
               </Col>
             </Row>
           </Col>
-          <ChartsContainer />
+          <div className="col-lg-6" ref={toMainChart}>
+            <ChartsContainer ref={toMainChart} />
+          </div>
         </Row>
       </Col>
     </Container>

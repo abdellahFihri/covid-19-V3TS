@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  position: fixed;
+  bottom: 20px;
+  z-index: 2;
+  left: 20px;
+  @media (min-width: 1000px) {
+    display: none;
+  }
+  .speedDial,
+  .speedDialOpen {
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    border: solid #3f51b5;
+    color: rgba(255, 255, 255, 0.857);
+    border-radius: 25px;
+    background-color: #3f51b5e7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.speedDialOpen {
+      transform: rotate(45deg);
+    }
+    transition: transform 0.4s ease-in-out;
+  }
+  .none,
+  .open,
+  .close {
+    display: none;
+    margin-left: 5px;
+
+    justify-content: space-between;
+    min-width: 220px;
+    div {
+      height: 50px;
+      width: 50px;
+      cursor: pointer;
+      border: solid #3f51b5;
+      color: rgba(255, 255, 255, 0.857);
+      border-radius: 10px;
+      background-color: #3f51b5e7;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-left: none;
+      border-right: none;
+      border-radius: 25px;
+    }
+
+    &.open {
+      display: flex;
+
+      div:first-of-type {
+        animation: scale-in-center 0.1s ease-in-out both;
+      }
+      div:nth-of-type(2) {
+        animation: scale-in-center 0.2s ease-in-out both;
+      }
+      div:nth-of-type(3) {
+        animation: scale-in-center 0.3s ease-in-out both;
+      }
+      div:last-of-type {
+        animation: scale-in-center 0.4s ease-in-out both;
+      }
+    }
+    &.close {
+      display: flex;
+      div:first-of-type {
+        animation: slide-out-left 0.1s ease-in-out both;
+      }
+      div:nth-of-type(2) {
+        animation: slide-out-left 0.4s ease-in-out both;
+      }
+      div:nth-of-type(3) {
+        animation: slide-out-left 0.7s ease-in-out both;
+      }
+      div:last-of-type {
+        animation: slide-out-left 1s ease-in-out both;
+      }
+    }
+  }
+}
+@keyframes scale-in-center {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-left {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-1000px);
+    opacity: 0;
+  }
+}
