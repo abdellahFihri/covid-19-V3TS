@@ -37,11 +37,6 @@ const CountryRow: FunctionComponent<Props> = (props) => {
       <div
         className={`${style.country} ${index % 2 !== 0 ? style.dark : ""}`}
         key={country.name}
-        // style={{
-        //   background: `linear-gradient(to right, transparent, #a0aef53c),  url(https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg)`,
-        //   backgroundPosition: "center",
-        //   backgroundSize: "cover",
-        // }}
       >
         <span
           style={{
@@ -51,7 +46,8 @@ const CountryRow: FunctionComponent<Props> = (props) => {
             height: "100%",
             alignItems: "center",
             justifyContent: "start",
-            background: `linear-gradient(to left, transparent, white),  url(https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg)`,
+            background: `linear-gradient(to left, rgba(255,255,255,0) 20%,
+            rgba(255,255,255,1)),  url(https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg)`,
             backgroundPosition: "center",
             backgroundSize: "cover",
 
@@ -85,13 +81,13 @@ const CountryRow: FunctionComponent<Props> = (props) => {
                 </span>{" "}
               </button>
             </Link>
-            {/* <div className={style.img}>
-              <img
+            <div className={style.img}>
+              {/* <img
                 src={`https://flagcdn.com/${country.iso3166a2.toLocaleLowerCase()}.svg`}
                 width="40"
                 alt=""
-              />
-            </div> */}
+              /> */}
+            </div>
           </div>
         </span>
 

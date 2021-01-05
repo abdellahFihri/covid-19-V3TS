@@ -1,12 +1,17 @@
+@mixin active {
+  transform: scale(1.1);
+
+  background-color: #6272cce7;
+}
 .container {
   display: flex;
   position: fixed;
   bottom: 20px;
   z-index: 2;
   left: 20px;
-  @media (min-width: 1000px) {
-    display: none;
-  }
+  //   @media (min-width: 1000px) {
+  //     display: none;
+  //   }
   .speedDial,
   .speedDialOpen {
     height: 50px;
@@ -16,6 +21,9 @@
     color: rgba(255, 255, 255, 0.857);
     border-radius: 25px;
     background-color: #3f51b5e7;
+    &:active {
+      background-color: #6272cce7;
+    }
 
     display: flex;
     align-items: center;
@@ -45,13 +53,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      border-left: none;
-      border-right: none;
+
       border-radius: 25px;
     }
 
     &.open {
       display: flex;
+      div {
+        &:active {
+          @include active;
+          transition: transform 0.1s ease-in-out;
+        }
+      }
 
       div:first-of-type {
         animation: scale-in-center 0.1s ease-in-out both;
@@ -69,16 +82,16 @@
     &.close {
       display: flex;
       div:first-of-type {
-        animation: slide-out-left 0.1s ease-in-out both;
+        animation: scale-out-center 0.4s ease-in-out both;
       }
       div:nth-of-type(2) {
-        animation: slide-out-left 0.4s ease-in-out both;
+        animation: scale-out-center 0.3s ease-in-out both;
       }
       div:nth-of-type(3) {
-        animation: slide-out-left 0.7s ease-in-out both;
+        animation: scale-out-center 0.2s ease-in-out both;
       }
       div:last-of-type {
-        animation: slide-out-left 1s ease-in-out both;
+        animation: scale-out-center 0.1s ease-in-out both;
       }
     }
   }
@@ -94,13 +107,13 @@
   }
 }
 
-@keyframes slide-out-left {
+@keyframes scale-out-center {
   0% {
-    transform: translateX(0);
+    transform: scale(1);
     opacity: 1;
   }
   100% {
-    transform: translateX(-1000px);
-    opacity: 0;
+    transform: scale(0);
+    opacity: 1;
   }
 }
