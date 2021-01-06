@@ -104,7 +104,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
                 onClick={() => {
                   setOverlay(true, "", "The world");
                   fetchData();
-                  executeScroll();
+                  executeScroll("toTop");
                 }}
               >
                 The globe

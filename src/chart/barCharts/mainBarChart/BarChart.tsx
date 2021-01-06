@@ -89,7 +89,7 @@ const MainBarChart = (props: Props) => {
             hide={true}
             domain={["auto", "auto"]}
           />
-          <Tooltip formatter={(value) => numberWithCommas(value)} />
+          <Tooltip formatter={(value: any) => numberWithCommas(value)} />
           <Legend
             align="center"
             verticalAlign="top"

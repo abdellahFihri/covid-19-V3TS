@@ -187,7 +187,7 @@ export const extractDifferences = (data: any, prop: string) => {
   return difference;
 };
 
-export const numFormatter = (value: number) => {
+export const numFormatter = (value: any) => {
   if (value >= 1000000000) {
     return (value / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
   }

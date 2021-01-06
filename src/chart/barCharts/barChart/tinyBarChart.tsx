@@ -36,12 +36,12 @@ const TinyBar = (props: any) => {
           <YAxis
             hide={props.YaxisHide}
             dataKey={data}
-            tickFormatter={function (value: number) {
+            tickFormatter={function (value) {
               return numFormatter(value);
             }}
           />
           <Bar dataKey={data} fill={chartFilling} animationDuration={500} />
-          <Tooltip formatter={(value) => numberWithCommas(value)} />
+          <Tooltip formatter={(value: any) => numberWithCommas(value)} />
           <Legend
             align="center"
             verticalAlign="top"

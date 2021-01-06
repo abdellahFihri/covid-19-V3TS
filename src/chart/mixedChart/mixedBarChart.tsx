@@ -79,7 +79,7 @@ const MixedChart: React.FunctionComponent<Props> = ({ data }) => {
             type="number"
             domain={["auto", "auto"]}
           />
-          <Tooltip formatter={(value) => numberWithCommas(value)} />
+          <Tooltip formatter={(value: any) => numberWithCommas(value)} />
           <Legend />
           <Bar
             dataKey="total_cases"

@@ -32,17 +32,10 @@ import NotFound from "./pages/notFound";
 require("dotenv").config();
 
 class App extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.myRef = React.createRef();
-  }
   componentDidMount() {
     this.props.onFetchData();
   }
-  myRef: any = React.createRef();
-  executeScroll = () => {
-    this.myRef.current.scrollIntoView();
-  };
+
   render() {
     const { selectedCountry } = this.props;
     const { loading, overlay, fetchError } = this.props;
@@ -60,7 +53,7 @@ class App extends Component<Props, State> {
         <DataErr errMsg={fetchError} iconFill="#ff0000" />
       </div>
     ) : (
-      <div className="App" ref={this.myRef}>
+      <div className="App">
         {overlay ? <Overlay /> : ""}
         <NavLinks />
 
@@ -69,12 +62,16 @@ class App extends Component<Props, State> {
             <Route
               exact
               path="/"
-              render={() => <MainPage executeScroll={this.executeScroll} />}
+              render={() => (
+                <MainPage
+                // executeScroll={this.executeScroll}
+                />
+              )}
             />
             <Route
               exact
               path={`/${selectedCountry}`}
-              render={() => <MainPage executeScroll={this.executeScroll} />}
+              render={() => <MainPage />}
             />
             <Route path="/countries-list" component={DetailedCountriesList} />
             <Route path="/compare-countries" component={CompareCountries} />

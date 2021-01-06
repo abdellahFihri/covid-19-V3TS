@@ -75,7 +75,7 @@ const CountryRow: FunctionComponent<Props> = (props) => {
                   if (executeScroll === "") {
                     return;
                   } else {
-                    executeScroll();
+                    executeScroll("toTop");
                   }
                 }}
                 id={country.name}

@@ -86,7 +86,7 @@ const TryChart: React.FunctionComponent<Props> = (props) => {
             }}
             hide={true}
           />
-          <Tooltip formatter={(value) => numberWithCommas(value)} />
+          <Tooltip formatter={(value: any) => numberWithCommas(value)} />
           <Legend
             align="center"
             verticalAlign="top"

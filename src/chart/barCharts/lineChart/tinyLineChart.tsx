@@ -92,7 +92,7 @@ const TinyLine: React.FunctionComponent<Props> = (props) => {
             strokeWidth={2}
             animationDuration={500}
           />
-          <Tooltip formatter={(value) => numberWithCommas(value)} />
+          <Tooltip formatter={(value: any) => numberWithCommas(value)} />
           {!XaxisHide ? (
             <Legend
               align="center"

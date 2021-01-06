@@ -19,7 +19,7 @@ interface Props {
 }
 const MainPage: React.FunctionComponent<Props> = ({
   selectedCountry,
-  executeScroll,
+  // executeScroll,
 }) => {
   const columns: string[] = ["Country", "Cases", "Deaths", "Recovered"];
   const values: string[] = ["total_cases", "deaths", "recovered"];
@@ -72,7 +72,7 @@ const MainPage: React.FunctionComponent<Props> = ({
             <Row>
               <div className="col-lg-6" ref={toList}>
                 <CountriesList
-                  executeScroll={executeScroll}
+                  executeScroll={handleClick}
                   cols={columns}
                   vals={values}
                   detailed={false}
@@ -87,7 +87,7 @@ const MainPage: React.FunctionComponent<Props> = ({
             </Row>
           </Col>
           <div className="col-lg-6" ref={toMainChart}>
-            <ChartsContainer ref={toMainChart} />
+            <ChartsContainer />
           </div>
         </Row>
       </Col>
