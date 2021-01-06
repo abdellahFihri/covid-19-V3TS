@@ -27,7 +27,7 @@
     "@types/recharts": "^1.8.16",
     "@types/redux-logger": "^3.0.8",
     "@types/remote-redux-devtools": "^0.5.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
