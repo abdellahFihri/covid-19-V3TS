@@ -97,10 +97,9 @@ const CountriesList: FunctionComponent<Props> = (props) => {
       >
         {!detailed ? (
           <div className={style.country}>
-            <Link to="/">
-              <span
-                id="world"
-                style={{ color: "#5068e0", fontWeight: "bold" }}
+            <Link to="/" className={style.world}>
+              <div
+                // style={{ color: "#5068e0", fontWeight: "bold" }}
                 onClick={() => {
                   setOverlay(true, "", "The world");
                   fetchData();
@@ -108,7 +107,7 @@ const CountriesList: FunctionComponent<Props> = (props) => {
                 }}
               >
                 The globe
-              </span>{" "}
+              </div>{" "}
             </Link>
             {[firstRow.total_cases, firstRow.deaths, firstRow.recovered].map(
               (i) => {

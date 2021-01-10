@@ -2,67 +2,45 @@
   height: 40px;
   color: #dbdbdb !important;
   text-align: center;
-  width: 100%;
+  width: auto;
   font-size: 14px;
   display: flex;
+
   align-items: center;
   justify-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   border-bottom: solid 0.2px #898989;
-  padding-left: 1%;
-  @media (max-width: 780px) {
-    padding: 0 4% 0 10%;
-    justify-content: space-between;
-  }
-  @media (max-width: 400px) {
-    padding-left: 0%;
-  }
-  // background-color: green;
+
   transition: 0.4s;
 
-  #world {
+  .world {
     text-decoration: underline;
 
     margin: auto;
-    padding: 3px;
+    color: "#5068e0";
+    font-weight: 750;
+
+    width: 25%;
 
     transition: 0.1s;
     &:hover {
       color: #6276e6;
     }
   }
-  button {
-    text-decoration: underline;
-    color: #dbdbdb;
 
-    background-color: transparent;
-    border: none;
-    padding: none;
-    width: 25%;
-
-    text-align: center;
-
-    transition: 0.2s;
-    &:hover {
-      color: #6276e6;
-
-      font-size: 15px;
-    }
-    &:active {
-      color: rgb(40, 184, 40);
-    }
-  }
   span {
     font-size: 12px;
     text-align: center;
-    width: 19%;
+    width: 25%;
     cursor: pointer;
+
     &:hover {
       text-decoration: none;
     }
   }
   .countEnd {
     font-weight: 750;
+    text-align: center;
   }
   .end {
     &:last-of-type {
