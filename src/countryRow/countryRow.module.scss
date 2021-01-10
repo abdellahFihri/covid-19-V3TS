@@ -1,7 +1,6 @@
 .country,
 .dark {
   height: 40px;
-
   width: auto;
   background-color: #a0aef53c;
   font-size: 14px;
@@ -10,11 +9,9 @@
   justify-items: center;
   justify-content: space-between;
   transition: 0.4s;
-
   &.dark {
     background-color: #a0aef565;
   }
-
   #world {
     text-decoration: underline;
     color: #5068e0 !important;
