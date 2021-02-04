@@ -1,7 +1,7 @@
+@use '../../navbar/navbar.module.scss' as style;
 .main {
-  display: flex;
+  @include style.centeredFlex;
   justify-content: center;
-  align-items: center;
   .sideIcon {
     height: 35px;
     display: flex;

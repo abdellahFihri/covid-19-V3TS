@@ -1,10 +1,11 @@
+@use '../navbar/navbar.module.scss' as style;
+
 .compareRadar {
-  display: flex;
-  color: #3d3d3d;
+  @include style.centeredFlex;
   flex-direction: column;
   justify-items: space-around;
-  align-items: center;
   background-color: white;
+  color: #3d3d3d;
 
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transition: box-shadow 0.3s ease-in-out;
@@ -20,15 +21,13 @@
 }
 .comboBox {
   width: 100%;
-  display: flex;
-  align-items: center;
+  @include style.centeredFlex;
   justify-content: space-evenly;
 }
 .spinner {
   min-height: 400px;
   width: 100%;
   color: "#3F51B5";
-  display: flex;
+  @include style.centeredFlex;
   justify-content: center;
-  align-items: center;
 }
